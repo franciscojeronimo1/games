@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b4nquxd6lspee"
+path="res://.godot/imported/button_cancel.ogg-b2e939196d5585813d2e686e288e5ecf.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Assets (GERAL)/assets/musics/sfx/button_cancel.ogg"
+dest_files=["res://.godot/imported/button_cancel.ogg-b2e939196d5585813d2e686e288e5ecf.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b6mgbdkokdvsk"
+path="res://.godot/imported/dagger.mp3-46676636c79e60758881a0e874860d5e.mp3str"
+
+[deps]
+
+source_file="res://assets/Assets (GERAL)/assets/musics/sfx/dagger.mp3"
+dest_files=["res://.godot/imported/dagger.mp3-46676636c79e60758881a0e874860d5e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
