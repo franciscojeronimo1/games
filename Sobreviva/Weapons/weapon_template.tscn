@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://b20qb1y3kvjc4"]
+
+[ext_resource type="Texture2D" uid="uid://db47s0bwgywar" path="res://assets/Assets (GERAL)/assets/spritesheet.png" id="1_t31cm"]
+
+[node name="WeaponTemplate" type="Node2D"]
+
+[node name="WeaponTexture" type="Sprite2D" parent="."]
+texture = ExtResource("1_t31cm")
+region_enabled = true
+
+[node name="Arm_1" type="Sprite2D" parent="."]
+texture = ExtResource("1_t31cm")
+region_enabled = true
+
+[node name="Arm_2" type="Sprite2D" parent="."]
+texture = ExtResource("1_t31cm")
+region_enabled = true
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+
+[node name="AttackArea" type="Area2D" parent="."]
