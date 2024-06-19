@@ -4,6 +4,9 @@ class_name Player
 @export_category("Variables")
 @export var _move_speed: float = 256.0
 
+func _ready():
+	global.player = self
+
 func _physics_process(delta):
 	_move()
 	

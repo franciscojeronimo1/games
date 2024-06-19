@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://7lmjaaxs0ro5"]
+
+[ext_resource type="Texture2D" uid="uid://h6tcg4pn3dve" path="res://assets/block.png" id="1_xcals"]
+[ext_resource type="PackedScene" uid="uid://chmuhpkqgsxny" path="res://actors/player.tscn" id="2_h8rij"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4014w"]
+texture = ExtResource("1_xcals")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_jedw2"]
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_4014w")
+
+[node name="Pricipal" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(51, 303)
+tile_set = SubResource("TileSet_jedw2")
+format = 2
+layer_0/tile_data = PackedInt32Array(65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 12, 1, 0, 13, 1, 0, 14, 1, 0, 15, 1, 0, 16, 1, 0, 17, 1, 0, 18, 1, 0, 19, 1, 0, 20, 1, 0, 22, 1, 0, 23, 1, 0, 21, 1, 0, 24, 1, 0, 25, 1, 0, 26, 1, 0, 27, 1, 0, 28, 1, 0, 29, 1, 0, 30, 1, 0, 31, 1, 0, 32, 1, 0, 33, 1, 0, 34, 1, 0, 35, 1, 0, 36, 1, 0, 37, 1, 0, 38, 1, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_h8rij")]
+position = Vector2(49, 293)

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0wf1i7ivhrpv"]
+
+[ext_resource type="PackedScene" uid="uid://bhh3jc07elui2" path="res://enemies/enemy_template.tscn" id="1_y1yhc"]
+
+[node name="EnemyPurple" instance=ExtResource("1_y1yhc")]
+_enemt_type = "chase_and_dash"
+_move_speed = 256.0
+
+[node name="Texture" parent="." index="0"]
+region_rect = Rect2(128, 512, 64, 64)

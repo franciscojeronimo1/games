@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://be7b7p2s7g0e5"]
+
+[ext_resource type="PackedScene" uid="uid://bhh3jc07elui2" path="res://enemies/enemy_template.tscn" id="1_vdjcb"]
+
+[node name="EnemyYellow" instance=ExtResource("1_vdjcb")]
+_move_speed = 240.0
+
+[node name="Texture" parent="." index="0"]
+region_rect = Rect2(256, 512, 64, 64)

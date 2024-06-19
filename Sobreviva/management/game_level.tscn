@@ -1,12 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://bt54pb2assxy0"]
 
 [ext_resource type="PackedScene" uid="uid://dkjapdn6wo420" path="res://terrains/level_01.tscn" id="1_7x11b"]
-[ext_resource type="PackedScene" uid="uid://dkxi2ulthwv8e" path="res://player/player.tscn" id="2_w78iw"]
+[ext_resource type="PackedScene" uid="uid://b0wf1i7ivhrpv" path="res://enemies/enemy_purple.tscn" id="2_iwaoh"]
 
 [node name="GameLevel" type="Node2D"]
 
 [node name="Level_01" parent="." instance=ExtResource("1_7x11b")]
 
-[node name="Player" parent="." instance=ExtResource("2_w78iw")]
-position = Vector2(1046, 790)
-_move_speed = 256.0
+[node name="EnemyPurple" parent="." instance=ExtResource("2_iwaoh")]
+position = Vector2(315, 234)

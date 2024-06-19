@@ -1,0 +1,93 @@
+[gd_scene load_steps=7 format=3 uid="uid://dpxgjt2xgfjvf"]
+
+[ext_resource type="PackedScene" uid="uid://b20qb1y3kvjc4" path="res://Weapons/weapon_template.tscn" id="1_tqmfi"]
+
+[sub_resource type="Animation" id="Animation_o71h8"]
+resource_name = "attack"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.74533]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackArea/Collision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_h1shu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackArea/Collision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_telh5"]
+_data = {
+"RESET": SubResource("Animation_h1shu"),
+"attack": SubResource("Animation_o71h8")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d7end"]
+size = Vector2(17, 48)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3gkew"]
+radius = 58.2409
+
+[node name="grand_sword" instance=ExtResource("1_tqmfi")]
+
+[node name="WeaponTexture" parent="." index="0"]
+position = Vector2(0, -32)
+region_rect = Rect2(128, 576, 64, 64)
+
+[node name="Arm_1" parent="." index="1"]
+region_rect = Rect2(64, 512, 64, 64)
+
+[node name="Animation" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_telh5")
+}
+
+[node name="Collision" type="CollisionShape2D" parent="AttackArea" index="0"]
+position = Vector2(-0.5, -32)
+shape = SubResource("RectangleShape2D_d7end")
+
+[node name="Collision" type="CollisionShape2D" parent="DetectionArea" index="0"]
+position = Vector2(2.27374e-13, 2.27374e-13)
+shape = SubResource("CircleShape2D_3gkew")
