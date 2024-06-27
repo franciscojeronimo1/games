@@ -14,4 +14,4 @@ func _time_in_seconds(_time: int) -> String:
 	var _seconds: float = _time % 60
 	@warning_ignore("integer_division")
 	var _minutes: float = (_time / 60) % 60
-	return "%02:%02d" % [_minutes, _seconds]
+	return "%02d:%02d" % [_minutes, _seconds]

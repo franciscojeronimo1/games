@@ -26,7 +26,7 @@ var _waves_dict: Dictionary = {
 		"wave_time": 30,
 		"wave_spawn_cooldown": 6,
 		"wave_amount": 3,
-		"spots_amount": [4,6],
+		"spots_amount": [4,5],
 		"wave_difficulty": "easy"
 	},
 	
@@ -34,16 +34,17 @@ var _waves_dict: Dictionary = {
 		"wave_time": 30,
 		"wave_spawn_cooldown": 6,
 		"wave_amount": 4,
-		"spots_amount": [2,6],
+		"spots_amount": [2,5],
 		"wave_difficulty": "easy"
 	},
 }
 
 var _current_wave: int = 1
-
+var node = Node2D
 @export_category("Objects")
 @export var _wave_timer: Timer
 @export var _wave_spawner_timer: Timer
+@export var _interface: CanvasLayer = null
 
 func _ready():
 	_wave_spawner_timer.start(_waves_dict[_current_wave]["wave_spawn_cooldown"])
@@ -59,11 +60,11 @@ func _on_wave_timer_timeout():
 		return
 	_wave_timer.start(_waves_dict[_current_wave] ["wave_time"])
 
-func _on_wave_spawn_cooldown_timeout():
+func _on_wave_spawn_cooldown_timeout() -> void:
 	_spawn_enemies()
 	_wave_spawner_timer.start(_waves_dict[_current_wave]["wave_spawn_cooldown"])
 	
-func _spawn_enemies():
+func _spawn_enemies() -> void:
 	var _amount:  int = _waves_dict[_current_wave]["wave_amount"]
 	var _spots: Array = []
 	
@@ -74,7 +75,7 @@ func _spawn_enemies():
 	var _spawn_spots: Array = []
 	for _i in _amount:
 		var _index: int = randi() % _spots.size()
-		var _selected_spot: Node2D = _spots[_index]
+		var _selected_spot: node = _spots[_index]
 		_spawn_spots.append(_selected_spot)
 		_spots.remove_at(_index)
 		
@@ -140,4 +141,4 @@ func _spawn_enemy(_spawner: Node2D):
 
 
 func _on_current_time_timer_timeout():
-	pass # Replace with function body.
+	_interface.update_wave_and_time_label(_current_wave, _wave_timer.time_left)

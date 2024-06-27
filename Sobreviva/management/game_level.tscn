@@ -9,10 +9,11 @@
 
 [node name="Level_01" parent="." instance=ExtResource("1_7x11b")]
 
-[node name="WaveManager" type="Node2D" parent="." node_paths=PackedStringArray("_wave_timer", "_wave_spawner_timer")]
+[node name="WaveManager" type="Node2D" parent="." node_paths=PackedStringArray("_wave_timer", "_wave_spawner_timer", "_interface")]
 script = ExtResource("2_v55ty")
 _wave_timer = NodePath("WaveTimer")
 _wave_spawner_timer = NodePath("WaveSpawnCooldown")
+_interface = NodePath("Interface")
 
 [node name="WaveSpot_1" parent="WaveManager" instance=ExtResource("3_11lv8")]
 position = Vector2(177, 156)
@@ -35,10 +36,14 @@ position = Vector2(935, 860)
 [node name="WaveTimer" type="Timer" parent="WaveManager"]
 one_shot = true
 
+[node name="CurrentTimeTimer" type="Timer" parent="WaveManager"]
+autostart = true
+
 [node name="WaveSpawnCooldown" type="Timer" parent="WaveManager"]
 one_shot = true
 
 [node name="Interface" parent="WaveManager" instance=ExtResource("4_qnisd")]
 
 [connection signal="timeout" from="WaveManager/WaveTimer" to="WaveManager" method="_on_wave_timer_timeout"]
+[connection signal="timeout" from="WaveManager/CurrentTimeTimer" to="WaveManager" method="_on_current_time_timer_timeout"]
 [connection signal="timeout" from="WaveManager/WaveSpawnCooldown" to="WaveManager" method="_on_wave_spawn_cooldown_timeout"]
