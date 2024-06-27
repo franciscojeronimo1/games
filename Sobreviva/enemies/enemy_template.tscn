@@ -1,7 +1,88 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhh3jc07elui2"]
+[gd_scene load_steps=15 format=3 uid="uid://bhh3jc07elui2"]
 
 [ext_resource type="Script" path="res://enemies/enemy.gd" id="1_51lfa"]
 [ext_resource type="Texture2D" uid="uid://db47s0bwgywar" path="res://assets/Assets (GERAL)/assets/spritesheet.png" id="1_djbhi"]
+[ext_resource type="Shader" path="res://effects/flash.gdshader" id="2_vbqbc"]
+[ext_resource type="PackedScene" uid="uid://b1nura4eeyme7" path="res://effects/particles/dust.tscn" id="3_22peg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hf043"]
+resource_local_to_scene = true
+shader = ExtResource("2_vbqbc")
+shader_parameter/is_active = false
+
+[sub_resource type="Animation" id="Animation_b5e1u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ch3a6"]
+resource_name = "scale"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o0o0r"]
+_data = {
+"RESET": SubResource("Animation_b5e1u"),
+"scale": SubResource("Animation_ch3a6")
+}
+
+[sub_resource type="Animation" id="Animation_5jisg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/is_active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_hpre1"]
+resource_name = "hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/is_active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iormj"]
+_data = {
+"RESET": SubResource("Animation_5jisg"),
+"hit": SubResource("Animation_hpre1")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a36qf"]
 radius = 24.0
@@ -9,16 +90,34 @@ radius = 24.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_wn6oi"]
 radius = 96.0
 
-[node name="EnemyTemplate" type="CharacterBody2D" node_paths=PackedStringArray("_dash_wait_time", "_dash_timer")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_lsrig"]
+radius = 16.0
+
+[node name="EnemyTemplate" type="CharacterBody2D" node_paths=PackedStringArray("_hitbox_area", "_invincibility_timer", "_dash_wait_time", "_dash_timer", "_aux_animation")]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_51lfa")
+_hitbox_area = NodePath("HitboxArea")
+_invincibility_timer = NodePath("HitboxArea/InvicibilityTimer")
 _dash_wait_time = NodePath("DashWaitTime")
 _dash_timer = NodePath("DashTimer")
+_aux_animation = NodePath("Texture/AuxAnimation")
 
 [node name="Texture" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_hf043")
 texture = ExtResource("1_djbhi")
 region_enabled = true
+
+[node name="Animation" type="AnimationPlayer" parent="Texture"]
+libraries = {
+"": SubResource("AnimationLibrary_o0o0r")
+}
+autoplay = "scale"
+
+[node name="AuxAnimation" type="AnimationPlayer" parent="Texture"]
+libraries = {
+"": SubResource("AnimationLibrary_iormj")
+}
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false
@@ -37,6 +136,20 @@ one_shot = true
 wait_time = 0.4
 one_shot = true
 
+[node name="HitboxArea" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="HitboxArea"]
+shape = SubResource("CircleShape2D_lsrig")
+
+[node name="InvicibilityTimer" type="Timer" parent="HitboxArea"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Dust" parent="." instance=ExtResource("3_22peg")]
+show_behind_parent = true
+
 [connection signal="body_entered" from="RangeArea" to="." method="_on_range_area_body_entered"]
 [connection signal="timeout" from="DashWaitTime" to="." method="_on_dash_wait_time_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="body_entered" from="HitboxArea" to="." method="_on_hitbox_area_body_entered"]
+[connection signal="timeout" from="HitboxArea/InvicibilityTimer" to="." method="_on_invencibility_timer_timeout"]

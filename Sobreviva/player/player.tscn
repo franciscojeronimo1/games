@@ -1,25 +1,197 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkxi2ulthwv8e"]
+[gd_scene load_steps=16 format=3 uid="uid://dkxi2ulthwv8e"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_egr8r"]
 [ext_resource type="Texture2D" uid="uid://db47s0bwgywar" path="res://assets/Assets (GERAL)/assets/spritesheet.png" id="1_sqg8p"]
+[ext_resource type="PackedScene" uid="uid://bje353yofpyt4" path="res://Weapons/swords/short_sword.tscn" id="3_nqcn0"]
+[ext_resource type="Script" path="res://player/player_camera.gd" id="3_w5wm3"]
+[ext_resource type="PackedScene" uid="uid://b1nura4eeyme7" path="res://effects/particles/dust.tscn" id="4_q4l5g"]
+
+[sub_resource type="Animation" id="Animation_siycw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7yvd1"]
+resource_name = "scale"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jaur2"]
+_data = {
+"RESET": SubResource("Animation_siycw"),
+"scale": SubResource("Animation_7yvd1")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dqlw4"]
 radius = 20.0998
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="Animation" id="Animation_yagi5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-96, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_isjcm"]
+resource_name = "position"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-96, 0), Vector2(-64, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tijo4"]
+_data = {
+"RESET": SubResource("Animation_yagi5"),
+"position": SubResource("Animation_isjcm")
+}
+
+[sub_resource type="Animation" id="Animation_g14y1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(64, -64)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_iabo8"]
+resource_name = "position"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(64, -64), Vector2(32, -32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qxjnc"]
+_data = {
+"RESET": SubResource("Animation_g14y1"),
+"position": SubResource("Animation_iabo8")
+}
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_dust")]
 script = ExtResource("1_egr8r")
 _move_speed = 312.0
+_dust = NodePath("Dust")
 
 [node name="Texture" type="Sprite2D" parent="."]
 texture = ExtResource("1_sqg8p")
 region_enabled = true
 region_rect = Rect2(0, 512, 64, 64)
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Animation" type="AnimationPlayer" parent="Texture"]
+libraries = {
+"": SubResource("AnimationLibrary_jaur2")
+}
+autoplay = "scale"
+
+[node name="Camera" type="Camera2D" parent="." groups=["player_camera"]]
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 editor_draw_drag_margin = true
+script = ExtResource("3_w5wm3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -30,11 +202,27 @@ shape = SubResource("CircleShape2D_dqlw4")
 [node name="weapon_1" type="Marker2D" parent="WeaponsManager"]
 position = Vector2(-96, 0)
 
+[node name="ShortSword" parent="WeaponsManager/weapon_1" instance=ExtResource("3_nqcn0")]
+
+[node name="Animation" type="AnimationPlayer" parent="WeaponsManager/weapon_1"]
+libraries = {
+"": SubResource("AnimationLibrary_tijo4")
+}
+autoplay = "position"
+
 [node name="weapon_2" type="Marker2D" parent="WeaponsManager"]
 position = Vector2(-64, -64)
 
 [node name="weapon_3" type="Marker2D" parent="WeaponsManager"]
 position = Vector2(64, -64)
+
+[node name="ShortSword" parent="WeaponsManager/weapon_3" instance=ExtResource("3_nqcn0")]
+
+[node name="Animation" type="AnimationPlayer" parent="WeaponsManager/weapon_3"]
+libraries = {
+"": SubResource("AnimationLibrary_qxjnc")
+}
+autoplay = "position"
 
 [node name="weapon_4" type="Marker2D" parent="WeaponsManager"]
 position = Vector2(96, 0)
@@ -44,3 +232,6 @@ position = Vector2(64, 64)
 
 [node name="weapon_6" type="Marker2D" parent="WeaponsManager"]
 position = Vector2(-64, 64)
+
+[node name="Dust" parent="." instance=ExtResource("4_q4l5g")]
+show_behind_parent = true

@@ -1,8 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://b20qb1y3kvjc4"]
+[gd_scene load_steps=4 format=3 uid="uid://b20qb1y3kvjc4"]
 
+[ext_resource type="Script" path="res://Weapons/base_weapon.gd" id="1_irkdq"]
 [ext_resource type="Texture2D" uid="uid://db47s0bwgywar" path="res://assets/Assets (GERAL)/assets/spritesheet.png" id="1_t31cm"]
 
-[node name="WeaponTemplate" type="Node2D"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oebxx"]
+
+[node name="WeaponTemplate" type="Node2D" node_paths=PackedStringArray("_attack_timer", "_detection_area", "animation")]
+script = ExtResource("1_irkdq")
+_attack_timer = NodePath("AttackTimer")
+_detection_area = NodePath("DetectionArea")
+animation = NodePath("Animation")
 
 [node name="WeaponTexture" type="Sprite2D" parent="."]
 texture = ExtResource("1_t31cm")
@@ -17,7 +24,21 @@ texture = ExtResource("1_t31cm")
 region_enabled = true
 
 [node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_oebxx")
+}
 
 [node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
 
 [node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

@@ -5,6 +5,9 @@
 [node name="EnemyPurple" instance=ExtResource("1_y1yhc")]
 _enemt_type = "chase_and_dash"
 _move_speed = 224.0
+_health = 45
+_demage = 9
+_invicibility_cooldown = 1.25
 
 [node name="Texture" parent="." index="0"]
 region_rect = Rect2(128, 512, 64, 64)

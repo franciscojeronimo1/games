@@ -1,11 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://bt54pb2assxy0"]
+[gd_scene load_steps=5 format=3 uid="uid://bt54pb2assxy0"]
 
 [ext_resource type="PackedScene" uid="uid://dkjapdn6wo420" path="res://terrains/level_01.tscn" id="1_7x11b"]
-[ext_resource type="PackedScene" uid="uid://b0wf1i7ivhrpv" path="res://enemies/enemy_purple.tscn" id="2_iwaoh"]
+[ext_resource type="Script" path="res://management/wave_manager.gd" id="2_v55ty"]
+[ext_resource type="PackedScene" uid="uid://cj3k1rofed5pa" path="res://management/wave_spot.tscn" id="3_11lv8"]
+[ext_resource type="PackedScene" uid="uid://c2woklkpny26" path="res://interface/interface.tscn" id="4_qnisd"]
 
 [node name="GameLevel" type="Node2D"]
 
 [node name="Level_01" parent="." instance=ExtResource("1_7x11b")]
 
-[node name="EnemyPurple" parent="." instance=ExtResource("2_iwaoh")]
-position = Vector2(315, 234)
+[node name="WaveManager" type="Node2D" parent="." node_paths=PackedStringArray("_wave_timer", "_wave_spawner_timer")]
+script = ExtResource("2_v55ty")
+_wave_timer = NodePath("WaveTimer")
+_wave_spawner_timer = NodePath("WaveSpawnCooldown")
+
+[node name="WaveSpot_1" parent="WaveManager" instance=ExtResource("3_11lv8")]
+position = Vector2(177, 156)
+
+[node name="WaveSpot_2" parent="WaveManager" instance=ExtResource("3_11lv8")]
+position = Vector2(324, 758)
+
+[node name="WaveSpot_3" parent="WaveManager" instance=ExtResource("3_11lv8")]
+position = Vector2(983, 243)
+
+[node name="WaveSpot_4" parent="WaveManager" instance=ExtResource("3_11lv8")]
+position = Vector2(1603, 842)
+
+[node name="WaveSpot_5" parent="WaveManager" instance=ExtResource("3_11lv8")]
+position = Vector2(1666, 255)
+
+[node name="WaveSpot_6" parent="WaveManager" instance=ExtResource("3_11lv8")]
+position = Vector2(935, 860)
+
+[node name="WaveTimer" type="Timer" parent="WaveManager"]
+one_shot = true
+
+[node name="WaveSpawnCooldown" type="Timer" parent="WaveManager"]
+one_shot = true
+
+[node name="Interface" parent="WaveManager" instance=ExtResource("4_qnisd")]
+
+[connection signal="timeout" from="WaveManager/WaveTimer" to="WaveManager" method="_on_wave_timer_timeout"]
+[connection signal="timeout" from="WaveManager/WaveSpawnCooldown" to="WaveManager" method="_on_wave_spawn_cooldown_timeout"]
