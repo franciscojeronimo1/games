@@ -9,11 +9,10 @@
 
 [node name="Level_01" parent="." instance=ExtResource("1_7x11b")]
 
-[node name="WaveManager" type="Node2D" parent="." node_paths=PackedStringArray("_wave_timer", "_wave_spawner_timer", "_interface")]
+[node name="WaveManager" type="Node2D" parent="." node_paths=PackedStringArray("_wave_timer", "_wave_spawner_timer")]
 script = ExtResource("2_v55ty")
 _wave_timer = NodePath("WaveTimer")
 _wave_spawner_timer = NodePath("WaveSpawnCooldown")
-_interface = NodePath("Interface")
 
 [node name="WaveSpot_1" parent="WaveManager" instance=ExtResource("3_11lv8")]
 position = Vector2(177, 156)
