@@ -41,10 +41,14 @@ var _waves_dict: Dictionary = {
 
 var _current_wave: int = 1
 
+@export_category("Variables")
+@export var _initial_position: Vector2 = Vector2(888, 666)
+
 @export_category("Objects")
 @export var _wave_timer: Timer
 @export var _wave_spawner_timer: Timer
 @onready var interface = $Interface
+@export var _player: Player = null
 
 func _ready():
 	_wave_spawner_timer.start(_waves_dict[_current_wave]["wave_spawn_cooldown"])
@@ -53,10 +57,14 @@ func _ready():
 
 func _on_wave_timer_timeout():
 	_current_wave += 1
+
 	if _current_wave > 10:
 		print("Você venceu")
 		return
-	_wave_timer.start(_waves_dict[_current_wave]["wave_time"])
+		
+	#get_tree().paused = true
+	_clear_map()
+	
 
 func _on_wave_spawn_cooldown_timeout() -> void:
 	_spawn_enemies()
@@ -132,3 +140,18 @@ func _spawn_enemy(_spawner: Node2D):
 
 func _on_current_time_timer_timeout():
 	interface.update_wave_and_time_label(_current_wave, _wave_timer.time_left)
+	
+	
+	
+func _clear_map():
+	for _children in get_parent().get_children():
+		if _children is Enemy:
+			_children.queue_free()
+		
+	start_new_wave()
+		
+
+func start_new_wave():
+	_wave_timer.start(_waves_dict[_current_wave]["wave_time"])
+	_player.global_position = _initial_position
+	_player.reset_health()

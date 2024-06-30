@@ -1,18 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://bt54pb2assxy0"]
+[gd_scene load_steps=6 format=3 uid="uid://bt54pb2assxy0"]
 
 [ext_resource type="PackedScene" uid="uid://dkjapdn6wo420" path="res://terrains/level_01.tscn" id="1_7x11b"]
 [ext_resource type="Script" path="res://management/wave_manager.gd" id="2_v55ty"]
 [ext_resource type="PackedScene" uid="uid://cj3k1rofed5pa" path="res://management/wave_spot.tscn" id="3_11lv8"]
 [ext_resource type="PackedScene" uid="uid://c2woklkpny26" path="res://interface/interface.tscn" id="4_qnisd"]
+[ext_resource type="PackedScene" uid="uid://dkxi2ulthwv8e" path="res://player/player.tscn" id="5_8twic"]
 
 [node name="GameLevel" type="Node2D"]
 
 [node name="Level_01" parent="." instance=ExtResource("1_7x11b")]
 
-[node name="WaveManager" type="Node2D" parent="." node_paths=PackedStringArray("_wave_timer", "_wave_spawner_timer")]
+[node name="WaveManager" type="Node2D" parent="." node_paths=PackedStringArray("_wave_timer", "_wave_spawner_timer", "_player")]
 script = ExtResource("2_v55ty")
 _wave_timer = NodePath("WaveTimer")
 _wave_spawner_timer = NodePath("WaveSpawnCooldown")
+_player = NodePath("../Player")
 
 [node name="WaveSpot_1" parent="WaveManager" instance=ExtResource("3_11lv8")]
 position = Vector2(177, 156)
@@ -42,6 +44,9 @@ autostart = true
 one_shot = true
 
 [node name="Interface" parent="WaveManager" instance=ExtResource("4_qnisd")]
+
+[node name="Player" parent="." instance=ExtResource("5_8twic")]
+position = Vector2(705, 575)
 
 [connection signal="timeout" from="WaveManager/WaveTimer" to="WaveManager" method="_on_wave_timer_timeout"]
 [connection signal="timeout" from="WaveManager/CurrentTimeTimer" to="WaveManager" method="_on_current_time_timer_timeout"]

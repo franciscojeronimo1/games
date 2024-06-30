@@ -109,3 +109,4 @@ func _on_hitbox_area_body_entered(body):
 
 func _on_invencibility_timer_timeout():
 		_hitbox_area.set_deferred("monitoring", true)
+		
