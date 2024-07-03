@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Enemy
 
 const _EXPLOSION: PackedScene = preload("res://effects/particles/explosion.tscn")
-
+const _TEXT_POPUP: PackedScene = preload("res://interface/text_popup.tscn")
 var _loading_dash: bool = false
 var _is_dashing: bool = false
 var _previous_character_position: Vector2
@@ -70,12 +70,20 @@ func update_health(_value: int):
 		
 		get_tree().call_group("player_camera", "shake", 5.0, 0.25)
 	_aux_animation.play("hit")
+	_spawn_text_popup(_value)
 
 func _spawn_explosion_particles():
 	var _particles: CPUParticles2D = _EXPLOSION.instantiate()
 	_particles.global_position = global_position
 	_particles.emitting = true
 	get_tree().root.call_deferred("add_child", _particles)
+	
+	
+func _spawn_text_popup(_value: int) -> void:
+	var _popup: TextPopup = _TEXT_POPUP.instantiate()
+	_popup.update_text(_value)
+	_popup.global_position = global_position
+	get_tree().root.call_deferred("add_child", _popup)
 
 func _on_range_area_body_entered(body):
 	if _enemt_type != "chase_and_dash":

@@ -53,6 +53,7 @@ var _current_wave: int = 1
 func _ready():
 	_wave_spawner_timer.start(_waves_dict[_current_wave]["wave_spawn_cooldown"])
 	_wave_timer.start(_waves_dict[_current_wave]["wave_time"])
+	interface.update_wave_and_time_label(_current_wave, _wave_timer.time_left -1 )
 	_spawn_enemies()
 
 func _on_wave_timer_timeout():
