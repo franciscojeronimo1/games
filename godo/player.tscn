@@ -1,0 +1,88 @@
+[gd_scene load_steps=7 format=3 uid="uid://tbmc5c2736ur"]
+
+[ext_resource type="Texture2D" uid="uid://blemdlm3r2hs5" path="res://anjo (2).png" id="1_eyrsr"]
+[ext_resource type="Script" path="res://player.gd" id="1_o2d1v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_or1t3"]
+size = Vector2(22, 51)
+
+[sub_resource type="Animation" id="Animation_fxyas"]
+resource_name = "player"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("player:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("player:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 4]
+}
+
+[sub_resource type="Animation" id="Animation_n3ojo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("player:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("player:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tfg1g"]
+_data = {
+"RESET": SubResource("Animation_n3ojo"),
+"player": SubResource("Animation_fxyas")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_o2d1v")
+
+[node name="player" type="Sprite2D" parent="."]
+position = Vector2(4, 5)
+texture = ExtResource("1_eyrsr")
+hframes = 5
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, 4.5)
+shape = SubResource("RectangleShape2D_or1t3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tfg1g")
+}
+autoplay = "player"

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqywewoj67k4g"]
+
+[ext_resource type="Texture2D" uid="uid://bpuvrnj8bopg5" path="res://assets/poder.png" id="1_1m6cn"]
+[ext_resource type="Script" path="res://actors/bullet.gd" id="1_me7dp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jwjgs"]
+radius = 4.0
+
+[node name="Bullet" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_me7dp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_1m6cn")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("CircleShape2D_jwjgs")

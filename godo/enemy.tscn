@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://blew25b0csqy2"]
+
+[ext_resource type="Texture2D" uid="uid://c3wtuqlu0yf2a" path="res://death (2).png" id="1_3lwcc"]
+[ext_resource type="Script" path="res://enemy.gd" id="1_a8sgo"]
+
+[sub_resource type="Animation" id="Animation_tyr5a"]
+resource_name = "enemy"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 1]
+}
+
+[sub_resource type="Animation" id="Animation_hhyfh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b3n7b"]
+_data = {
+"RESET": SubResource("Animation_hhyfh"),
+"enemy": SubResource("Animation_tyr5a")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6tdp0"]
+size = Vector2(22, 27)
+
+[node name="enemy" type="CharacterBody2D"]
+script = ExtResource("1_a8sgo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3lwcc")
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_b3n7b")
+}
+autoplay = "enemy"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -0.5)
+shape = SubResource("RectangleShape2D_6tdp0")

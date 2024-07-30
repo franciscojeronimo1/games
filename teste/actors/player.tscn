@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://chmuhpkqgsxny"]
+[gd_scene load_steps=5 format=3 uid="uid://chmuhpkqgsxny"]
 
 [ext_resource type="Script" path="res://actors/player.gd" id="1_6io58"]
 [ext_resource type="Texture2D" uid="uid://3l151umsk5a7" path="res://assets/character.png" id="1_v1q1u"]
+[ext_resource type="Script" path="res://actors/Shooter1.gd" id="4_41kkj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vtsn7"]
 size = Vector2(22, 43)
@@ -18,3 +19,15 @@ texture = ExtResource("1_v1q1u")
 visible = false
 position = Vector2(1, -21.5)
 shape = SubResource("RectangleShape2D_vtsn7")
+
+[node name="Camera" type="Camera2D" parent="."]
+
+[node name="Shooter1" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_41kkj")
+
+[node name="Timer" type="Timer" parent="Shooter1"]
+wait_time = 0.15
+autostart = true
+
+[connection signal="timeout" from="Shooter1/Timer" to="Shooter1" method="_on_timer_timeout"]
