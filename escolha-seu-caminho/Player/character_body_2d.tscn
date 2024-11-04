@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://bmjxibqiofj32"]
+
+[ext_resource type="Script" path="res://Player/character_body_2d.gd" id="1_1jnpx"]
+[ext_resource type="Texture2D" uid="uid://ckmwema0a4r6r" path="res://Player/player1.png" id="1_c6dpu"]
+[ext_resource type="Texture2D" uid="uid://cesvf3owpsowp" path="res://Player/player2.png" id="2_x6hf3"]
+[ext_resource type="Texture2D" uid="uid://b7sxtkcdht15f" path="res://Player/player3.png" id="3_py1mh"]
+[ext_resource type="Texture2D" uid="uid://dwgvytlsnd8rj" path="res://Player/player4.png" id="4_rckhj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_166k4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_c6dpu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_x6hf3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_py1mh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rckhj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_267dh"]
+radius = 8.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_1jnpx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_166k4")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.392505
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_267dh")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
