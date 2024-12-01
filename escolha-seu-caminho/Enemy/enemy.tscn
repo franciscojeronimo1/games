@@ -1,0 +1,43 @@
+[gd_scene load_steps=9 format=3 uid="uid://codmmx4yuokqt"]
+
+[ext_resource type="PackedScene" uid="uid://ypbmc7kajhvq" path="res://Enemy/character_body_2d.tscn" id="1_gjvlh"]
+[ext_resource type="Script" path="res://Enemy/enemy.gd" id="2_7knm1"]
+[ext_resource type="Texture2D" uid="uid://s86j84bqrjrn" path="res://Enemy/enemy1.png" id="2_u4nsq"]
+[ext_resource type="Texture2D" uid="uid://bfv304n7vhkf1" path="res://Enemy/enemy2.png" id="3_3ug8f"]
+[ext_resource type="Texture2D" uid="uid://cxwhxlhix3tat" path="res://Enemy/enemy3.png" id="4_mpw54"]
+[ext_resource type="Texture2D" uid="uid://ca8fx1g8bacgj" path="res://Enemy/enemy4.png" id="5_apbgq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b0w2a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_u4nsq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3ug8f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_mpw54")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_apbgq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2x27e"]
+size = Vector2(6, 7)
+
+[node name="enemy" instance=ExtResource("1_gjvlh")]
+script = ExtResource("2_7knm1")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_b0w2a")
+autoplay = "default"
+frame_progress = 0.410637
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_2x27e")

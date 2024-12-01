@@ -1,12 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://cssfvcss256gk"]
+[gd_scene load_steps=4 format=3 uid="uid://cssfvcss256gk"]
 
 [ext_resource type="PackedScene" uid="uid://d1i7dftdxsdfw" path="res://cena/cena.tscn" id="1_10vqq"]
 [ext_resource type="PackedScene" uid="uid://bmjxibqiofj32" path="res://Player/character_body_2d.tscn" id="2_v1w2y"]
+[ext_resource type="PackedScene" uid="uid://codmmx4yuokqt" path="res://Enemy/enemy.tscn" id="3_gxidf"]
 
 [node name="cena-principal" type="Node2D"]
 
 [node name="cena" parent="." instance=ExtResource("1_10vqq")]
 position = Vector2(0, -5)
+
+[node name="enemy" parent="." instance=ExtResource("3_gxidf")]
+position = Vector2(102, 435)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("2_v1w2y")]
 position = Vector2(166, 426)
