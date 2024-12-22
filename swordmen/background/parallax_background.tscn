@@ -1,13 +1,77 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddts8ru185311"]
+[gd_scene load_steps=8 format=3 uid="uid://ddts8ru185311"]
 
 [ext_resource type="Texture2D" uid="uid://bpeqx4jlqrjt6" path="res://Enjl-Nighttime Valley Tileset/background_1.png" id="1_s1xc8"]
+[ext_resource type="Texture2D" uid="uid://dafecndkyav7g" path="res://Enjl-Nighttime Valley Tileset/background_2.png" id="2_6rxvw"]
+[ext_resource type="Texture2D" uid="uid://daqrxarjx1cm2" path="res://Enjl-Nighttime Valley Tileset/background_3.png" id="3_lnirl"]
+[ext_resource type="Texture2D" uid="uid://g36ci1psx24n" path="res://Enjl-Nighttime Valley Tileset/background_4.png" id="4_bejwb"]
+[ext_resource type="Texture2D" uid="uid://bkxsh4kymen10" path="res://Enjl-Nighttime Valley Tileset/background_5.png" id="5_a22td"]
+[ext_resource type="Texture2D" uid="uid://bvyurtv22gx7b" path="res://Enjl-Nighttime Valley Tileset/background_7.png" id="6_7f8v3"]
+[ext_resource type="Texture2D" uid="uid://brkki2tdm666p" path="res://Enjl-Nighttime Valley Tileset/background_6.png" id="7_7gcbh"]
 
 [node name="ParallaxBackground" type="ParallaxBackground"]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(1, 0.1)
 motion_mirroring = Vector2(640, 0)
 
 [node name="TextureRect" type="TextureRect" parent="ParallaxLayer"]
 offset_right = 639.0
 offset_bottom = 362.0
 texture = ExtResource("1_s1xc8")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(1, 0.1)
+motion_mirroring = Vector2(640, 0)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer2"]
+offset_right = 639.0
+offset_bottom = 362.0
+texture = ExtResource("2_6rxvw")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(1, 0.1)
+motion_mirroring = Vector2(640, 0)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer3"]
+offset_right = 639.0
+offset_bottom = 362.0
+texture = ExtResource("3_lnirl")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(1, 0.1)
+motion_mirroring = Vector2(640, 0)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer4"]
+offset_right = 639.0
+offset_bottom = 362.0
+texture = ExtResource("4_bejwb")
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(1, 0.1)
+motion_mirroring = Vector2(640, 0)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer5"]
+offset_right = 639.0
+offset_bottom = 362.0
+texture = ExtResource("5_a22td")
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(1, 0.1)
+motion_mirroring = Vector2(640, 0)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer6"]
+offset_right = 639.0
+offset_bottom = 362.0
+texture = ExtResource("6_7f8v3")
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(1, 0.1)
+motion_mirroring = Vector2(640, 0)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer7"]
+custom_minimum_size = Vector2(10, 10)
+offset_left = 560.0
+offset_top = 6.0
+offset_right = 625.0
+offset_bottom = 71.0
+texture = ExtResource("7_7gcbh")
