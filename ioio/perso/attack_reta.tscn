@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bspexkicp5hr3"]
+
+[ext_resource type="Script" path="res://perso/attack_reta.gd" id="1_m21uy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l3nco"]
+size = Vector2(9, 9)
+
+[node name="attack-reta" type="Area2D"]
+script = ExtResource("1_m21uy")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(92.5, -41.5)
+shape = SubResource("RectangleShape2D_l3nco")
+debug_color = Color(0.541436, 0.406663, 1, 0.42)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

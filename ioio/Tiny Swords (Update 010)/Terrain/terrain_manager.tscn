@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5wyja4ngtej5"]
+
+[ext_resource type="Texture2D" uid="uid://x8i6ohtur4a8" path="res://Tiny Swords (Update 010)/Terrain/tiles/tile-down.png" id="1_lqo4d"]
+[ext_resource type="Texture2D" uid="uid://f5xfu6wtrxjm" path="res://Tiny Swords (Update 010)/Terrain/tiles/Sprite-0003.png" id="2_vhtwp"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qyxjq"]
+texture = ExtResource("1_lqo4d")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnhfb"]
+texture = ExtResource("2_vhtwp")
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 6.75, 8, 6.75, 8, 8, -8, 8)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 6.75, 8, 6.75, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_f7pik"]
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_qyxjq")
+sources/2 = SubResource("TileSetAtlasSource_lnhfb")
+
+[node name="TerrainManager" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_f7pik")
