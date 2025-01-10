@@ -96,7 +96,7 @@ position = Vector2(-2, -47)
 position = Vector2(-1, -38)
 
 [node name="enemy" parent="." instance=ExtResource("9_kwdi1")]
-position = Vector2(346, 229)
+position = Vector2(399, 244)
 
 [connection signal="body_entered" from="CharacterBody2D/hurtbox" to="CharacterBody2D/hurtbox" method="_on_body_entered"]
 

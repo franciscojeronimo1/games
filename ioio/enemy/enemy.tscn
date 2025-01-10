@@ -135,4 +135,10 @@ position = Vector2(59, -58)
 shape = SubResource("CircleShape2D_d04o5")
 debug_color = Color(0.894118, 0.133333, 0.0313726, 0.419608)
 
+[node name="TopPoint" type="Marker2D" parent="."]
+position = Vector2(4, -141)
+
+[node name="BottonPoint" type="Marker2D" parent="."]
+position = Vector2(0, 34)
+
 [connection signal="body_entered" from="attack" to="attack" method="_on_body_entered"]
