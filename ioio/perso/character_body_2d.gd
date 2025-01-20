@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name BaseCharacter
 
 
+
 @export_category("Variables")
 @export var _move_speed: float = 128.0
 @export var dmg: int = 1
@@ -9,6 +10,7 @@ class_name BaseCharacter
 
 @export_category("Objects")
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var area_2d: Attack_character = $Area2D
 
 func _physics_process(_delta: float) -> void:
 	_move()
@@ -37,6 +39,7 @@ func _attack() -> void:
 func _animate() -> void:
 	if velocity.x > 0:
 		animated_sprite_2d.flip_h = false
+
 		
 	if velocity.x < 0:
 		animated_sprite_2d.flip_h = true

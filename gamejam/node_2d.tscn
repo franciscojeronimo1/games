@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cte0hpyrdenl2"]
+
+[ext_resource type="Texture2D" uid="uid://k1hqxn8wbi11" path="res://pixil-frame-0_9.png" id="1_s0qjt"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Pixil-frame-09" type="Sprite2D" parent="."]
+position = Vector2(544, 373)
+scale = Vector2(1.00741, 1.00811)
+texture = ExtResource("1_s0qjt")
