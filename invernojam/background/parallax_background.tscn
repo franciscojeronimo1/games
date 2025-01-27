@@ -1,0 +1,100 @@
+[gd_scene load_steps=11 format=3 uid="uid://1ssoe7iyhmea"]
+
+[ext_resource type="Script" path="res://background/parallax_background.gd" id="1_6vbbj"]
+[ext_resource type="Texture2D" uid="uid://c6vfrfnnii2rc" path="res://background/parallax/sky.png" id="2_va0m2"]
+[ext_resource type="Texture2D" uid="uid://1rmavcof47y4" path="res://background/parallax/fog.png" id="3_x6g3k"]
+[ext_resource type="Texture2D" uid="uid://lgmjk3rubjv6" path="res://background/parallax/4_BG_mts.png" id="4_wr0cb"]
+[ext_resource type="Texture2D" uid="uid://cbnmpuyf01vdd" path="res://background/parallax/3_ice_castle.png" id="5_ppjg5"]
+[ext_resource type="Texture2D" uid="uid://dpu4d3ub3tx7o" path="res://background/parallax/2_foreground_mts.png" id="6_idfwj"]
+[ext_resource type="Texture2D" uid="uid://clh16thx7w555" path="res://background/parallax/1_foreground_mts.png" id="7_jipvw"]
+[ext_resource type="Texture2D" uid="uid://bfms4oam8krkf" path="res://background/parallax/snow.png" id="8_hrh7y"]
+[ext_resource type="Texture2D" uid="uid://46urh1f4mud3" path="res://background/parallax/snow_2.png" id="9_0qqja"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_utx4g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_hrh7y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_0qqja")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+script = ExtResource("1_6vbbj")
+
+[node name="sky" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(640, 0)
+
+[node name="TextureRect" type="TextureRect" parent="sky"]
+custom_minimum_size = Vector2(640, 360)
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("2_va0m2")
+
+[node name="fog" type="ParallaxLayer" parent="."]
+position = Vector2(1, 0)
+motion_scale = Vector2(1, 0.1)
+motion_mirroring = Vector2(640, 0)
+
+[node name="TextureRect" type="TextureRect" parent="fog"]
+custom_minimum_size = Vector2(640, 360)
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("3_x6g3k")
+
+[node name="Background2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(1, 0.1)
+motion_mirroring = Vector2(640, 0)
+
+[node name="TextureRect" type="TextureRect" parent="Background2"]
+custom_minimum_size = Vector2(640, 360)
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("4_wr0cb")
+
+[node name="Background" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(1, 0.1)
+motion_mirroring = Vector2(640, 0)
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+custom_minimum_size = Vector2(640, 360)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_ppjg5")
+
+[node name="FirstBackground2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(1, 0.1)
+motion_mirroring = Vector2(640, 0)
+
+[node name="TextureRect" type="TextureRect" parent="FirstBackground2"]
+custom_minimum_size = Vector2(640, 360)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("6_idfwj")
+
+[node name="FirstBackground" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(1, 0.1)
+motion_mirroring = Vector2(640, 0)
+
+[node name="TextureRect" type="TextureRect" parent="FirstBackground"]
+custom_minimum_size = Vector2(640, 360)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("7_jipvw")
+
+[node name="snow" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(640, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="snow"]
+position = Vector2(320, 177)
+scale = Vector2(0.871935, 0.867788)
+sprite_frames = SubResource("SpriteFrames_utx4g")
+autoplay = "default"
+frame_progress = 0.64169

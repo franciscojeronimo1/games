@@ -1,10 +1,57 @@
-[gd_scene load_steps=2 format=3 uid="uid://cte0hpyrdenl2"]
+[gd_scene load_steps=6 format=3 uid="uid://cte0hpyrdenl2"]
 
 [ext_resource type="Texture2D" uid="uid://k1hqxn8wbi11" path="res://pixil-frame-0_9.png" id="1_s0qjt"]
+[ext_resource type="PackedScene" uid="uid://7j4d23mxaqx2" path="res://character/character_body_2d.tscn" id="2_xrpdl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nym5h"]
+size = Vector2(641, 49)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fem35"]
+size = Vector2(15, 283)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_14ggw"]
+size = Vector2(82, 21)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Pixil-frame-09" type="Sprite2D" parent="."]
-position = Vector2(544, 373)
-scale = Vector2(1.00741, 1.00811)
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(320, 180)
+scale = Vector2(0.592593, 0.486486)
 texture = ExtResource("1_s0qjt")
+
+[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(-320, 180)
+scale = Vector2(0.592593, 0.486486)
+texture = ExtResource("1_s0qjt")
+
+[node name="Sprite2D3" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(960, 180)
+scale = Vector2(0.592593, 0.486486)
+texture = ExtResource("1_s0qjt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(319.5, 334.5)
+shape = SubResource("RectangleShape2D_nym5h")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(8.5, 143.5)
+shape = SubResource("RectangleShape2D_fem35")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(632, 144)
+shape = SubResource("RectangleShape2D_fem35")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(40, 297.5)
+shape = SubResource("RectangleShape2D_14ggw")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(600, 298)
+shape = SubResource("RectangleShape2D_14ggw")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_xrpdl")]
+position = Vector2(184, 279)
+
+[editable path="CharacterBody2D"]

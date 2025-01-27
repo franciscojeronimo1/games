@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://rg54sjk6rypd"]
+
+[ext_resource type="PackedScene" uid="uid://1ssoe7iyhmea" path="res://background/parallax_background.tscn" id="1_vy8cg"]
+[ext_resource type="PackedScene" uid="uid://c6djibf4xqrld" path="res://Player/player.tscn" id="2_aqpr5"]
+[ext_resource type="PackedScene" uid="uid://bimi2t7x3h1at" path="res://enemy/enemy.tscn" id="3_0bco5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jny5r"]
+size = Vector2(640, 8)
+
+[node name="mapa" type="Node2D"]
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("1_vy8cg")]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(320, 356)
+shape = SubResource("RectangleShape2D_jny5r")
+
+[node name="enemy" parent="." instance=ExtResource("3_0bco5")]
+position = Vector2(461, 311)
+
+[node name="Player" parent="." instance=ExtResource("2_aqpr5")]
+position = Vector2(55, 296)
+
+[editable path="Player"]
