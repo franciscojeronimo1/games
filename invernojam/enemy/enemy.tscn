@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bimi2t7x3h1at"]
+[gd_scene load_steps=16 format=3 uid="uid://bimi2t7x3h1at"]
 
 [ext_resource type="Texture2D" uid="uid://cd7hsega50d2m" path="res://enemy/enemy-azul/enemy-bola1.png" id="1_2ydpc"]
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_ce17g"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bwnxuwsc3sanw" path="res://enemy/enemy-azul/enemy-bola7.png" id="7_72rqh"]
 [ext_resource type="Texture2D" uid="uid://bwvr54gkfv3si" path="res://enemy/enemy-azul/enemy-bola8.png" id="8_o4uvb"]
 [ext_resource type="Texture2D" uid="uid://cm0c0wmv1ds27" path="res://enemy/enemy-azul/enemy-bola9.png" id="9_nwyf7"]
+[ext_resource type="Texture2D" uid="uid://bg888yuwm1pw" path="res://enemy/enemy-azul/take_dmg/enemy-bola4.png" id="11_xfokc"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6d2y8"]
 animations = [{
@@ -44,20 +45,51 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_xfokc")
+}],
+"loop": false,
+"name": &"take_dmg",
+"speed": 10.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sust6"]
 radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4touk"]
+radius = 23.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8mds3"]
+radius = 26.1725
 
 [node name="enemy" type="CharacterBody2D"]
 script = ExtResource("1_ce17g")
 
 [node name="Animated" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6d2y8")
-animation = &"idle"
+animation = &"take_dmg"
 autoplay = "idle"
-frame_progress = 0.943084
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_sust6")
+
+[node name="hp" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hp"]
+shape = SubResource("CircleShape2D_4touk")
+debug_color = Color(0.901961, 0.137255, 0.152941, 0.419608)
+
+[node name="dmg" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dmg"]
+shape = SubResource("CircleShape2D_8mds3")
+debug_color = Color(0.426985, 0.59742, 0.222317, 0.42)
+
+[connection signal="area_entered" from="hp" to="." method="_on_hp_area_entered"]
+[connection signal="area_exited" from="hp" to="." method="_on_hp_area_exited"]
+[connection signal="body_entered" from="dmg" to="." method="_on_dmg_body_entered"]

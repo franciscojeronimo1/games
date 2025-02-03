@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://cwxbxo6b8jnxb"]
+
+[ext_resource type="Script" path="res://cenas/interface.gd" id="1_0w7v3"]
+
+[sub_resource type="Theme" id="Theme_lqbgy"]
+
+[sub_resource type="SystemFont" id="SystemFont_4clon"]
+
+[sub_resource type="FontVariation" id="FontVariation_f4pkt"]
+base_font = SubResource("SystemFont_4clon")
+spacing_glyph = 2
+spacing_top = 5
+spacing_bottom = 5
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_bb3mj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_18tpu"]
+texture = SubResource("CanvasTexture_bb3mj")
+
+[node name="interface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0w7v3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.827451)
+
+[node name="Button" type="Button" parent="."]
+texture_filter = 6
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.5
+offset_top = -15.5
+offset_right = 20.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+pivot_offset = Vector2(2, 2)
+theme = SubResource("Theme_lqbgy")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.960784, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_f4pkt")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_18tpu")
+text = "Play"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

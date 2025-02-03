@@ -1,14 +1,20 @@
 extends CharacterBody2D
 class_name Player
 
-const SPEED = 200.0
+const SPEED = 150.0
 @onready var anim: AnimatedSprite2D = $Anim
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var attack_area: Area2D = $attack_area
 var is_attacking = false
 @onready var collision_attack: CollisionShape2D = $attack_area/collision_attack
+@export var player_hp = 10
+@onready var player: Player = $"."
+@export var knockback_speed:int = 250
+@onready var enemy: Enemy = $"../enemy"
 
 
+func _ready() -> void:
+	player.collision_attack.disabled
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -41,6 +47,18 @@ func animacao():
 		elif direction < 0:
 			attack_area.rotation = 0
 
+
+func hp_do_player():
+	_knockback()
+	anim.play("hurt")
+	player_hp -= 1
+	if player_hp <= 0:
+		player.queue_free()
+		
+func _knockback() -> void:
+	var _direction: Vector2 = global_position.direction_to(enemy.global_position)
+	velocity.x = _direction.x * knockback_speed
+	velocity.y = -1 * knockback_speed
 
 
 func input():

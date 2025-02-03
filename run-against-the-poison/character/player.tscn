@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://dwa6pysrq3is8"]
+
+[ext_resource type="Texture2D" uid="uid://cfcuq6b2xte3w" path="res://character/AnimationSheet.png" id="1_kvsw3"]
+[ext_resource type="Script" path="res://character/player.gd" id="1_yd4cs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yg1xy"]
+atlas = ExtResource("1_kvsw3")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0f4j3"]
+atlas = ExtResource("1_kvsw3")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0nedm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yg1xy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0f4j3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xixv7"]
+size = Vector2(8, 15)
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_yd4cs")
+
+[node name="Anim" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0nedm")
+animation = &"idle"
+autoplay = "idle"
+frame = 1
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_xixv7")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
