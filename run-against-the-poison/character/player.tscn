@@ -1,7 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://dwa6pysrq3is8"]
+[gd_scene load_steps=20 format=3 uid="uid://dwa6pysrq3is8"]
 
 [ext_resource type="Texture2D" uid="uid://cfcuq6b2xte3w" path="res://character/AnimationSheet.png" id="1_kvsw3"]
 [ext_resource type="Script" path="res://character/player.gd" id="1_yd4cs"]
+[ext_resource type="AudioStream" uid="uid://cewdlx8xbvkw3" path="res://sounds/Turning liquid.wav" id="3_pgg13"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlndc"]
+atlas = ExtResource("1_kvsw3")
+region = Rect2(120, 72, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3j2lw"]
+atlas = ExtResource("1_kvsw3")
+region = Rect2(144, 72, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yng7x"]
+atlas = ExtResource("1_kvsw3")
+region = Rect2(168, 72, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yg1xy"]
 atlas = ExtResource("1_kvsw3")
@@ -11,8 +24,58 @@ region = Rect2(0, 0, 24, 24)
 atlas = ExtResource("1_kvsw3")
 region = Rect2(24, 0, 24, 24)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfvja"]
+atlas = ExtResource("1_kvsw3")
+region = Rect2(0, 72, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4xh5"]
+atlas = ExtResource("1_kvsw3")
+region = Rect2(24, 72, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fe5w"]
+atlas = ExtResource("1_kvsw3")
+region = Rect2(48, 72, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxlrn"]
+atlas = ExtResource("1_kvsw3")
+region = Rect2(72, 72, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3afhw"]
+atlas = ExtResource("1_kvsw3")
+region = Rect2(96, 72, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffy4s"]
+atlas = ExtResource("1_kvsw3")
+region = Rect2(96, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwebo"]
+atlas = ExtResource("1_kvsw3")
+region = Rect2(120, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hfvch"]
+atlas = ExtResource("1_kvsw3")
+region = Rect2(144, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gh0l4"]
+atlas = ExtResource("1_kvsw3")
+region = Rect2(168, 24, 24, 24)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_0nedm"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlndc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3j2lw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yng7x")
+}],
+"loop": false,
+"name": &"fall",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yg1xy")
@@ -20,23 +83,59 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0f4j3")
 }],
-"loop": true,
+"loop": false,
 "name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfvja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4xh5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3fe5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vxlrn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3afhw")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ffy4s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwebo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hfvch")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gh0l4")
+}],
+"loop": false,
+"name": &"run",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xixv7"]
 size = Vector2(8, 15)
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("animation_player")]
 script = ExtResource("1_yd4cs")
+animation_player = NodePath("Anim")
 
 [node name="Anim" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0nedm")
 animation = &"idle"
 autoplay = "idle"
-frame = 1
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4.5)
@@ -47,5 +146,8 @@ zoom = Vector2(3, 3)
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_pgg13")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

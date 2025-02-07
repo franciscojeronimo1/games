@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://cr8i2uvqsogfp"]
+
+[ext_resource type="Script" path="res://cenas/creditos.gd" id="1_tpf4y"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xspw0"]
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_5reyi"]
+font_size = 20
+outline_size = 1
+
+[node name="creditos" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tpf4y")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -89.0
+offset_right = 89.0
+offset_bottom = 69.0
+grow_horizontal = 2
+text = "Credits"
+label_settings = SubResource("LabelSettings_xspw0")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -155.0
+offset_top = 118.0
+offset_right = 159.0
+offset_bottom = 211.0
+grow_horizontal = 2
+text = "Game made by Catau Games 
+for Coco Code Game Jam 
+with the theme Poison
+Graphics created by Penzilla"
+label_settings = SubResource("LabelSettings_5reyi")
+
+[node name="back" type="Button" parent="."]
+layout_mode = 0
+offset_left = 229.0
+offset_top = 288.0
+offset_right = 379.0
+offset_bottom = 319.0
+text = " back"
+
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]

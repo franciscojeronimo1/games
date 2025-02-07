@@ -1,0 +1,89 @@
+[gd_scene load_steps=7 format=3 uid="uid://dmekelmif0lo7"]
+
+[ext_resource type="Script" path="res://itens/potion_final.gd" id="1_tlgr6"]
+[ext_resource type="Texture2D" uid="uid://c6d3m8qkyfj71" path="res://itens/Green potions/poção verde.png" id="1_uo3w7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7vdso"]
+radius = 3.16228
+
+[sub_resource type="Animation" id="Animation_a4sls"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_py6j0"]
+resource_name = "potion_green"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.766667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(0.4, 0.4), Vector2(0.3, 0.3), Vector2(0.2, 0.2), Vector2(0.3, 0.3), Vector2(0.35, 0.35), Vector2(0.4, 0.4), Vector2(0.45, 0.45), Vector2(0.5, 0.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ur05q"]
+_data = {
+"RESET": SubResource("Animation_a4sls"),
+"potion_green": SubResource("Animation_py6j0")
+}
+
+[node name="potion_final" type="Area2D"]
+script = ExtResource("1_tlgr6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7vdso")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_uo3w7")
+hframes = 3
+vframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ur05q")
+}
+autoplay = "potion_green"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

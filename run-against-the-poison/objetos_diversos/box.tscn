@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://23s4ugnpo740"]
+
+[ext_resource type="Script" path="res://objetos_diversos/box.gd" id="1_eju7f"]
+[ext_resource type="Texture2D" uid="uid://4j7r88jadq4r" path="res://mapa/tileset/Dungeon Tile Set.png" id="1_sra86"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rtwp"]
+atlas = ExtResource("1_sra86")
+region = Rect2(160, 160, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hgrqq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4rtwp")
+}],
+"loop": true,
+"name": &"box",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gxkbt"]
+size = Vector2(16, 16)
+
+[node name="box" type="CharacterBody2D"]
+script = ExtResource("1_eju7f")
+
+[node name="animation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hgrqq")
+animation = &"box"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gxkbt")
