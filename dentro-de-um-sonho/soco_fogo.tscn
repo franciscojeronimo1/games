@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://cn7d2y5wmj00j"]
+
+[ext_resource type="Texture2D" uid="uid://myocq8tnc0r5" path="res://animaçoes/Red Effect Bullet Impact Explosion 32x32.png" id="1_d653m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pveq"]
+atlas = ExtResource("1_d653m")
+region = Rect2(352, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5bam"]
+atlas = ExtResource("1_d653m")
+region = Rect2(384, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yiel3"]
+atlas = ExtResource("1_d653m")
+region = Rect2(416, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f15sv"]
+atlas = ExtResource("1_d653m")
+region = Rect2(448, 320, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ek7b3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8pveq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i5bam")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yiel3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f15sv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bps0i"]
+size = Vector2(18.5, 23)
+
+[node name="Soco-fogo" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ek7b3")
+frame_progress = 0.538284
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_bps0i")

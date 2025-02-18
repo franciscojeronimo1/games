@@ -52,7 +52,8 @@ grow_horizontal = 2
 text = "Game made by Catau Games 
 for Coco Code Game Jam 
 with the theme Poison
-Graphics created by Penzilla"
+Graphics and interface
+ Created by Penzilla and Crocante"
 label_settings = SubResource("LabelSettings_5reyi")
 
 [node name="back" type="Button" parent="."]

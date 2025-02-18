@@ -1,0 +1,72 @@
+[gd_scene load_steps=15 format=3 uid="uid://noc7ndqayc5i"]
+
+[ext_resource type="Texture2D" uid="uid://cln3j3pkrh8kb" path="res://character/gato/gato-export1.png" id="1_xm7wp"]
+[ext_resource type="Texture2D" uid="uid://wpf3mxv8pbl4" path="res://character/gato/gato-export2.png" id="2_4qi0f"]
+[ext_resource type="Texture2D" uid="uid://cq8yedyxxu38c" path="res://character/gato/gato-export3.png" id="3_m1aoh"]
+[ext_resource type="Texture2D" uid="uid://crv18whobvgmr" path="res://character/gato/gato-export4.png" id="4_61asy"]
+[ext_resource type="Texture2D" uid="uid://d10p6itvcegc5" path="res://character/gato/gato-export5.png" id="5_dt0qs"]
+[ext_resource type="Texture2D" uid="uid://1gm7fwur8b4a" path="res://character/gato/gato-export6.png" id="6_5kwmh"]
+[ext_resource type="Texture2D" uid="uid://jgbgda67hs31" path="res://character/gato/gato-export7.png" id="7_1ssla"]
+[ext_resource type="Texture2D" uid="uid://55b2i7cynm6t" path="res://character/gato/gato-export8.png" id="8_cn2cr"]
+[ext_resource type="Texture2D" uid="uid://cwprrci0co4rr" path="res://character/gato/gato-export9.png" id="9_etnvi"]
+[ext_resource type="Texture2D" uid="uid://c7bl4bd40d73h" path="res://character/gato/gato-export10.png" id="10_kj8aq"]
+[ext_resource type="Texture2D" uid="uid://7v5dwysocnp5" path="res://character/gato/gato-export11.png" id="11_3tesh"]
+[ext_resource type="Texture2D" uid="uid://dllq5ggw2rea3" path="res://character/gato/gato-export12.png" id="12_i5683"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l47cr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_xm7wp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_4qi0f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_m1aoh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_61asy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dt0qs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5kwmh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_1ssla")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_cn2cr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_etnvi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_kj8aq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_3tesh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_i5683")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6hqqw"]
+size = Vector2(19, 10)
+
+[node name="Cat" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_l47cr")
+autoplay = "default"
+frame_progress = 0.115489
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 3)
+shape = SubResource("RectangleShape2D_6hqqw")

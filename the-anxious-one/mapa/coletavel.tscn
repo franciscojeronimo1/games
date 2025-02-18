@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbremsihpn8cj"]
+
+[ext_resource type="Script" path="res://mapa/coletavel.gd" id="1_hiav4"]
+[ext_resource type="Texture2D" uid="uid://cfq7j1ehnoskn" path="res://tilesets/interior free/TopDownHouse_SmallItems.png" id="1_tbse4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7g4ql"]
+size = Vector2(10, 12)
+
+[node name="Coletavel" type="Area2D"]
+script = ExtResource("1_hiav4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_tbse4")
+region_enabled = true
+region_rect = Rect2(4.79634, 117.914, 6.25208, 9.12846)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7g4ql")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
