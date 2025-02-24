@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://ec14bllxo0x1"]
+[gd_scene load_steps=80 format=3 uid="uid://ec14bllxo0x1"]
 
 [ext_resource type="Script" path="res://character/player.gd" id="1_krubb"]
 [ext_resource type="Texture2D" uid="uid://of2dnmx8r2td" path="res://character/costa/ruivoandarcostas-export1.png" id="2_vxvgq"]
@@ -53,6 +53,30 @@
 [ext_resource type="Texture2D" uid="uid://bu85hua71mtvj" path="res://character/idle/ruivinidledircerto-export18.png" id="51_ktuh0"]
 [ext_resource type="Texture2D" uid="uid://cqem2rni3uws2" path="res://character/idle/ruivinidledircerto-export19.png" id="52_8jtpv"]
 [ext_resource type="Texture2D" uid="uid://ss0d0gdevlrl" path="res://character/idle/ruivinidledircerto-export20.png" id="53_uf50r"]
+[ext_resource type="Texture2D" uid="uid://cvg0d8s4m7bwm" path="res://character/idle de costa/ruivinidlecostas-export1.png" id="54_r7h2f"]
+[ext_resource type="Texture2D" uid="uid://bggjoswta48bu" path="res://character/idle de costa/ruivinidlecostas-export2.png" id="55_uxe37"]
+[ext_resource type="Texture2D" uid="uid://b6oi853ivde74" path="res://character/idle de costa/ruivinidlecostas-export3.png" id="56_aq72a"]
+[ext_resource type="Texture2D" uid="uid://bu6xxseb1obb6" path="res://character/idle de costa/ruivinidlecostas-export4.png" id="57_jfk0k"]
+[ext_resource type="Texture2D" uid="uid://dmenlbjj3bao2" path="res://character/idle de costa/ruivinidlecostas-export5.png" id="58_w0enu"]
+[ext_resource type="Texture2D" uid="uid://b3cyrtmnvr1lo" path="res://character/idle de costa/ruivinidlecostas-export6.png" id="59_uvwqb"]
+[ext_resource type="Texture2D" uid="uid://b4yxntr78frxc" path="res://character/idle de costa/ruivinidlecostas-export7.png" id="60_skv8r"]
+[ext_resource type="Texture2D" uid="uid://dtjf6uojmlnd2" path="res://character/idle de costa/ruivinidlecostas-export8.png" id="61_anfwv"]
+[ext_resource type="Texture2D" uid="uid://1htdup15sv5s" path="res://character/idle de costa/ruivinidlecostas-export9.png" id="62_b4cky"]
+[ext_resource type="Texture2D" uid="uid://dsrsnfkilfun5" path="res://character/idle de costa/ruivinidlecostas-export10.png" id="63_1ebj6"]
+[ext_resource type="Texture2D" uid="uid://c7wsj4gp51t6g" path="res://character/idle de costa/ruivinidlecostas-export11.png" id="64_xueoa"]
+[ext_resource type="Texture2D" uid="uid://b3gcqkd62tpbr" path="res://character/idle de costa/ruivinidlecostas-export12.png" id="65_ihgn0"]
+[ext_resource type="Texture2D" uid="uid://dunuykn6j755n" path="res://character/idle de costa/ruivinidlecostas-export13.png" id="66_3nata"]
+[ext_resource type="Texture2D" uid="uid://dalomftnm3uve" path="res://character/idle de costa/ruivinidlecostas-export14.png" id="67_0ogg8"]
+[ext_resource type="Texture2D" uid="uid://dbd86kr48ueek" path="res://character/idle de costa/ruivinidlecostas-export15.png" id="68_00rue"]
+[ext_resource type="Texture2D" uid="uid://dqj2f5w4bjamc" path="res://character/idle de costa/ruivinidlecostas-export16.png" id="69_bkrk1"]
+[ext_resource type="Texture2D" uid="uid://b4xa16lhrmgyf" path="res://character/idle de costa/ruivinidlecostas-export17.png" id="70_wr4ly"]
+[ext_resource type="Texture2D" uid="uid://df2bculs8eejc" path="res://character/idle de costa/ruivinidlecostas-export18.png" id="71_lflg0"]
+[ext_resource type="Texture2D" uid="uid://dqdd74et6a8fo" path="res://character/idle de costa/ruivinidlecostas-export19.png" id="72_4i27x"]
+[ext_resource type="Texture2D" uid="uid://bb68lib10chal" path="res://character/idle de costa/ruivinidlecostas-export20.png" id="73_m36ct"]
+[ext_resource type="Texture2D" uid="uid://bhqv6h5pol3so" path="res://character/idle de costa/ruivinidlecostas-export21.png" id="74_u3sco"]
+[ext_resource type="Texture2D" uid="uid://t3feopw2641u" path="res://character/idle de costa/ruivinidlecostas-export22.png" id="75_se6y5"]
+[ext_resource type="Texture2D" uid="uid://bvagyey821i8t" path="res://character/idle de costa/ruivinidlecostas-export23.png" id="76_w6ojt"]
+[ext_resource type="Texture2D" uid="uid://deep2dete7pfp" path="res://character/idle de costa/ruivinidlecostas-export24.png" id="77_52pn0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xj180"]
 animations = [{
@@ -236,6 +260,83 @@ animations = [{
 "loop": false,
 "name": &"idle",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("54_r7h2f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_uxe37")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_aq72a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_jfk0k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_w0enu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_uvwqb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_skv8r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_anfwv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_b4cky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_1ebj6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_xueoa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_ihgn0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_3nata")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_0ogg8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_00rue")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_bkrk1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_wr4ly")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_lflg0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_4i27x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_m36ct")
+}, {
+"duration": 1.0,
+"texture": ExtResource("74_u3sco")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_se6y5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_w6ojt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_52pn0")
+}],
+"loop": false,
+"name": &"idleCosta",
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sl02g"]
@@ -246,12 +347,12 @@ script = ExtResource("1_krubb")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xj180")
-animation = &"frente"
-autoplay = "idle"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 5.5)
 shape = SubResource("RectangleShape2D_sl02g")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(5, 5)
+zoom = Vector2(4, 4)
+limit_left = 0

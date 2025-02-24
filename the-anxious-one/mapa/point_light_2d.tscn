@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0g81p2c1qa6c"]
+
+[ext_resource type="Texture2D" uid="uid://l3sby7qsof1a" path="res://tilesets/interior free/light2D-pixel.png" id="1_0esbq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_exkx5"]
+radius = 30.0
+
+[node name="PointLight2D" type="PointLight2D"]
+position = Vector2(264, 169)
+scale = Vector2(1.01172, 1)
+enabled = false
+energy = 2.0
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+texture = ExtResource("1_0esbq")
+texture_scale = 2.0
+
+[node name="ligarLuz" type="Area2D" parent="."]
+visible = false
+position = Vector2(-272, -172)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ligarLuz"]
+position = Vector2(269, 179)
+shape = SubResource("CircleShape2D_exkx5")

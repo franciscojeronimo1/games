@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://djk7533dfq2nt"]
+
+[ext_resource type="PackedScene" uid="uid://cbremsihpn8cj" path="res://mapa/coletavel.tscn" id="1_e4coa"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2m1ul"]
+load_path = "res://.godot/imported/TopDownHouse_SmallItems.png-3a5a544a36c007e2d37fdd78a3470bed.ctex"
+
+[node name="livro" instance=ExtResource("1_e4coa")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("CompressedTexture2D_2m1ul")
+region_rect = Rect2(20.054, 54.8647, 7.06131, 8.13773)

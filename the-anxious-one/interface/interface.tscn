@@ -1,0 +1,151 @@
+[gd_scene load_steps=12 format=3 uid="uid://b1fbf8egc71gw"]
+
+[ext_resource type="Texture2D" uid="uid://4c2o85p8yr5a" path="res://interface/the_anxious_one.png" id="1_f161s"]
+[ext_resource type="Script" path="res://interface/interface.gd" id="1_vt3vh"]
+[ext_resource type="Texture2D" uid="uid://cgcok8pipux7f" path="res://interface/play_r (1).png" id="2_qocud"]
+[ext_resource type="Texture2D" uid="uid://bi5ysptyok3ad" path="res://interface/credits (1).png" id="3_ig0op"]
+[ext_resource type="AudioStream" uid="uid://4qis30avh4pt" path="res://audios/jtwayne-keys-loops-3-188080.mp3" id="5_uw88q"]
+
+[sub_resource type="Theme" id="Theme_tcpbd"]
+default_base_scale = 0.36
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wkcc6"]
+content_margin_right = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hycmn"]
+content_margin_right = 5.0
+
+[sub_resource type="Animation" id="Animation_xqcfb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("play:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(48, 111)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("play:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5708]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("credits:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(372, 253)]
+}
+
+[sub_resource type="Animation" id="Animation_qacno"]
+resource_name = "anim"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("play:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(745, -46), Vector2(11, 120), Vector2(48, 111)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("play:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.778417, 1.0472, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("credits:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(382, -83), Vector2(377, 272), Vector2(374.5, 220), Vector2(372, 253)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yymxa"]
+_data = {
+"RESET": SubResource("Animation_xqcfb"),
+"anim": SubResource("Animation_qacno")
+}
+
+[node name="Interface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vt3vh")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = -1.0
+offset_right = 682.0
+offset_bottom = 362.0
+texture = ExtResource("1_f161s")
+
+[node name="play" type="Button" parent="."]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 111.0
+offset_right = 265.0
+offset_bottom = 250.0
+rotation = 1.5708
+theme = SubResource("Theme_tcpbd")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_wkcc6")
+icon = ExtResource("2_qocud")
+flat = true
+
+[node name="credits" type="Button" parent="."]
+layout_mode = 0
+offset_left = 372.0
+offset_top = 253.0
+offset_right = 580.0
+offset_bottom = 324.0
+theme_override_styles/hover = SubResource("StyleBoxEmpty_hycmn")
+icon = ExtResource("3_ig0op")
+flat = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yymxa")
+}
+autoplay = "anim"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_uw88q")
+autoplay = true
+
+[connection signal="pressed" from="play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="credits" to="." method="_on_credits_pressed"]

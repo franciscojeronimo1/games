@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://noc7ndqayc5i"]
+[gd_scene load_steps=16 format=3 uid="uid://noc7ndqayc5i"]
 
 [ext_resource type="Texture2D" uid="uid://cln3j3pkrh8kb" path="res://character/gato/gato-export1.png" id="1_xm7wp"]
 [ext_resource type="Texture2D" uid="uid://wpf3mxv8pbl4" path="res://character/gato/gato-export2.png" id="2_4qi0f"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c7bl4bd40d73h" path="res://character/gato/gato-export10.png" id="10_kj8aq"]
 [ext_resource type="Texture2D" uid="uid://7v5dwysocnp5" path="res://character/gato/gato-export11.png" id="11_3tesh"]
 [ext_resource type="Texture2D" uid="uid://dllq5ggw2rea3" path="res://character/gato/gato-export12.png" id="12_i5683"]
+[ext_resource type="AudioStream" uid="uid://shanx04ar433" path="res://audios/cat-purring-and-meow-5928.mp3" id="13_1wl5e"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l47cr"]
 animations = [{
@@ -70,3 +71,7 @@ frame_progress = 0.115489
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 3)
 shape = SubResource("RectangleShape2D_6hqqw")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_1wl5e")
+autoplay = true

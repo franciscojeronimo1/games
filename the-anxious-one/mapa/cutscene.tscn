@@ -43,20 +43,11 @@ _data = {
 [node name="cutscene" instance=ExtResource("1_lfbd6")]
 script = ExtResource("2_d6i0s")
 
-[node name="items" parent="." index="2"]
-tile_map_data = PackedByteArray(0, 0, 15, 0, 13, 0, 0, 0, 1, 0, 3, 0, 0, 0, 16, 0, 13, 0, 0, 0, 1, 0, 3, 0, 0, 0, 11, 0, 10, 0, 0, 0, 0, 0, 1, 0, 0, 0, 15, 0, 10, 0, 0, 0, 0, 0, 1, 0, 0, 0, 13, 0, 10, 0, 0, 0, 5, 0, 1, 0, 0, 0)
+[node name="items" parent="." index="3"]
+tile_map_data = PackedByteArray(0, 0, 11, 0, 10, 0, 0, 0, 0, 0, 1, 0, 0, 0, 15, 0, 10, 0, 0, 0, 0, 0, 1, 0, 0, 0, 13, 0, 10, 0, 0, 0, 5, 0, 1, 0, 0, 0, 15, 0, 13, 0, 0, 0, 1, 0, 3, 0, 0, 0, 16, 0, 13, 0, 0, 0, 1, 0, 3, 0, 0, 0)
 
-[node name="CanvasModulate" parent="." index="3"]
+[node name="CanvasModulate" parent="." index="4"]
 color = Color(0.860369, 0.860369, 0.860369, 1)
-
-[node name="CollisionShape2D" parent="PointLight2D/ligarLuz" index="0"]
-visible = false
-
-[node name="Player" parent="." index="5"]
-position = Vector2(215, 188)
-
-[node name="sprite" parent="Player" index="0"]
-animation = &"costa"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 libraries = {
@@ -68,6 +59,12 @@ offset_left = 180.0
 offset_top = 154.0
 offset_right = 245.0
 offset_bottom = 177.0
+
+[node name="Player" parent="." index="20"]
+position = Vector2(215, 188)
+
+[node name="sprite" parent="Player" index="0"]
+animation = &"costa"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 

@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://i10ef2wstiud"]
+
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_163q7"]
+[ext_resource type="Script" path="res://Scripts/UI/EnemyUI.gd" id="2_l86iy"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_foxf1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v7ymg"]
+albedo_color = Color(1, 0.490196, 0.490196, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_waoyp"]
+material = SubResource("StandardMaterial3D_v7ymg")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yro8d"]
+radius = 0.686706
+height = 2.90586
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_wsrm5"]
+
+[node name="Enemy" type="CharacterBody3D" groups=["Enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20355, 6.59794)
+script = ExtResource("1_163q7")
+move_speed = 5.0
+initial_health = 45.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_foxf1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_waoyp")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0.229704, 0)
+shape = SubResource("CapsuleShape3D_yro8d")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 46.0
+offset_bottom = 31.0
+script = ExtResource("2_l86iy")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Control"]
+layout_mode = 0
+offset_left = -43.0
+offset_top = -37.0
+offset_right = 42.0
+offset_bottom = -26.0
+value = 100.0
+nine_patch_stretch = true
+texture_progress = SubResource("CanvasTexture_wsrm5")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

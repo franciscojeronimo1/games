@@ -1,0 +1,87 @@
+[gd_scene load_steps=7 format=3 uid="uid://dbg61egrpgqba"]
+
+[ext_resource type="Script" path="res://interface/final.gd" id="1_r2mwa"]
+[ext_resource type="Texture2D" uid="uid://bhav2v8yfk1rk" path="res://character/expressao/expressao_ruivo4.png" id="1_vlfsp"]
+[ext_resource type="AudioStream" uid="uid://66b6uc5wmqxh" path="res://audios/emotional-sad-piano-for-an-intro-or-a-documentary-suspense-90-bpm-121528.mp3" id="3_gmqwl"]
+
+[sub_resource type="Animation" id="Animation_wrueg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [""]
+}
+
+[sub_resource type="Animation" id="Animation_roc67"]
+resource_name = "animat"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["", "Ph", "Phew,", "Phew, eve", "Phew, every", "Phew, everything wen", "Phew, everything went we", "Phew, everything went ", "Phew, everything went well."]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4vrbu"]
+_data = {
+"RESET": SubResource("Animation_wrueg"),
+"animat": SubResource("Animation_roc67")
+}
+
+[node name="final" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r2mwa")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 680.0
+offset_bottom = 363.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ExpressaoRuivo4" type="Sprite2D" parent="."]
+position = Vector2(554, 163)
+texture = ExtResource("1_vlfsp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4vrbu")
+}
+autoplay = "animat"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_gmqwl")
+autoplay = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

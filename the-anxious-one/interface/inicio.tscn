@@ -1,0 +1,90 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfmdhqdf7r66x"]
+
+[ext_resource type="Script" path="res://interface/inicio.gd" id="1_kiew4"]
+[ext_resource type="Texture2D" uid="uid://s014bxieng2r" path="res://character/expressao/expressao_ruivo1.png" id="2_v0ks1"]
+
+[sub_resource type="Animation" id="Animation_lh2ds"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["
+"]
+}
+
+[sub_resource type="Animation" id="Animation_gemna"]
+resource_name = "animInicio"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["
+", "Damn, my anxiety is high
+
+", "Damn, my anxiety is high
+ and the light is having problems. 
+", "Damn, my anxiety is high
+ and the light is having problems. 
+I have to keep turning it on all the time, 
+", "Damn, my anxiety is high
+ and the light is having problems. 
+I have to keep turning it on all the time, 
+especially today when nothing can go wrong."]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nvq6x"]
+_data = {
+"RESET": SubResource("Animation_lh2ds"),
+"animInicio": SubResource("Animation_gemna")
+}
+
+[node name="Inicio" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kiew4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 681.0
+offset_bottom = 366.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 197.0
+offset_top = 124.0
+offset_right = 544.0
+offset_bottom = 225.0
+text = "
+"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nvq6x")
+}
+autoplay = "animInicio"
+
+[node name="ExpressaoRuivo1" type="Sprite2D" parent="."]
+position = Vector2(105, 157)
+texture = ExtResource("2_v0ks1")
+flip_h = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

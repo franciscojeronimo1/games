@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var speed: float = 100.0
 
 
-var last_direction = "idle"  # Direção inicial (pode ser qualquer uma das suas animações)
+var last_direction = "idleCosta"  # Direção inicial (pode ser qualquer uma das suas animações)
 
 func _physics_process(delta):
 	var direction = Vector2.ZERO
@@ -29,6 +29,6 @@ func _physics_process(delta):
 		sprite.play(last_direction)  # Toca a animação correta
 	else:
 		velocity = Vector2.ZERO  # Para o movimento quando não há direção
-		sprite.play("idle")  # Para a animação, mantendo o último frame
+		sprite.play("idleCosta")  # Para a animação, mantendo o último frame
 
 	move_and_slide()

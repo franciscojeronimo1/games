@@ -1,21 +1,38 @@
 extends Node2D
 
+@export var proxima_cena: String = "res://interface/final.tscn"
 
 
-var is_on = true
-@onready var point_light_2d: PointLight2D = $PointLight2D
 
-func _ready():
-	toggle_light()
-func _physics_process(delta: float) -> void:
-	pass
 
-func toggle_light():
-	while true:
-		is_on = !is_on
-		point_light_2d.enabled = is_on
-		await get_tree().create_timer(3.0).timeout  # Espera 1 segundo e repete
+func _process(delta):
+	if get_tree().get_nodes_in_group("coletavel").is_empty():
+		mudar_de_cena()
+	if Input.is_action_pressed("esc"):
+		get_tree().change_scene_to_file("res://interface/interface.tscn")
+func mudar_de_cena():
+	await get_tree().create_timer(4).timeout  
+	get_tree().change_scene_to_file(proxima_cena)
+	
 
-#func _on_ligar_luz_body_entered(body: Node2D) -> void:
-	#if body.name == "Player":
-	#	point_light_2d.enabled = true
+
+
+func _on_expressao_body_entered(body: Node2D) -> void:
+	if body.name == "Player":
+		$expressao/Expressao1.visible = true
+
+
+func _on_expressao_body_exited(body: Node2D) -> void:
+	if body.name == "Player":
+		$expressao/Expressao1.visible = false
+
+
+func _on_tarefa_body_entered(body: Node2D) -> void:
+	if body.name == "Player":
+		$Tarefa/Papel.visible = true
+		$Tarefa/ExpressaoRuivo3.visible = true
+
+func _on_tarefa_body_exited(body: Node2D) -> void:
+	if body.name == "Player":
+		$Tarefa/Papel.visible = false
+		$Tarefa/ExpressaoRuivo3.visible = false
