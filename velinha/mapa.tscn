@@ -1,0 +1,219 @@
+[gd_scene load_steps=13 format=3 uid="uid://bmkvq86fjm567"]
+
+[ext_resource type="Texture2D" uid="uid://dojtx745bmx3h" path="res://cenário/quarto.png" id="1_kav01"]
+[ext_resource type="PackedScene" uid="uid://bv6ljms0ci64i" path="res://player/player.tscn" id="2_clbnk"]
+[ext_resource type="PackedScene" uid="uid://fpyua4wcl7rt" path="res://cenário/area_morte.tscn" id="3_wfk4e"]
+[ext_resource type="Texture2D" uid="uid://codyto2p5p1jn" path="res://cenário/quartofrente.png" id="4_tebgh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uhrlt"]
+size = Vector2(88, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eu1mn"]
+size = Vector2(12.5, 51)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pm77f"]
+size = Vector2(417, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fmn54"]
+size = Vector2(14, 248)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ldlsh"]
+size = Vector2(133, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ljc1"]
+size = Vector2(1069, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tx4y4"]
+texture = ExtResource("4_tebgh")
+36:7/0 = 0
+35:8/0 = 0
+36:8/0 = 0
+19:9/0 = 0
+20:9/0 = 0
+35:9/0 = 0
+36:9/0 = 0
+19:10/0 = 0
+20:10/0 = 0
+35:10/0 = 0
+36:10/0 = 0
+0:11/0 = 0
+1:11/0 = 0
+2:11/0 = 0
+3:11/0 = 0
+4:11/0 = 0
+5:11/0 = 0
+6:11/0 = 0
+7:11/0 = 0
+8:11/0 = 0
+9:11/0 = 0
+10:11/0 = 0
+11:11/0 = 0
+12:11/0 = 0
+13:11/0 = 0
+14:11/0 = 0
+15:11/0 = 0
+16:11/0 = 0
+17:11/0 = 0
+18:11/0 = 0
+19:11/0 = 0
+20:11/0 = 0
+34:11/0 = 0
+35:11/0 = 0
+36:11/0 = 0
+0:12/0 = 0
+1:12/0 = 0
+2:12/0 = 0
+3:12/0 = 0
+4:12/0 = 0
+5:12/0 = 0
+6:12/0 = 0
+7:12/0 = 0
+8:12/0 = 0
+17:12/0 = 0
+19:12/0 = 0
+20:12/0 = 0
+32:12/0 = 0
+33:12/0 = 0
+34:12/0 = 0
+35:12/0 = 0
+36:12/0 = 0
+0:13/0 = 0
+1:13/0 = 0
+2:13/0 = 0
+3:13/0 = 0
+4:13/0 = 0
+5:13/0 = 0
+6:13/0 = 0
+7:13/0 = 0
+8:13/0 = 0
+16:13/0 = 0
+17:13/0 = 0
+18:13/0 = 0
+19:13/0 = 0
+20:13/0 = 0
+31:13/0 = 0
+32:13/0 = 0
+33:13/0 = 0
+34:13/0 = 0
+35:13/0 = 0
+36:13/0 = 0
+0:14/0 = 0
+1:14/0 = 0
+2:14/0 = 0
+3:14/0 = 0
+4:14/0 = 0
+5:14/0 = 0
+6:14/0 = 0
+8:14/0 = 0
+16:14/0 = 0
+17:14/0 = 0
+18:14/0 = 0
+19:14/0 = 0
+20:14/0 = 0
+31:14/0 = 0
+32:14/0 = 0
+33:14/0 = 0
+34:14/0 = 0
+35:14/0 = 0
+36:14/0 = 0
+0:15/0 = 0
+3:15/0 = 0
+4:15/0 = 0
+8:15/0 = 0
+16:15/0 = 0
+17:15/0 = 0
+19:15/0 = 0
+20:15/0 = 0
+32:15/0 = 0
+33:15/0 = 0
+34:15/0 = 0
+35:15/0 = 0
+36:15/0 = 0
+0:16/0 = 0
+3:16/0 = 0
+4:16/0 = 0
+8:16/0 = 0
+16:16/0 = 0
+17:16/0 = 0
+19:16/0 = 0
+20:16/0 = 0
+32:16/0 = 0
+33:16/0 = 0
+34:16/0 = 0
+35:16/0 = 0
+36:16/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_3rdh1"]
+sources/0 = SubResource("TileSetAtlasSource_tx4y4")
+
+[node name="mapa" type="Node2D"]
+
+[node name="Quarto" type="Sprite2D" parent="."]
+position = Vector2(747.5, 344.5)
+scale = Vector2(2.495, 2.44326)
+texture = ExtResource("1_kav01")
+
+[node name="player" parent="." instance=ExtResource("2_clbnk")]
+position = Vector2(372, 416)
+
+[node name="colisions" type="Node2D" parent="."]
+
+[node name="gaveta-chao" type="StaticBody2D" parent="colisions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="colisions/gaveta-chao"]
+position = Vector2(223, 510)
+shape = SubResource("RectangleShape2D_uhrlt")
+
+[node name="gavetaParede" type="StaticBody2D" parent="colisions"]
+position = Vector2(-4, -3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="colisions/gavetaParede"]
+position = Vector2(176.5, 484.5)
+shape = SubResource("RectangleShape2D_eu1mn")
+
+[node name="gavetaParede2" type="StaticBody2D" parent="colisions"]
+position = Vector2(92, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="colisions/gavetaParede2"]
+position = Vector2(182.25, 482)
+shape = SubResource("RectangleShape2D_eu1mn")
+
+[node name="mesa" type="StaticBody2D" parent="colisions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="colisions/mesa"]
+position = Vector2(516.5, 460.5)
+shape = SubResource("RectangleShape2D_pm77f")
+
+[node name="cadeira" type="StaticBody2D" parent="colisions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="colisions/cadeira"]
+position = Vector2(795, 478)
+shape = SubResource("RectangleShape2D_fmn54")
+
+[node name="cadeira2" type="StaticBody2D" parent="colisions"]
+position = Vector2(-464, 111)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="colisions/cadeira2"]
+position = Vector2(795, 478)
+shape = SubResource("RectangleShape2D_fmn54")
+
+[node name="cadeiraReto" type="StaticBody2D" parent="colisions"]
+position = Vector2(795, 478)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="colisions/cadeiraReto"]
+position = Vector2(-74.5, 68)
+shape = SubResource("RectangleShape2D_ldlsh")
+
+[node name="Chao" type="StaticBody2D" parent="colisions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="colisions/Chao"]
+position = Vector2(871.5, 686)
+shape = SubResource("RectangleShape2D_3ljc1")
+
+[node name="AreaMorte" parent="." instance=ExtResource("3_wfk4e")]
+position = Vector2(301, 534)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+scale = Vector2(3, 3)
+tile_map_data = PackedByteArray(0, 0, 14, 0, 10, 0, 0, 0, 17, 0, 12, 0, 0, 0, 14, 0, 11, 0, 0, 0, 17, 0, 13, 0, 0, 0)
+tile_set = SubResource("TileSet_3rdh1")

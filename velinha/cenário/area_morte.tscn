@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://fpyua4wcl7rt"]
+
+[ext_resource type="Script" uid="uid://b370tsed1elxh" path="res://cenário/area_morte.gd" id="1_wi75m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1bj5"]
+size = Vector2(53, 48.5)
+
+[node name="AreaMorte" type="Area2D"]
+script = ExtResource("1_wi75m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(6.5, 0)
+shape = SubResource("RectangleShape2D_f1bj5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

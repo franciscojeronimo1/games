@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://cpa307b3ahl6v"]
+
+[ext_resource type="Script" path="res://enemy/bullet.gd" id="1_1bcfl"]
+[ext_resource type="Texture2D" uid="uid://elgr52aw0src" path="res://enemy/weapon PNG/arm_projectile_glowing.png" id="2_aqhc3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cde5u"]
+atlas = ExtResource("2_aqhc3")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvb5j"]
+atlas = ExtResource("2_aqhc3")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6nmf"]
+atlas = ExtResource("2_aqhc3")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7qsj"]
+atlas = ExtResource("2_aqhc3")
+region = Rect2(0, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igd3m"]
+atlas = ExtResource("2_aqhc3")
+region = Rect2(100, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_417q0"]
+atlas = ExtResource("2_aqhc3")
+region = Rect2(200, 100, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rcjyc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cde5u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvb5j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6nmf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7qsj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igd3m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_417q0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vywep"]
+size = Vector2(35, 14)
+
+[node name="bullet" type="Area2D"]
+script = ExtResource("1_1bcfl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rcjyc")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(27.5, -13)
+shape = SubResource("RectangleShape2D_vywep")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
