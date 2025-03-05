@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://nq23l0rn4hhn"]
+
+[ext_resource type="Texture2D" uid="uid://fnsdm8hdtf7h" path="res://cenário/quarto_caixa_de_fosforo.png" id="1_4c147"]
+[ext_resource type="Script" uid="uid://vph400xsyr0l" path="res://cenário/caixa.gd" id="1_6rs1c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6rs1c"]
+size = Vector2(13, 6)
+
+[node name="Caixa" type="CharacterBody2D"]
+script = ExtResource("1_6rs1c")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3, -4)
+texture = ExtResource("1_4c147")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_6rs1c")

@@ -1,0 +1,93 @@
+[gd_scene load_steps=17 format=3 uid="uid://l74ylrexnl3a"]
+
+[ext_resource type="Script" uid="uid://dunt8xsi6a5k4" path="res://interface/creditos.gd" id="1_35772"]
+[ext_resource type="Texture2D" uid="uid://r134jvuwxvly" path="res://cenário/cred/creditofogo-export1.png" id="1_cbx8b"]
+[ext_resource type="Texture2D" uid="uid://bg1ku1h40jj7m" path="res://cenário/cred/creditofogo-export2.png" id="2_35772"]
+[ext_resource type="Texture2D" uid="uid://b1jrwffeumwos" path="res://cenário/cred/creditofogo-export3.png" id="3_q5hsw"]
+[ext_resource type="Texture2D" uid="uid://hsov57lsrtrd" path="res://cenário/cred/creditofogo-export4.png" id="4_qrvtg"]
+[ext_resource type="Texture2D" uid="uid://cgv8o2ghpdgsk" path="res://cenário/cred/creditofogo-export5.png" id="5_b2ljb"]
+[ext_resource type="Texture2D" uid="uid://d2ii5kpksc1rm" path="res://cenário/cred/creditofogo-export6.png" id="6_djoxn"]
+[ext_resource type="Texture2D" uid="uid://bpivm3h2ojohn" path="res://cenário/cred/creditofogo-export7.png" id="7_h2avp"]
+[ext_resource type="Texture2D" uid="uid://cfqtwk4arikov" path="res://cenário/cred/creditofogo-export8.png" id="8_jpv0s"]
+[ext_resource type="Texture2D" uid="uid://dtiivefn27weo" path="res://cenário/cred/creditofogo-export9.png" id="9_hpef3"]
+[ext_resource type="Texture2D" uid="uid://nis41s77t0k4" path="res://cenário/cred/creditofogo-export10.png" id="10_rrmhg"]
+[ext_resource type="Texture2D" uid="uid://bftpmgi8l6jii" path="res://cenário/cred/creditofogo-export11.png" id="11_ykdx1"]
+[ext_resource type="Texture2D" uid="uid://qewsah6tt4db" path="res://cenário/cred/creditofogo-export12.png" id="12_2gbvg"]
+[ext_resource type="Texture2D" uid="uid://dwa3aikrfq4k8" path="res://cenário/cred/creditofogo-export13.png" id="13_ycwte"]
+[ext_resource type="Texture2D" uid="uid://d0q23ayhnnbht" path="res://cenário/cred/creditofogo-export14.png" id="14_rew4x"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bfwe6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_cbx8b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_35772")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q5hsw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qrvtg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_b2ljb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_djoxn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_h2avp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jpv0s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_hpef3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_rrmhg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ykdx1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_2gbvg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ycwte")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_rew4x")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Creditos" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_35772")
+
+[node name="Animated" type="AnimatedSprite2D" parent="."]
+position = Vector2(430, 216.6)
+scale = Vector2(0.447917, 0.395185)
+sprite_frames = SubResource("SpriteFrames_bfwe6")
+autoplay = "default"
+frame_progress = 0.190402
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 796.0
+offset_top = 22.0
+offset_right = 841.0
+offset_bottom = 53.0
+text = "Back"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvxnvvkk7fwun"]
+
+[ext_resource type="Texture2D" uid="uid://c6v26tr2p1rap" path="res://npcs/velavelha_apagada.png" id="1_2pk7e"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6tyq4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_2pk7e")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="VelaNpc" type="AnimatedSprite2D"]
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_6tyq4")
+autoplay = "default"

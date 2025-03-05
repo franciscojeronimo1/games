@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cadcgnff87kmp"]
+
+[ext_resource type="Texture2D" uid="uid://b1yyx4uqfyx5q" path="res://cenário/dentroSofa/cenario_sofa.jpg" id="1_g7di4"]
+[ext_resource type="PackedScene" uid="uid://s3wmwmc22cxt" path="res://cenário/dentroSofa/player_sofa.tscn" id="2_byow6"]
+[ext_resource type="Texture2D" uid="uid://py61fanuycg4" path="res://cenário/dentroSofa/sofa_frente.png" id="3_xp5kg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xp5kg"]
+size = Vector2(997, 1.5)
+
+[node name="mapaSofa" type="Node2D"]
+
+[node name="CenarioSofa" type="Sprite2D" parent="."]
+position = Vector2(512, 135)
+texture = ExtResource("1_g7di4")
+
+[node name="PlayerSofa" parent="." instance=ExtResource("2_byow6")]
+position = Vector2(62, 158)
+
+[node name="colisaoMapa" type="Node2D" parent="."]
+
+[node name="chao" type="StaticBody2D" parent="colisaoMapa"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="colisaoMapa/chao"]
+position = Vector2(497.5, 239.25)
+shape = SubResource("RectangleShape2D_xp5kg")
+
+[node name="SofaFrente" type="Sprite2D" parent="."]
+position = Vector2(512, 135)
+texture = ExtResource("3_xp5kg")

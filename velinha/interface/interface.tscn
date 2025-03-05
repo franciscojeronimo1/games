@@ -1,0 +1,96 @@
+[gd_scene load_steps=18 format=3 uid="uid://dabfi80f45hyo"]
+
+[ext_resource type="Script" uid="uid://bbrswwps3d04b" path="res://interface/interface.gd" id="1_xqxdt"]
+[ext_resource type="Texture2D" uid="uid://mn2esrarhnph" path="res://interface/last-flame-export1.png" id="1_y6t7f"]
+[ext_resource type="Texture2D" uid="uid://buw8mshp14lur" path="res://interface/last-flame-export2.png" id="2_qfydk"]
+[ext_resource type="Texture2D" uid="uid://rr8rte772s1x" path="res://interface/last-flame-export3.png" id="3_xqxdt"]
+[ext_resource type="Texture2D" uid="uid://bgwiyqoqxqvqr" path="res://interface/last-flame-export4.png" id="4_dnkkt"]
+[ext_resource type="Texture2D" uid="uid://7613ik3mgwgm" path="res://interface/last-flame-export5.png" id="5_sps04"]
+[ext_resource type="Texture2D" uid="uid://f4lq2to7bcl0" path="res://interface/last-flame-export6.png" id="6_b315h"]
+[ext_resource type="Texture2D" uid="uid://divl85df65l85" path="res://interface/last-flame-export7.png" id="7_dlqrx"]
+[ext_resource type="Texture2D" uid="uid://c1o4qphx8fb1" path="res://interface/last-flame-export8.png" id="8_fslxw"]
+[ext_resource type="Texture2D" uid="uid://ca5yipwu1muat" path="res://interface/last-flame-export9.png" id="9_vd6wu"]
+[ext_resource type="Texture2D" uid="uid://2bwvv53ght6o" path="res://interface/last-flame-export10.png" id="10_ycxg8"]
+[ext_resource type="Texture2D" uid="uid://5jq8leg1xtah" path="res://interface/last-flame-export11.png" id="11_pel1q"]
+[ext_resource type="Texture2D" uid="uid://c16stbwvk2uys" path="res://interface/last-flame-export12.png" id="12_mdm10"]
+[ext_resource type="Texture2D" uid="uid://735d7ww388yc" path="res://interface/last-flame-export13.png" id="13_l0ixh"]
+[ext_resource type="Texture2D" uid="uid://dmrypcftjmsue" path="res://interface/last-flame-export14.png" id="14_sasyb"]
+[ext_resource type="Texture2D" uid="uid://nuasho6kojxl" path="res://interface/new_game_last.png" id="16_dnkkt"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wqpxy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_y6t7f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_qfydk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xqxdt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_dnkkt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_sps04")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_b315h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_dlqrx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_fslxw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vd6wu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ycxg8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_pel1q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_mdm10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_l0ixh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_sasyb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="interface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xqxdt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(430, 215)
+scale = Vector2(0.447917, 0.398148)
+sprite_frames = SubResource("SpriteFrames_wqpxy")
+autoplay = "default"
+frame_progress = 0.652803
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 472.0
+offset_top = 265.0
+offset_right = 742.0
+offset_bottom = 495.0
+scale = Vector2(0.5, 0.5)
+icon = ExtResource("16_dnkkt")
+flat = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -1,9 +1,88 @@
-[gd_scene load_steps=13 format=3 uid="uid://bmkvq86fjm567"]
+[gd_scene load_steps=34 format=3 uid="uid://bmkvq86fjm567"]
 
 [ext_resource type="Texture2D" uid="uid://dojtx745bmx3h" path="res://cenário/quarto.png" id="1_kav01"]
+[ext_resource type="Script" uid="uid://cg0wa75xct2d5" path="res://mapa.gd" id="1_no3ml"]
 [ext_resource type="PackedScene" uid="uid://bv6ljms0ci64i" path="res://player/player.tscn" id="2_clbnk"]
 [ext_resource type="PackedScene" uid="uid://fpyua4wcl7rt" path="res://cenário/area_morte.tscn" id="3_wfk4e"]
 [ext_resource type="Texture2D" uid="uid://codyto2p5p1jn" path="res://cenário/quartofrente.png" id="4_tebgh"]
+[ext_resource type="PackedScene" uid="uid://nq23l0rn4hhn" path="res://cenário/caixa.tscn" id="5_5d3jg"]
+[ext_resource type="Texture2D" uid="uid://c6v26tr2p1rap" path="res://npcs/velavelha_apagada.png" id="6_mas88"]
+[ext_resource type="Script" uid="uid://1pla2yl3gk70" path="res://scripts/warning_sign.gd" id="6_no3ml"]
+[ext_resource type="Texture2D" uid="uid://bd5smowa75gm4" path="res://npcs/idle/velavelha_idle-export1.png" id="7_2qpv4"]
+[ext_resource type="Texture2D" uid="uid://cilr11xqh34bu" path="res://npcs/idle/velavelha_idle-export2.png" id="8_no3ml"]
+[ext_resource type="Texture2D" uid="uid://bujenduubo6wn" path="res://npcs/idle/velavelha_idle-export3.png" id="9_wlgur"]
+[ext_resource type="Texture2D" uid="uid://t740ptnnvvet" path="res://npcs/idle/velavelha_idle-export4.png" id="10_8ahop"]
+[ext_resource type="Texture2D" uid="uid://yvadhf04nw6h" path="res://npcs/idle/velavelha_idle-export5.png" id="11_vq8sh"]
+[ext_resource type="Texture2D" uid="uid://bgbdclcmwf60n" path="res://npcs/idle/velavelha_idle-export6.png" id="12_a04ho"]
+[ext_resource type="Texture2D" uid="uid://gya2j6jqpvl2" path="res://npcs/idle/velavelha_idle-export7.png" id="13_xxtyk"]
+[ext_resource type="Texture2D" uid="uid://dr8y3xir3685j" path="res://npcs/idle/velavelha_idle-export8.png" id="14_p4jw8"]
+[ext_resource type="Texture2D" uid="uid://b2mb1fm843dkf" path="res://npcs/idle/velavelha_idle-export9.png" id="15_ctnk7"]
+[ext_resource type="Texture2D" uid="uid://din7pbe7d0tfv" path="res://npcs/idle/velavelha_idle-export10.png" id="16_vmn0k"]
+[ext_resource type="Texture2D" uid="uid://bnnd7sdsb8nhw" path="res://npcs/idle/velavelha_idle-export11.png" id="17_siwtc"]
+[ext_resource type="Texture2D" uid="uid://de06r2hl1pxh2" path="res://npcs/idle/velavelha_idle-export12.png" id="18_c0hg7"]
+[ext_resource type="Texture2D" uid="uid://c350ma6xjw5g6" path="res://npcs/idle/velavelha_idle-export13.png" id="19_um40f"]
+[ext_resource type="Texture2D" uid="uid://ofmusr4h5xoa" path="res://npcs/idle/velavelha_idle-export14.png" id="20_ppa31"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hmtrj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_mas88")
+}],
+"loop": false,
+"name": &"apagada",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_2qpv4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_no3ml")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_wlgur")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_8ahop")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_vq8sh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_a04ho")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_xxtyk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_p4jw8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_ctnk7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_vmn0k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_siwtc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_c0hg7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_um40f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_ppa31")
+}],
+"loop": true,
+"name": &"idleVeia",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83kcn"]
+size = Vector2(27, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhrlt"]
 size = Vector2(88, 3)
@@ -146,15 +225,38 @@ texture = ExtResource("4_tebgh")
 [sub_resource type="TileSet" id="TileSet_3rdh1"]
 sources/0 = SubResource("TileSetAtlasSource_tx4y4")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wlgur"]
+size = Vector2(50, 62)
+
 [node name="mapa" type="Node2D"]
+script = ExtResource("1_no3ml")
 
 [node name="Quarto" type="Sprite2D" parent="."]
 position = Vector2(747.5, 344.5)
 scale = Vector2(2.495, 2.44326)
 texture = ExtResource("1_kav01")
 
+[node name="warning_sign" type="Node2D" parent="."]
+position = Vector2(512, 445)
+script = ExtResource("6_no3ml")
+
+[node name="texture" type="AnimatedSprite2D" parent="warning_sign"]
+position = Vector2(-2, -2)
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_hmtrj")
+animation = &"apagada"
+autoplay = "apagada"
+
+[node name="area_sign" type="Area2D" parent="warning_sign"]
+position = Vector2(-1, 0)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="warning_sign/area_sign"]
+position = Vector2(-1.5, 0)
+shape = SubResource("RectangleShape2D_83kcn")
+
 [node name="player" parent="." instance=ExtResource("2_clbnk")]
-position = Vector2(372, 416)
+position = Vector2(331, 422)
 
 [node name="colisions" type="Node2D" parent="."]
 
@@ -217,3 +319,20 @@ position = Vector2(301, 534)
 scale = Vector2(3, 3)
 tile_map_data = PackedByteArray(0, 0, 14, 0, 10, 0, 0, 0, 17, 0, 12, 0, 0, 0, 14, 0, 11, 0, 0, 0, 17, 0, 13, 0, 0, 0)
 tile_set = SubResource("TileSet_3rdh1")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color(0.165656, 0.165656, 0.165656, 1)
+
+[node name="Caixa" parent="." instance=ExtResource("5_5d3jg")]
+position = Vector2(223, 505)
+
+[node name="tpSofa" type="Area2D" parent="."]
+position = Vector2(1312, 654)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tpSofa"]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_wlgur")
+
+[connection signal="body_entered" from="warning_sign/area_sign" to="warning_sign" method="_on_area_sign_body_entered"]
+[connection signal="body_entered" from="tpSofa" to="." method="_on_tp_sofa_body_entered"]
