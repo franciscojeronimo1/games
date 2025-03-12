@@ -1,0 +1,64 @@
+[gd_scene load_steps=14 format=3 uid="uid://op7qmjse23py"]
+
+[ext_resource type="Texture2D" uid="uid://dxqifk1v5ewch" path="res://npcs/vela_quase_morta/vela_acesa_quase_morta-export1.png" id="1_mdk6m"]
+[ext_resource type="Texture2D" uid="uid://cyag2uia5dv6j" path="res://npcs/vela_quase_morta/vela_acesa_quase_morta-export2.png" id="2_qhhk6"]
+[ext_resource type="Texture2D" uid="uid://cshn7lt17omke" path="res://npcs/vela_quase_morta/vela_acesa_quase_morta-export3.png" id="3_av5ff"]
+[ext_resource type="Texture2D" uid="uid://c4ldypxwuxwth" path="res://npcs/vela_quase_morta/vela_acesa_quase_morta-export4.png" id="4_s51oj"]
+[ext_resource type="Texture2D" uid="uid://dr25r5eruniir" path="res://npcs/vela_quase_morta/vela_acesa_quase_morta-export5.png" id="5_ta2bm"]
+[ext_resource type="Texture2D" uid="uid://dgut6euo7pbet" path="res://npcs/vela_quase_morta/vela_acesa_quase_morta-export6.png" id="6_002la"]
+[ext_resource type="Texture2D" uid="uid://bfqspwh0smh3a" path="res://npcs/vela_quase_morta/vela_acesa_quase_morta-export7.png" id="7_gguni"]
+[ext_resource type="Texture2D" uid="uid://w8h57bmskqcw" path="res://npcs/vela_quase_morta/vela_acesa_quase_morta-export8.png" id="8_v8kqv"]
+[ext_resource type="Texture2D" uid="uid://dya6qx52p3ar" path="res://npcs/vela_quase_morta/vela_acesa_quase_morta-export9.png" id="9_6ji6q"]
+[ext_resource type="Texture2D" uid="uid://bbk6sp8q4antr" path="res://npcs/vela_quase_morta/vela_acesa_quase_morta-export10.png" id="10_cnd6b"]
+[ext_resource type="Texture2D" uid="uid://dgmblcnkesqrx" path="res://npcs/vela_quase_morta/vela_acesa_quase_morta-export11.png" id="11_w2n28"]
+[ext_resource type="Texture2D" uid="uid://jjvfksjarya8" path="res://npcs/vela_quase_morta/vela_acesa_quase_morta-export12.png" id="12_80rv8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f4vsb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_mdk6m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_qhhk6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_av5ff")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_s51oj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ta2bm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_002la")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gguni")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_v8kqv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_6ji6q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_cnd6b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_w2n28")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_80rv8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="quaseMorta" type="AnimatedSprite2D"]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_f4vsb")
+autoplay = "default"
+frame_progress = 0.716458

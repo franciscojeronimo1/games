@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bmkvq86fjm567"]
+[gd_scene load_steps=38 format=3 uid="uid://bmkvq86fjm567"]
 
 [ext_resource type="Texture2D" uid="uid://dojtx745bmx3h" path="res://cenário/quarto.png" id="1_kav01"]
 [ext_resource type="Script" uid="uid://cg0wa75xct2d5" path="res://mapa.gd" id="1_no3ml"]
@@ -22,6 +22,10 @@
 [ext_resource type="Texture2D" uid="uid://de06r2hl1pxh2" path="res://npcs/idle/velavelha_idle-export12.png" id="18_c0hg7"]
 [ext_resource type="Texture2D" uid="uid://c350ma6xjw5g6" path="res://npcs/idle/velavelha_idle-export13.png" id="19_um40f"]
 [ext_resource type="Texture2D" uid="uid://ofmusr4h5xoa" path="res://npcs/idle/velavelha_idle-export14.png" id="20_ppa31"]
+[ext_resource type="PackedScene" uid="uid://d4m2quww4cshw" path="res://npcs/barata.tscn" id="23_wlgur"]
+[ext_resource type="Texture2D" uid="uid://cd5cf1du4bo7b" path="res://cenário/quartoparede.png" id="24_8ahop"]
+[ext_resource type="AudioStream" uid="uid://bbv3n354sq0gu" path="res://interface/audios/sound_in_calling.mp3" id="25_vq8sh"]
+[ext_resource type="PackedScene" uid="uid://crnu0nos5u2aq" path="res://npcs/npc_g_apagado.tscn" id="26_a04ho"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hmtrj"]
 animations = [{
@@ -85,7 +89,7 @@ animations = [{
 size = Vector2(27, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhrlt"]
-size = Vector2(88, 3)
+size = Vector2(88, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eu1mn"]
 size = Vector2(12.5, 51)
@@ -256,14 +260,14 @@ position = Vector2(-1.5, 0)
 shape = SubResource("RectangleShape2D_83kcn")
 
 [node name="player" parent="." instance=ExtResource("2_clbnk")]
-position = Vector2(331, 422)
+position = Vector2(199, 478)
 
 [node name="colisions" type="Node2D" parent="."]
 
 [node name="gaveta-chao" type="StaticBody2D" parent="colisions"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="colisions/gaveta-chao"]
-position = Vector2(223, 510)
+position = Vector2(223, 511)
 shape = SubResource("RectangleShape2D_uhrlt")
 
 [node name="gavetaParede" type="StaticBody2D" parent="colisions"]
@@ -321,18 +325,45 @@ tile_map_data = PackedByteArray(0, 0, 14, 0, 10, 0, 0, 0, 17, 0, 12, 0, 0, 0, 14
 tile_set = SubResource("TileSet_3rdh1")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.165656, 0.165656, 0.165656, 1)
 
 [node name="Caixa" parent="." instance=ExtResource("5_5d3jg")]
-position = Vector2(223, 505)
+position = Vector2(219, 500)
 
 [node name="tpSofa" type="Area2D" parent="."]
 position = Vector2(1312, 654)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="tpSofa"]
-position = Vector2(0, -3)
+position = Vector2(24, -4)
 shape = SubResource("RectangleShape2D_wlgur")
+
+[node name="Barata" parent="." instance=ExtResource("23_wlgur")]
+position = Vector2(364, 654)
+
+[node name="Barata2" parent="." instance=ExtResource("23_wlgur")]
+position = Vector2(765, 654)
+
+[node name="Barata3" parent="." instance=ExtResource("23_wlgur")]
+position = Vector2(1229, 654)
+
+[node name="Barata4" parent="." instance=ExtResource("23_wlgur")]
+position = Vector2(1005, 654)
+
+[node name="Quartoparede" type="Sprite2D" parent="."]
+position = Vector2(748, 752.5)
+scale = Vector2(2.49333, 0.450355)
+texture = ExtResource("24_8ahop")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("25_vq8sh")
+volume_db = -13.332
+autoplay = true
+parameters/looping = true
+
+[node name="npcGApagado" parent="." instance=ExtResource("26_a04ho")]
+position = Vector2(680, 428)
+animation = &"apagado"
+frame_progress = 0.0
 
 [connection signal="body_entered" from="warning_sign/area_sign" to="warning_sign" method="_on_area_sign_body_entered"]
 [connection signal="body_entered" from="tpSofa" to="." method="_on_tp_sofa_body_entered"]

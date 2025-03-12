@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dabfi80f45hyo"]
+[gd_scene load_steps=23 format=3 uid="uid://dabfi80f45hyo"]
 
 [ext_resource type="Script" uid="uid://bbrswwps3d04b" path="res://interface/interface.gd" id="1_xqxdt"]
 [ext_resource type="Texture2D" uid="uid://mn2esrarhnph" path="res://interface/last-flame-export1.png" id="1_y6t7f"]
@@ -16,6 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://735d7ww388yc" path="res://interface/last-flame-export13.png" id="13_l0ixh"]
 [ext_resource type="Texture2D" uid="uid://dmrypcftjmsue" path="res://interface/last-flame-export14.png" id="14_sasyb"]
 [ext_resource type="Texture2D" uid="uid://nuasho6kojxl" path="res://interface/new_game_last.png" id="16_dnkkt"]
+[ext_resource type="Texture2D" uid="uid://dyei1b01ncqgd" path="res://interface/credits_2.png" id="17_dnkkt"]
+[ext_resource type="AudioStream" uid="uid://357xy1c01rt" path="res://interface/audios/sad-moment-sad-and-melancholy-piano-background-music-124488.mp3" id="18_sps04"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wqpxy"]
 animations = [{
@@ -67,6 +69,44 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="Animation" id="Animation_sps04"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_xqxdt"]
+resource_name = "new_animation"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.00157411, 1.03333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(0.4, 0.4)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dnkkt"]
+_data = {
+&"RESET": SubResource("Animation_sps04"),
+&"new_animation": SubResource("Animation_xqxdt")
+}
+
 [node name="interface" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -86,11 +126,34 @@ frame_progress = 0.652803
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
 offset_left = 472.0
-offset_top = 265.0
+offset_top = 278.0
 offset_right = 742.0
-offset_bottom = 495.0
+offset_bottom = 508.0
 scale = Vector2(0.5, 0.5)
 icon = ExtResource("16_dnkkt")
 flat = true
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dnkkt")
+}
+autoplay = "new_animation"
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 368.0
+offset_right = 684.0
+offset_bottom = 504.0
+scale = Vector2(0.5, 0.5)
+icon = ExtResource("17_dnkkt")
+flat = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_sps04")
+volume_db = -9.37
+autoplay = true
+stream_paused = true
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

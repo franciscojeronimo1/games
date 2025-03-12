@@ -4,15 +4,16 @@
 [ext_resource type="Script" uid="uid://vph400xsyr0l" path="res://cenário/caixa.gd" id="1_6rs1c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rs1c"]
-size = Vector2(13, 6)
+size = Vector2(22, 12)
 
 [node name="Caixa" type="CharacterBody2D"]
 script = ExtResource("1_6rs1c")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-3, -4)
+scale = Vector2(2, 2)
 texture = ExtResource("1_4c147")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0)
+position = Vector2(4, 4)
 shape = SubResource("RectangleShape2D_6rs1c")

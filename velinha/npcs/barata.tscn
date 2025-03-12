@@ -1,0 +1,106 @@
+[gd_scene load_steps=20 format=3 uid="uid://d4m2quww4cshw"]
+
+[ext_resource type="Texture2D" uid="uid://dd5x2mpek3odn" path="res://npcs/barata/morta/baratamorta.png" id="1_4e086"]
+[ext_resource type="Script" uid="uid://cnkfvmtbn6011" path="res://npcs/barata.gd" id="1_diysu"]
+[ext_resource type="Texture2D" uid="uid://bfjy62tm61qoy" path="res://npcs/barata/run/barataanda-export1.png" id="9_j5ath"]
+[ext_resource type="Texture2D" uid="uid://viiifc3uqsow" path="res://npcs/barata/run/barataanda-export2.png" id="10_n1ij1"]
+[ext_resource type="Texture2D" uid="uid://dg608u3p6a4fw" path="res://npcs/barata/run/barataanda-export3.png" id="11_fnvwo"]
+[ext_resource type="Texture2D" uid="uid://dn6mq2dehiyho" path="res://npcs/barata/run/barataanda-export4.png" id="12_2m7wk"]
+[ext_resource type="Texture2D" uid="uid://cj12hgckphs8k" path="res://npcs/barata/run/barataanda-export5.png" id="13_jqrw7"]
+[ext_resource type="Texture2D" uid="uid://bf6u3ocid5v2c" path="res://npcs/barata/run/barataanda-export6.png" id="14_xhvry"]
+[ext_resource type="Texture2D" uid="uid://13m423vmdhw5" path="res://npcs/barata/run/barataanda-export7.png" id="15_cp6og"]
+[ext_resource type="Texture2D" uid="uid://dfwu0n3e0147j" path="res://npcs/barata/run/barataanda-export8.png" id="16_23oyw"]
+[ext_resource type="Texture2D" uid="uid://cyyy43rhrgv6t" path="res://npcs/barata/run/barataanda-export9.png" id="17_g48t7"]
+[ext_resource type="Texture2D" uid="uid://b6wderjjbupw6" path="res://npcs/barata/run/barataanda-export10.png" id="18_gp4re"]
+[ext_resource type="Texture2D" uid="uid://cn47vwil74te4" path="res://npcs/barata/run/barataanda-export11.png" id="19_n2yy7"]
+[ext_resource type="Texture2D" uid="uid://c1l803trdl5gw" path="res://npcs/barata/run/barataanda-export12.png" id="20_no5g6"]
+[ext_resource type="Texture2D" uid="uid://c1fi5hnwgi5ib" path="res://npcs/barata/run/barataanda-export13.png" id="21_xpu33"]
+[ext_resource type="Texture2D" uid="uid://cg2u8i81rwphf" path="res://npcs/barata/run/barataanda-export14.png" id="22_j4iia"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6pnr3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4e086")
+}],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_j5ath")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_n1ij1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_fnvwo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_2m7wk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_jqrw7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_xhvry")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_cp6og")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_23oyw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_g48t7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_gp4re")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_n2yy7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_no5g6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_xpu33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_j4iia")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ema4y"]
+size = Vector2(23, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_diysu"]
+size = Vector2(21, 4)
+
+[node name="Barata" type="CharacterBody2D" groups=["Enemy"]]
+script = ExtResource("1_diysu")
+speed = null
+gravity = null
+detection_range = null
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6pnr3")
+animation = &"run"
+autoplay = "run"
+frame_progress = 0.703074
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 9)
+shape = SubResource("RectangleShape2D_ema4y")
+
+[node name="tomarDMG" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tomarDMG"]
+position = Vector2(1.5, 5)
+shape = SubResource("RectangleShape2D_diysu")
+
+[connection signal="body_entered" from="tomarDMG" to="." method="_on_tomar_dmg_body_entered"]

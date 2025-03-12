@@ -1,14 +1,22 @@
-[gd_scene load_steps=73 format=3 uid="uid://s3wmwmc22cxt"]
+[gd_scene load_steps=84 format=3 uid="uid://s3wmwmc22cxt"]
 
 [ext_resource type="Script" uid="uid://ywuvn5g5oucu" path="res://cenário/dentroSofa/player_sofa.gd" id="1_a8iv0"]
 [ext_resource type="Texture2D" uid="uid://b4ry2ohg4fehq" path="res://player/empurra/velaempurra-export1.png" id="1_cc16i"]
+[ext_resource type="Texture2D" uid="uid://bq5xpkpi7cxdg" path="res://player/morte/velamorte-export1.png" id="2_7qtxd"]
 [ext_resource type="Texture2D" uid="uid://c8nfxfpp2ghqe" path="res://player/empurra/velaempurra-export2.png" id="2_hckec"]
+[ext_resource type="Texture2D" uid="uid://dgvo5lnlfqxjv" path="res://player/morte/velamorte-export2.png" id="3_ni8jj"]
 [ext_resource type="Texture2D" uid="uid://b0iumg0udm8jf" path="res://player/empurra/velaempurra-export3.png" id="3_pjbfp"]
 [ext_resource type="Texture2D" uid="uid://jq2j3t84mcc3" path="res://player/empurra/velaempurra-export4.png" id="4_6x4eg"]
+[ext_resource type="Texture2D" uid="uid://d2gplb2el3s03" path="res://player/morte/velamorte-export3.png" id="4_32a5y"]
 [ext_resource type="Texture2D" uid="uid://bqu5ygkecys10" path="res://player/empurra/velaempurra-export5.png" id="5_i3iq7"]
+[ext_resource type="Texture2D" uid="uid://biob8urwktegy" path="res://player/morte/velamorte-export4.png" id="5_yhp6s"]
+[ext_resource type="Texture2D" uid="uid://dun43qcgfjtbk" path="res://player/morte/velamorte-export5.png" id="6_00j7i"]
 [ext_resource type="Texture2D" uid="uid://dgat8qsmey53h" path="res://player/empurra/velaempurra-export6.png" id="6_xgv7g"]
 [ext_resource type="Texture2D" uid="uid://b1d6pmb2qvsmm" path="res://player/empurra/velaempurra-export7.png" id="7_6ppk1"]
+[ext_resource type="Texture2D" uid="uid://cw86m5ipnjm2k" path="res://player/morte/velamorte-export6.png" id="7_ptegk"]
 [ext_resource type="Texture2D" uid="uid://cepfajpkanhyt" path="res://player/empurra/velaempurra-export8.png" id="8_vl4y0"]
+[ext_resource type="Texture2D" uid="uid://bsvtdybl2dbye" path="res://player/morte/velamorte-export7.png" id="8_wtleu"]
+[ext_resource type="Texture2D" uid="uid://c7j131pfjl5x" path="res://player/morte/velamorte-export8.png" id="9_5yx4r"]
 [ext_resource type="Texture2D" uid="uid://pncy5hmhmnnm" path="res://player/empurra/velaempurra-export9.png" id="9_8s1fa"]
 [ext_resource type="Texture2D" uid="uid://cyf3khtjip6e2" path="res://player/empurra/velaempurra-export10.png" id="10_ysylv"]
 [ext_resource type="Texture2D" uid="uid://be0j3io51eoe3" path="res://player/idle/vela_idle-export1.png" id="11_w8sow"]
@@ -70,9 +78,40 @@
 [ext_resource type="Texture2D" uid="uid://bka01ia10dum8" path="res://player/run/velacorre-export6.png" id="67_wtleu"]
 [ext_resource type="Texture2D" uid="uid://cybkjx5itnxc4" path="res://player/run/velacorre-export7.png" id="68_5yx4r"]
 [ext_resource type="Texture2D" uid="uid://cdf41phee1ae5" path="res://player/run/velacorre-export8.png" id="69_6gelp"]
+[ext_resource type="Texture2D" uid="uid://dr4en5gxprnkm" path="res://cenário/light/light2D-gradient.png" id="71_77oow"]
+[ext_resource type="AudioStream" uid="uid://b0e10fj3pcdlg" path="res://interface/audios/zapsplat_household_lighter_zippo_metal_flame_blow_out_first_try_004_109220.mp3" id="80_ni8jj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_88dv4"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7qtxd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ni8jj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_32a5y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_yhp6s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_00j7i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ptegk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_wtleu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5yx4r")
+}],
+"loop": false,
+"name": &"death",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_cc16i")
@@ -304,14 +343,39 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_38bu8"]
 size = Vector2(24, 48)
 
-[node name="PlayerSofa" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_77oow"]
+size = Vector2(31, 41)
+
+[node name="PlayerSofa" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_a8iv0")
 
 [node name="Anim" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_88dv4")
-animation = &"idleMedia"
+animation = &"death"
 autoplay = "idleMedia"
+frame = 7
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2, 23)
 shape = SubResource("RectangleShape2D_38bu8")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+limit_left = 0
+limit_top = 0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = ExtResource("71_77oow")
+
+[node name="TomarDMG" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TomarDMG"]
+position = Vector2(0.5, 19.5)
+shape = SubResource("RectangleShape2D_77oow")
+debug_color = Color(0.838818, 0.378612, 0.185028, 0.42)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("80_ni8jj")
+
+[connection signal="body_entered" from="TomarDMG" to="." method="_on_tomar_dmg_body_entered"]

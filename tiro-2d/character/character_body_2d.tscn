@@ -1,8 +1,8 @@
 [gd_scene load_steps=19 format=3 uid="uid://btjp137breijj"]
 
-[ext_resource type="Script" path="res://character/character_body_2d.gd" id="1_xprss"]
+[ext_resource type="Script" uid="uid://bhlxvbgq0i3oi" path="res://character/character_body_2d.gd" id="1_xprss"]
 [ext_resource type="Texture2D" uid="uid://bfhd1ey4d15or" path="res://character/1H sprite sheet/1Hfinalknightidle.png" id="2_5axyo"]
-[ext_resource type="Script" path="res://character/shooter_1.gd" id="2_x8o3g"]
+[ext_resource type="Script" uid="uid://ch84ge6foimjv" path="res://character/shooter_1.gd" id="2_x8o3g"]
 [ext_resource type="PackedScene" uid="uid://dhya8vw86wi01" path="res://character/bullet.tscn" id="3_b4gjs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uf2mb"]

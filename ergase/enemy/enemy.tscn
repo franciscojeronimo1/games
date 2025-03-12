@@ -1,0 +1,67 @@
+[gd_scene load_steps=12 format=3 uid="uid://bvsekh0aajkxr"]
+
+[ext_resource type="Script" uid="uid://cm1m83308tip1" path="res://enemy/enemy.gd" id="1_5ffra"]
+[ext_resource type="Texture2D" uid="uid://dd5fh2usb30hd" path="res://enemy/barata-export1.png" id="1_y5vj3"]
+[ext_resource type="Texture2D" uid="uid://b1cbjyybbb0sl" path="res://enemy/barata-export2.png" id="2_5ffra"]
+[ext_resource type="Texture2D" uid="uid://cbb35revhv1au" path="res://enemy/barata-export3.png" id="3_e355f"]
+[ext_resource type="Texture2D" uid="uid://cc58yrqwsibpt" path="res://enemy/barata-export4.png" id="4_78jik"]
+[ext_resource type="Texture2D" uid="uid://clvpnabohc1x6" path="res://enemy/barata-export5.png" id="5_o3pv7"]
+[ext_resource type="Texture2D" uid="uid://d3bs2xpyrgnd6" path="res://enemy/barata-export6.png" id="6_xoplw"]
+[ext_resource type="Texture2D" uid="uid://bkn01xrya86gj" path="res://enemy/barata-export7.png" id="7_6yflr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_scxef"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_y5vj3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_5ffra")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_e355f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_78jik")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_o3pv7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_xoplw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_6yflr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gf88j"]
+size = Vector2(20, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ffra"]
+size = Vector2(27, 12)
+
+[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
+script = ExtResource("1_5ffra")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_scxef")
+autoplay = "default"
+frame = 1
+frame_progress = 0.826407
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 8.5)
+shape = SubResource("RectangleShape2D_gf88j")
+
+[node name="hp" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hp"]
+position = Vector2(-1.5, 8)
+shape = SubResource("RectangleShape2D_5ffra")
+debug_color = Color(0.974563, 0, 0.425862, 0.42)
+
+[connection signal="body_entered" from="hp" to="." method="_on_hp_body_entered"]

@@ -76,8 +76,8 @@ grow_vertical = 2
 script = ExtResource("1_35772")
 
 [node name="Animated" type="AnimatedSprite2D" parent="."]
-position = Vector2(430, 216.6)
-scale = Vector2(0.447917, 0.395185)
+position = Vector2(430, 215)
+scale = Vector2(0.447917, 0.398148)
 sprite_frames = SubResource("SpriteFrames_bfwe6")
 autoplay = "default"
 frame_progress = 0.190402

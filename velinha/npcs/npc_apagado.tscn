@@ -1,0 +1,144 @@
+[gd_scene load_steps=30 format=3 uid="uid://cynrcl4g3stkl"]
+
+[ext_resource type="Script" uid="uid://cgkovgob4mxmw" path="res://npcs/npc_apagado.gd" id="1_tq3c7"]
+[ext_resource type="Texture2D" uid="uid://bbd8x0aa7nfub" path="res://npcs/apagada/vela_nao_quer_ser_acesa_2_depois_apagada-export1.png" id="1_yavy5"]
+[ext_resource type="Texture2D" uid="uid://ct8wujqjboga3" path="res://npcs/apagada/vela_nao_quer_ser_acesa_2_depois_apagada-export2.png" id="2_2j578"]
+[ext_resource type="Texture2D" uid="uid://wjr1vg06b1cw" path="res://npcs/acesa2/vela_nao_quer_ser_acesa_2_acesa-export1.png" id="2_t1biy"]
+[ext_resource type="Texture2D" uid="uid://c8d8fhqwdaym2" path="res://npcs/acesa2/vela_nao_quer_ser_acesa_2_acesa-export2.png" id="3_53cd0"]
+[ext_resource type="Texture2D" uid="uid://y8iea3xuiotm" path="res://npcs/apagada/vela_nao_quer_ser_acesa_2_depois_apagada-export3.png" id="3_nkens"]
+[ext_resource type="Texture2D" uid="uid://21hi05kt60s5" path="res://npcs/apagada/vela_nao_quer_ser_acesa_2_depois_apagada-export4.png" id="4_c5crf"]
+[ext_resource type="Texture2D" uid="uid://c281wffth6mxt" path="res://npcs/acesa2/vela_nao_quer_ser_acesa_2_acesa-export3.png" id="4_xjwde"]
+[ext_resource type="Texture2D" uid="uid://bx0n4otulb0rf" path="res://npcs/acesa2/vela_nao_quer_ser_acesa_2_acesa-export4.png" id="5_4eldj"]
+[ext_resource type="Texture2D" uid="uid://71h41tgu3skt" path="res://npcs/apagada/vela_nao_quer_ser_acesa_2_depois_apagada-export5.png" id="5_hr53a"]
+[ext_resource type="Texture2D" uid="uid://d0lujdywn5k0u" path="res://npcs/acesa2/vela_nao_quer_ser_acesa_2_acesa-export5.png" id="6_3xo3x"]
+[ext_resource type="Texture2D" uid="uid://casy1o1c0sag7" path="res://npcs/apagada/vela_nao_quer_ser_acesa_2_depois_apagada-export6.png" id="6_mqv8w"]
+[ext_resource type="Texture2D" uid="uid://ch3ml23ychmme" path="res://npcs/acesa2/vela_nao_quer_ser_acesa_2_acesa-export6.png" id="7_fwh7c"]
+[ext_resource type="Texture2D" uid="uid://bsdq0umdbdj4x" path="res://npcs/apagada/vela_nao_quer_ser_acesa_2_depois_apagada-export7.png" id="7_kv355"]
+[ext_resource type="Texture2D" uid="uid://cypx1th2edn6d" path="res://npcs/acesa2/vela_nao_quer_ser_acesa_2_acesa-export7.png" id="8_8ege7"]
+[ext_resource type="Texture2D" uid="uid://qsyts07mntwr" path="res://npcs/apagada/vela_nao_quer_ser_acesa_2_depois_apagada-export8.png" id="8_cwhcg"]
+[ext_resource type="Texture2D" uid="uid://btkajk341r61n" path="res://npcs/acesa2/vela_nao_quer_ser_acesa_2_acesa-export8.png" id="9_bilto"]
+[ext_resource type="Texture2D" uid="uid://h4lrwe4cm6tr" path="res://npcs/apagada/vela_nao_quer_ser_acesa_2_depois_apagada-export9.png" id="9_r1ne7"]
+[ext_resource type="Texture2D" uid="uid://phnj5pdjsvoj" path="res://npcs/acesa2/vela_nao_quer_ser_acesa_2_acesa-export9.png" id="10_hi1n5"]
+[ext_resource type="Texture2D" uid="uid://dqcy1ae4pxao3" path="res://npcs/apagada/vela_nao_quer_ser_acesa_2_depois_apagada-export10.png" id="10_qpu2b"]
+[ext_resource type="Texture2D" uid="uid://cr77wlxhsol4f" path="res://npcs/acesa2/vela_nao_quer_ser_acesa_2_acesa-export10.png" id="11_dkqul"]
+[ext_resource type="Texture2D" uid="uid://cbfaev7k3ivih" path="res://npcs/apagada/vela_nao_quer_ser_acesa_2_depois_apagada-export11.png" id="11_mic3s"]
+[ext_resource type="Texture2D" uid="uid://csmhvjps0lqub" path="res://npcs/acesa2/vela_nao_quer_ser_acesa_2_acesa-export11.png" id="12_8tq1b"]
+[ext_resource type="Texture2D" uid="uid://b360f4uh70fvs" path="res://npcs/acesa2/vela_nao_quer_ser_acesa_2_acesa-export12.png" id="13_ogll7"]
+[ext_resource type="Texture2D" uid="uid://un3b7exgtcxu" path="res://npcs/acesa2/vela_nao_quer_ser_acesa_2_acesa-export13.png" id="14_rvgqf"]
+[ext_resource type="Texture2D" uid="uid://gbben5x2wc31" path="res://npcs/acesa2/vela_nao_quer_ser_acesa_2_acesa-export14.png" id="15_thgl1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6c8cq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_t1biy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_53cd0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xjwde")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4eldj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3xo3x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_fwh7c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_8ege7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_bilto")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_hi1n5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_dkqul")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_8tq1b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ogll7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_rvgqf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_thgl1")
+}],
+"loop": true,
+"name": &"acesa",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_yavy5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_2j578")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_nkens")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_c5crf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_hr53a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_mqv8w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_kv355")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_cwhcg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_r1ne7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_qpu2b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_mic3s")
+}],
+"loop": true,
+"name": &"apagada",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iyiik"]
+size = Vector2(17, 33)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o5dst"]
+radius = 26.0
+
+[node name="npcApagado" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_tq3c7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_6c8cq")
+animation = &"apagada"
+autoplay = "apagada"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 14.5)
+shape = SubResource("RectangleShape2D_iyiik")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, 11)
+shape = SubResource("CircleShape2D_o5dst")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

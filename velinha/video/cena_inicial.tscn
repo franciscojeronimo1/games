@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0r81q0rxyna3"]
+
+[ext_resource type="Script" uid="uid://dqhdqy2v6xb5g" path="res://cena_inicial.gd" id="1_eytgi"]
+[ext_resource type="VideoStream" path="res://video/começovela.ogv" id="2_e8cb8"]
+
+[node name="cenaInicial" type="Node2D"]
+script = ExtResource("1_eytgi")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+offset_left = -540.0
+offset_top = -299.0
+offset_right = 1394.0
+offset_bottom = 781.0
+stream = ExtResource("2_e8cb8")
+autoplay = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(427, 215)
+zoom = Vector2(0.45, 0.45)
+
+[connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]

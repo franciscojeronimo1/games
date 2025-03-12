@@ -1,0 +1,138 @@
+[gd_scene load_steps=30 format=3 uid="uid://crnu0nos5u2aq"]
+
+[ext_resource type="Texture2D" uid="uid://dok6jgla06keo" path="res://npcs/Aapagada/vela_nao_quer_ser_aceso_grande_apagada_depois-export1.png" id="1_q8nxs"]
+[ext_resource type="Texture2D" uid="uid://bcmajxx640eik" path="res://npcs/acesa/vela_nao_quer_ser_aceso_grande_apagada_acesa-export1.png" id="1_y74fw"]
+[ext_resource type="Texture2D" uid="uid://ec4uekpbm2xi" path="res://npcs/Aapagada/vela_nao_quer_ser_aceso_grande_apagada_depois-export2.png" id="2_0l7i5"]
+[ext_resource type="Texture2D" uid="uid://bjrlfec2lo0so" path="res://npcs/acesa/vela_nao_quer_ser_aceso_grande_apagada_acesa-export2.png" id="2_te5lv"]
+[ext_resource type="Texture2D" uid="uid://dh0crnxassvbr" path="res://npcs/acesa/vela_nao_quer_ser_aceso_grande_apagada_acesa-export3.png" id="3_ic5t7"]
+[ext_resource type="Texture2D" uid="uid://betnn7b1gq0yn" path="res://npcs/Aapagada/vela_nao_quer_ser_aceso_grande_apagada_depois-export3.png" id="3_xvrc8"]
+[ext_resource type="Texture2D" uid="uid://cwo4m5mn6y5sw" path="res://npcs/Aapagada/vela_nao_quer_ser_aceso_grande_apagada_depois-export4.png" id="4_ov63d"]
+[ext_resource type="Texture2D" uid="uid://dtknwrp4bg7xp" path="res://npcs/acesa/vela_nao_quer_ser_aceso_grande_apagada_acesa-export4.png" id="4_yrmp8"]
+[ext_resource type="Texture2D" uid="uid://bqkwwg345jauh" path="res://npcs/acesa/vela_nao_quer_ser_aceso_grande_apagada_acesa-export5.png" id="5_2vms4"]
+[ext_resource type="Texture2D" uid="uid://cwe6t8jpbq2t4" path="res://npcs/Aapagada/vela_nao_quer_ser_aceso_grande_apagada_depois-export5.png" id="5_cxi5n"]
+[ext_resource type="Texture2D" uid="uid://f8msk3s24p0g" path="res://npcs/acesa/vela_nao_quer_ser_aceso_grande_apagada_acesa-export6.png" id="6_befh7"]
+[ext_resource type="Texture2D" uid="uid://cgpnrnismih3i" path="res://npcs/Aapagada/vela_nao_quer_ser_aceso_grande_apagada_depois-export6.png" id="6_ssqsf"]
+[ext_resource type="Texture2D" uid="uid://c31vdt7odxqv6" path="res://npcs/Aapagada/vela_nao_quer_ser_aceso_grande_apagada_depois-export7.png" id="7_5ue40"]
+[ext_resource type="Texture2D" uid="uid://b4f1vujybem2x" path="res://npcs/acesa/vela_nao_quer_ser_aceso_grande_apagada_acesa-export7.png" id="7_8yptl"]
+[ext_resource type="Texture2D" uid="uid://cv75yobgm8fjd" path="res://npcs/Aapagada/vela_nao_quer_ser_aceso_grande_apagada_depois-export8.png" id="8_md6a5"]
+[ext_resource type="Texture2D" uid="uid://praixlpvn2kn" path="res://npcs/acesa/vela_nao_quer_ser_aceso_grande_apagada_acesa-export8.png" id="8_tsftp"]
+[ext_resource type="Texture2D" uid="uid://b7c2n8g7sxhbx" path="res://npcs/Aapagada/vela_nao_quer_ser_aceso_grande_apagada_depois-export9.png" id="9_v36jk"]
+[ext_resource type="Texture2D" uid="uid://s23qcuex4hf4" path="res://npcs/acesa/vela_nao_quer_ser_aceso_grande_apagada_acesa-export9.png" id="9_xnraq"]
+[ext_resource type="Texture2D" uid="uid://djq40xk2srqh" path="res://npcs/Aapagada/vela_nao_quer_ser_aceso_grande_apagada_depois-export10.png" id="10_4c2ew"]
+[ext_resource type="Texture2D" uid="uid://c7pj4wcag06av" path="res://npcs/acesa/vela_nao_quer_ser_aceso_grande_apagada_acesa-export10.png" id="10_fncwo"]
+[ext_resource type="Texture2D" uid="uid://dr6aucymgt68q" path="res://npcs/acesa/vela_nao_quer_ser_aceso_grande_apagada_acesa-export11.png" id="11_7k72a"]
+[ext_resource type="Texture2D" uid="uid://b4m7xgk0qphgr" path="res://npcs/Aapagada/vela_nao_quer_ser_aceso_grande_apagada_depois-export11.png" id="11_ek5yk"]
+[ext_resource type="Texture2D" uid="uid://b8fphaepf40dp" path="res://npcs/acesa/vela_nao_quer_ser_aceso_grande_apagada_acesa-export12.png" id="12_71bpj"]
+[ext_resource type="Texture2D" uid="uid://cnu6564icn6nd" path="res://npcs/Aapagada/vela_nao_quer_ser_aceso_grande_apagada_depois-export12.png" id="12_ibfxw"]
+[ext_resource type="Script" uid="uid://2db74pllmb8y" path="res://animated_sprite_2d.gd" id="13_1x1pw"]
+[ext_resource type="Texture2D" uid="uid://cf3awieabyyj7" path="res://npcs/acesa/vela_nao_quer_ser_aceso_grande_apagada_acesa-export13.png" id="13_iryrb"]
+[ext_resource type="Texture2D" uid="uid://bjf0ub4ubbvxd" path="res://npcs/acesa/vela_nao_quer_ser_aceso_grande_apagada_acesa-export14.png" id="14_sr1wm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5qhwe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_y74fw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_te5lv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ic5t7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_yrmp8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2vms4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_befh7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_8yptl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_tsftp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_xnraq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_fncwo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_7k72a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_71bpj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_iryrb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_sr1wm")
+}],
+"loop": true,
+"name": &"acesa",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_q8nxs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_0l7i5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xvrc8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ov63d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cxi5n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ssqsf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_5ue40")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_md6a5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_v36jk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_4c2ew")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ek5yk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ibfxw")
+}],
+"loop": true,
+"name": &"apagado",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y74fw"]
+radius = 64.7765
+
+[node name="npcGApagado" type="AnimatedSprite2D"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5qhwe")
+animation = &"acesa"
+autoplay = "apagado"
+frame_progress = 0.368481
+script = ExtResource("13_1x1pw")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_y74fw")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

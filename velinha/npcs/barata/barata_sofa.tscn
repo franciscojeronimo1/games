@@ -1,0 +1,96 @@
+[gd_scene load_steps=19 format=3 uid="uid://br5o00gyeqldc"]
+
+[ext_resource type="Script" uid="uid://b26er4l5jq3iu" path="res://npcs/barata/barata_sofa.gd" id="1_rqo4w"]
+[ext_resource type="Texture2D" uid="uid://bfjy62tm61qoy" path="res://npcs/barata/run/barataanda-export1.png" id="2_peq58"]
+[ext_resource type="Texture2D" uid="uid://viiifc3uqsow" path="res://npcs/barata/run/barataanda-export2.png" id="3_01cfo"]
+[ext_resource type="Texture2D" uid="uid://dg608u3p6a4fw" path="res://npcs/barata/run/barataanda-export3.png" id="4_vpoqm"]
+[ext_resource type="Texture2D" uid="uid://dn6mq2dehiyho" path="res://npcs/barata/run/barataanda-export4.png" id="5_1tuua"]
+[ext_resource type="Texture2D" uid="uid://cj12hgckphs8k" path="res://npcs/barata/run/barataanda-export5.png" id="6_dtloh"]
+[ext_resource type="Texture2D" uid="uid://bf6u3ocid5v2c" path="res://npcs/barata/run/barataanda-export6.png" id="7_p8pc4"]
+[ext_resource type="Texture2D" uid="uid://13m423vmdhw5" path="res://npcs/barata/run/barataanda-export7.png" id="8_23g2a"]
+[ext_resource type="Texture2D" uid="uid://dfwu0n3e0147j" path="res://npcs/barata/run/barataanda-export8.png" id="9_hyjsj"]
+[ext_resource type="Texture2D" uid="uid://cyyy43rhrgv6t" path="res://npcs/barata/run/barataanda-export9.png" id="10_toq3y"]
+[ext_resource type="Texture2D" uid="uid://b6wderjjbupw6" path="res://npcs/barata/run/barataanda-export10.png" id="11_i0it1"]
+[ext_resource type="Texture2D" uid="uid://cn47vwil74te4" path="res://npcs/barata/run/barataanda-export11.png" id="12_wk1vr"]
+[ext_resource type="Texture2D" uid="uid://c1l803trdl5gw" path="res://npcs/barata/run/barataanda-export12.png" id="13_q004t"]
+[ext_resource type="Texture2D" uid="uid://c1fi5hnwgi5ib" path="res://npcs/barata/run/barataanda-export13.png" id="14_iuie0"]
+[ext_resource type="Texture2D" uid="uid://cg2u8i81rwphf" path="res://npcs/barata/run/barataanda-export14.png" id="15_k7eb2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j3k20"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_peq58")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_01cfo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vpoqm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1tuua")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_dtloh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_p8pc4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_23g2a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_hyjsj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_toq3y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_i0it1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_wk1vr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_q004t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_iuie0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_k7eb2")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6otu7"]
+size = Vector2(66, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rqo4w"]
+size = Vector2(56, 8)
+
+[node name="BarataSofa" type="CharacterBody2D" groups=["Eneny"]]
+script = ExtResource("1_rqo4w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_j3k20")
+animation = &"run"
+autoplay = "run"
+frame_progress = 0.577459
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 30)
+shape = SubResource("RectangleShape2D_6otu7")
+
+[node name="hp" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hp"]
+position = Vector2(5, 14)
+shape = SubResource("RectangleShape2D_rqo4w")
+debug_color = Color(0.87451, 0.247059, 0, 0.419608)
+
+[connection signal="body_entered" from="hp" to="." method="_on_hp_body_entered"]

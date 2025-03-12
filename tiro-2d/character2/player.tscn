@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://3ps4kpu55lhn"]
 
-[ext_resource type="Script" path="res://character2/player.gd" id="1_tjx01"]
+[ext_resource type="Script" uid="uid://bbupp2ka6ric1" path="res://character2/player.gd" id="1_tjx01"]
 [ext_resource type="PackedScene" uid="uid://dp03stckxhe37" path="res://character2/player_bullet.tscn" id="2_7rvhx"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_gdr5x"]

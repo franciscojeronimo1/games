@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://om3syvgvltdu"]
+
+[ext_resource type="Script" uid="uid://dn410asi6ah8d" path="res://control.gd" id="1_dwver"]
+[ext_resource type="VideoStream" path="res://video/final.ogv" id="2_77hwg"]
+
+[node name="finalVideo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dwver")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+layout_mode = 0
+offset_left = -99.0
+offset_top = -59.0
+offset_right = 1821.0
+offset_bottom = 1021.0
+stream = ExtResource("2_77hwg")
+autoplay = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(860, 430)
+zoom = Vector2(0.45, 0.45)
+
+[connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
