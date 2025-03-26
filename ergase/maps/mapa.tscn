@@ -24,3 +24,9 @@ position = Vector2(88, 467)
 
 [node name="Enemy" parent="." instance=ExtResource("3_mfmx3")]
 position = Vector2(331, 520)
+
+[node name="Enemy2" parent="." instance=ExtResource("3_mfmx3")]
+position = Vector2(532, 513)
+
+[node name="Enemy3" parent="." instance=ExtResource("3_mfmx3")]
+position = Vector2(743, 483)

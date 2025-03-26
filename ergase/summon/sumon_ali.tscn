@@ -1,0 +1,53 @@
+[gd_scene load_steps=11 format=3 uid="uid://c01ckwgi7ww3g"]
+
+[ext_resource type="Script" uid="uid://cwe4nc7ajcric" path="res://summon/sumon_ali.gd" id="1_gglaa"]
+[ext_resource type="Texture2D" uid="uid://dd5fh2usb30hd" path="res://enemy/barata-export1.png" id="1_l7fy1"]
+[ext_resource type="Texture2D" uid="uid://b1cbjyybbb0sl" path="res://enemy/barata-export2.png" id="2_gglaa"]
+[ext_resource type="Texture2D" uid="uid://cbb35revhv1au" path="res://enemy/barata-export3.png" id="3_i8uol"]
+[ext_resource type="Texture2D" uid="uid://cc58yrqwsibpt" path="res://enemy/barata-export4.png" id="4_wi18y"]
+[ext_resource type="Texture2D" uid="uid://clvpnabohc1x6" path="res://enemy/barata-export5.png" id="5_xkwjg"]
+[ext_resource type="Texture2D" uid="uid://d3bs2xpyrgnd6" path="res://enemy/barata-export6.png" id="6_1ftdk"]
+[ext_resource type="Texture2D" uid="uid://bkn01xrya86gj" path="res://enemy/barata-export7.png" id="7_fwvoo"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yhrrd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_l7fy1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gglaa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_i8uol")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wi18y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_xkwjg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1ftdk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_fwvoo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6yrvh"]
+size = Vector2(22, 10)
+
+[node name="SumonAli" type="CharacterBody2D"]
+script = ExtResource("1_gglaa")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_yhrrd")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_6yrvh")

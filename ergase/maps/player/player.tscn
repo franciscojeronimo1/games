@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dt631ubhac12p" path="res://maps/player/Sprite-0004.png" id="1_fa278"]
 [ext_resource type="Script" uid="uid://cyewwaaha0exc" path="res://maps/player/player.gd" id="1_isefc"]
-[ext_resource type="PackedScene" uid="uid://bvsekh0aajkxr" path="res://enemy/enemy.tscn" id="2_t26di"]
+[ext_resource type="PackedScene" uid="uid://c01ckwgi7ww3g" path="res://summon/sumon_ali.tscn" id="2_t26di"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4vqqs"]
 animations = [{
