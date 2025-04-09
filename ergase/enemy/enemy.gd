@@ -35,5 +35,4 @@ func follow_player():
 
 
 func _on_hp_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player"):
-		enemy.queue_free()
+	pass

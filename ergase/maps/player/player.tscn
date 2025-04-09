@@ -18,7 +18,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fa278"]
 size = Vector2(9, 28)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_isefc"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_t26di"]
+radius = 18.0278
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_isefc")
@@ -34,10 +35,11 @@ shape = SubResource("RectangleShape2D_fa278")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="vida" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(36, -3)
-shape = SubResource("CircleShape2D_isefc")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="vida"]
+position = Vector2(4, 1)
+shape = SubResource("CircleShape2D_t26di")
+debug_color = Color(0.930679, 0.242233, 0.271237, 0.42)
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="vida" to="." method="_on_vida_body_entered"]

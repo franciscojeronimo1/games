@@ -7,6 +7,9 @@ const JUMP_VELOCITY = -400.0
 @export var summoned_scene: PackedScene
 @export var summon_distance: float = 50  # Distância do summon na frente do player
 
+@export var hp = 10
+@onready var player: CharacterBody2D = $"."
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -40,3 +43,9 @@ func summon():
 		get_parent().add_child(instance)  # Adiciona à cena atual
 	else:
 		print("Erro: Cena de summon não definida")
+
+
+func _on_vida_body_entered(body: Node2D) -> void:
+	if body.is_in_group('Enemy'):
+		player.queue_free()
+		print(hp)
