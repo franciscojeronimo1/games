@@ -29,7 +29,7 @@ func follow_player():
 	var distance = position.distance_to(player.position)  # Distância ao player
 	if distance <= detection_range:
 		velocity.x = direction.x * speed  # Move na direção do player
-		sprite.flip_h = velocity.x > 0  # Vira o sprite conforme a direção
+		sprite.flip_h = velocity.x < 0  # Vira o sprite conforme a direção
 	else:
 		velocity.x = 0  # Para quando está longe do player
 
