@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+@export var bullet_scene: PackedScene
+@export var fire_rate := 0.2
+var last_shot_time = 0.0
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -12,6 +15,8 @@ const JUMP_VELOCITY = -400.0
 
 
 func _physics_process(delta: float) -> void:
+
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -30,8 +35,18 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-
+func shoot():
+	var bullet = bullet_scene.instantiate()
+	get_parent().add_child(bullet)
+	
+	bullet.global_position = global_position
+	var mouse_pos = get_global_mouse_position()
+	var dir = (mouse_pos - global_position).normalized()
+	bullet.direction = dir
 func _process(delta):
+	if Input.is_action_pressed("tiro") and Time.get_ticks_msec() / 1000.0 - last_shot_time > fire_rate:
+		shoot()
+		last_shot_time = Time.get_ticks_msec() / 1000.0
 	if Input.is_action_just_pressed("summon_action"):
 		summon()
 

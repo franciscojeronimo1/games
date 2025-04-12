@@ -220,15 +220,15 @@ animation = &"walk"
 autoplay = "walk"
 flip_h = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Enemy"]]
 position = Vector2(-3.5, -1.5)
 shape = SubResource("RectangleShape2D_gf88j")
 
-[node name="hp" type="Area2D" parent="."]
+[node name="hp" type="Area2D" parent="." groups=["Enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hp"]
 position = Vector2(9, -0.5)
 shape = SubResource("RectangleShape2D_5ffra")
 debug_color = Color(0.974563, 0, 0.425862, 0.42)
 
-[connection signal="body_entered" from="hp" to="." method="_on_hp_body_entered"]
+[connection signal="area_entered" from="hp" to="." method="_on_hp_area_entered"]

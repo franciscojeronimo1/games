@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var speed: float = 50  # Velocidade de movimento
 @export var gravity: float = 800  # Gravidade
 @export var detection_range: float = 200  # Distância para detectar o jogador
-
+@export var health := 3
 
 
 @onready var player = get_parent().find_child("Player")  # Encontra o jogador na cena
@@ -21,6 +21,11 @@ func apply_gravity(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta  # Aplica gravidade
 
+func take_damage(amount):
+	health -= amount
+	if health <= 0:
+		die()
+
 func follow_player():
 	if player == null:
 		return  # Evita erro se o player não existir
@@ -34,5 +39,12 @@ func follow_player():
 		velocity.x = 0  # Para quando está longe do player
 
 
-func _on_hp_body_entered(body: Node2D) -> void:
-	pass
+
+
+func die():
+	queue_free()
+
+
+func _on_hp_area_entered(area: Area2D) -> void:
+	if area.is_in_group("Bullet"):
+		take_damage(1)

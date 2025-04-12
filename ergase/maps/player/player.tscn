@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dnnuprg73xvwe"]
+[gd_scene load_steps=8 format=3 uid="uid://dnnuprg73xvwe"]
 
 [ext_resource type="Texture2D" uid="uid://dt631ubhac12p" path="res://maps/player/Sprite-0004.png" id="1_fa278"]
 [ext_resource type="Script" uid="uid://cyewwaaha0exc" path="res://maps/player/player.gd" id="1_isefc"]
 [ext_resource type="PackedScene" uid="uid://c01ckwgi7ww3g" path="res://summon/sumon_ali.tscn" id="2_t26di"]
+[ext_resource type="PackedScene" uid="uid://buupjedwa6tii" path="res://bullet.tscn" id="2_tddab"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4vqqs"]
 animations = [{
@@ -23,6 +24,7 @@ radius = 18.0278
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_isefc")
+bullet_scene = ExtResource("2_tddab")
 summoned_scene = ExtResource("2_t26di")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
@@ -41,5 +43,8 @@ zoom = Vector2(4, 4)
 position = Vector2(4, 1)
 shape = SubResource("CircleShape2D_t26di")
 debug_color = Color(0.930679, 0.242233, 0.271237, 0.42)
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(18, -8)
 
 [connection signal="body_entered" from="vida" to="." method="_on_vida_body_entered"]
