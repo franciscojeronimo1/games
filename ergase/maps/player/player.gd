@@ -63,4 +63,4 @@ func summon():
 func _on_vida_body_entered(body: Node2D) -> void:
 	if body.is_in_group('Enemy'):
 		player.queue_free()
-		print(hp)
+		get_tree().reload_current_scene()
