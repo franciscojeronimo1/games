@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bc4pxibuh1bti"]
+
+[ext_resource type="Script" uid="uid://cf2j4afyxkkbd" path="res://character_body_2d.gd" id="1_oul6g"]
+[ext_resource type="PackedScene" uid="uid://y8apft1xv5nd" path="res://player/bullet.tscn" id="2_g1dw6"]
+[ext_resource type="Texture2D" uid="uid://c4706os8qggru" path="res://icon.svg" id="2_rkbax"]
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_oul6g")
+bullet_scene = ExtResource("2_g1dw6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_rkbax")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

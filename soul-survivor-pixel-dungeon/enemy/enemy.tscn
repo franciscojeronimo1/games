@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cahl4sojritr4"]
+
+[ext_resource type="Script" uid="uid://cqsjr6btvbo60" path="res://enemy.gd" id="1_2mvqj"]
+[ext_resource type="Texture2D" uid="uid://c4706os8qggru" path="res://icon.svg" id="2_ofsxj"]
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_2mvqj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ofsxj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
