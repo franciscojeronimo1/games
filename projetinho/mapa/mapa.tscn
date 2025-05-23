@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=4 uid="uid://c47np7dtaodai"]
+[gd_scene load_steps=9 format=4 uid="uid://c47np7dtaodai"]
 
 [ext_resource type="Texture2D" uid="uid://bf4p4gfh267qd" path="res://assets/twilight-tiles.png" id="1_k5xhj"]
 [ext_resource type="Script" uid="uid://brqgnjmx1t22i" path="res://mapa/mapa.gd" id="1_kn5j1"]
 [ext_resource type="Texture2D" uid="uid://pp1duk246xrm" path="res://assets/exterior-parallaxBG1.png" id="2_enwsp"]
 [ext_resource type="Texture2D" uid="uid://ox4vmjsoill6" path="res://assets/exterior-parallaxBG2-removebg-preview.png" id="3_enwsp"]
 [ext_resource type="PackedScene" uid="uid://pjjbnixvcue3" path="res://Player/character_body_2d.tscn" id="4_4f3sg"]
+[ext_resource type="PackedScene" uid="uid://cdgrarp45x46n" path="res://enemy/enemy.tscn" id="6_wbmto"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4f3sg"]
 texture = ExtResource("1_k5xhj")
@@ -372,3 +373,6 @@ texture = ExtResource("3_enwsp")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("4_4f3sg")]
 position = Vector2(222, 265)
+
+[node name="enemy" parent="." instance=ExtResource("6_wbmto")]
+position = Vector2(459, 262)

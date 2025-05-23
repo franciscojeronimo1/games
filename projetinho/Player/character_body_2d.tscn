@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://pjjbnixvcue3"]
+[gd_scene load_steps=46 format=3 uid="uid://pjjbnixvcue3"]
 
 [ext_resource type="Script" uid="uid://b3x41sfjdfmwj" path="res://Player/character_body_2d.gd" id="1_vvw5e"]
 [ext_resource type="Texture2D" uid="uid://46g1rdvm1xoq" path="res://Player/Fullmain.png" id="2_inwu4"]
@@ -314,12 +314,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vvw5e"]
 size = Vector2(17, 26)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vvw5e"]
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_vvw5e")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5eftc")
-animation = &"attack2"
+animation = &"attack1"
 autoplay = "idle"
 frame = 9
 frame_progress = 1.0
@@ -329,3 +331,10 @@ position = Vector2(-1.5, 3)
 shape = SubResource("RectangleShape2D_vvw5e")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="dmg" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dmg"]
+position = Vector2(16, 1)
+shape = SubResource("CircleShape2D_vvw5e")
+disabled = true
