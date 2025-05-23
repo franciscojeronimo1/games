@@ -1,85 +1,35 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdgrarp45x46n"]
+[gd_scene load_steps=6 format=3 uid="uid://cdgrarp45x46n"]
 
-[ext_resource type="Texture2D" uid="uid://d2pigcyhnk1y6" path="res://enemy/Bat with VFX/Bat-IdleFly.png" id="1_2mvqj"]
+[ext_resource type="Script" uid="uid://b8gke1sfhm0ck" path="res://enemy/enemy.gd" id="1_ppra6"]
+[ext_resource type="Script" uid="uid://bf7sx4c8hbsav" path="res://enemy/state_machine.gd" id="2_p200p"]
+[ext_resource type="Script" uid="uid://bjwnk2125y0oq" path="res://enemy/idle.gd" id="3_pmsee"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ofsxj"]
-atlas = ExtResource("1_2mvqj")
-region = Rect2(0, 0, 64, 64)
+[sub_resource type="CircleShape2D" id="CircleShape2D_1wwld"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ppra6"]
-atlas = ExtResource("1_2mvqj")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p200p"]
-atlas = ExtResource("1_2mvqj")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pmsee"]
-atlas = ExtResource("1_2mvqj")
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1wwld"]
-atlas = ExtResource("1_2mvqj")
-region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y5vj3"]
-atlas = ExtResource("1_2mvqj")
-region = Rect2(320, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5ffra"]
-atlas = ExtResource("1_2mvqj")
-region = Rect2(384, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e355f"]
-atlas = ExtResource("1_2mvqj")
-region = Rect2(448, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_78jik"]
-atlas = ExtResource("1_2mvqj")
-region = Rect2(512, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_o3pv7"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ofsxj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ppra6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p200p")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pmsee")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1wwld")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y5vj3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ffra")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e355f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_78jik")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 10.0
-}]
+[sub_resource type="CircleShape2D" id="CircleShape2D_y5vj3"]
 
 [node name="enemy" type="CharacterBody2D"]
+script = ExtResource("1_ppra6")
+speed = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1wwld")
 
-[node name="anim" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_o3pv7")
-animation = &"idle"
+[node name="anim" type="AnimationPlayer" parent="."]
 autoplay = "idle"
-frame = 1
-frame_progress = 0.823192
+
+[node name="StateMachine" type="Node2D" parent="."]
+script = ExtResource("2_p200p")
+
+[node name="Idle" type="Node2D" parent="StateMachine"]
+script = ExtResource("3_pmsee")
+
+[node name="walk" type="Node2D" parent="StateMachine"]
+
+[node name="attack" type="Node2D" parent="StateMachine"]
+
+[node name="player_detector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_detector"]
+shape = SubResource("CircleShape2D_y5vj3")
+debug_color = Color(0.946593, 0.136296, 0.473263, 0.42)
