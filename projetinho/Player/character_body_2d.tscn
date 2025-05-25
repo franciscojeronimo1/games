@@ -316,7 +316,7 @@ size = Vector2(17, 26)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vvw5e"]
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_vvw5e")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -333,8 +333,9 @@ shape = SubResource("RectangleShape2D_vvw5e")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="dmg" type="Area2D" parent="."]
+position = Vector2(-31, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="dmg"]
-position = Vector2(16, 1)
+position = Vector2(16, 0)
 shape = SubResource("CircleShape2D_vvw5e")
 disabled = true

@@ -8,10 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://cvfmgdt6s8usq" path="res://enemy/Bat with VFX/Bat-Die.png" id="5_5ffra"]
 [ext_resource type="Texture2D" uid="uid://deoc23afbppn7" path="res://enemy/Bat with VFX/Bat-Run.png" id="7_e355f"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1wwld"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_y5vj3"]
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_78jik"]
 atlas = ExtResource("4_y5vj3")
 region = Rect2(0, 0, 64, 64)
@@ -294,11 +290,24 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y5vj3"]
+size = Vector2(21, 35)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y5vj3"]
+
 [node name="enemy" type="CharacterBody2D"]
 script = ExtResource("1_ppra6")
 
+[node name="anim" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_nfqie")
+animation = &"idle"
+autoplay = "idle"
+frame = 2
+frame_progress = 0.0862895
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_1wwld")
+position = Vector2(0.5, 7.5)
+shape = SubResource("RectangleShape2D_y5vj3")
 
 [node name="StateMachine" type="Node2D" parent="."]
 script = ExtResource("2_p200p")
@@ -315,10 +324,3 @@ script = ExtResource("3_pmsee")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_detector"]
 shape = SubResource("CircleShape2D_y5vj3")
 debug_color = Color(0.946593, 0.136296, 0.473263, 0.42)
-
-[node name="anim" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_nfqie")
-animation = &"die"
-autoplay = "idle"
-frame = 11
-frame_progress = 1.0

@@ -371,8 +371,8 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("3_enwsp")
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("4_4f3sg")]
+[node name="Player" parent="." instance=ExtResource("4_4f3sg")]
 position = Vector2(222, 265)
 
 [node name="enemy" parent="." instance=ExtResource("6_wbmto")]
-position = Vector2(459, 262)
+position = Vector2(457, 246)

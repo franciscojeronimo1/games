@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var move_speed = 100
 @onready var animation_player: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $dmg/CollisionShape2D
+@onready var dmg: Area2D = $dmg
 
 var is_attacking = false
 
@@ -30,8 +31,10 @@ func anim():
 		animation_player.play("run")
 	if velocity.x > 0:
 		animation_player.flip_h = false  # Virado para a direita
+		dmg.position = Vector2(0,0)
 	elif velocity.x < 0:
 		animation_player.flip_h = true
+		dmg.position = Vector2(-31,0)
 		
 func quitar():
 	if Input.is_action_just_pressed("esc"):
@@ -49,7 +52,9 @@ func attacar():
 		
 	if Input.is_action_pressed("attack2") and not is_attacking:
 		is_attacking = true
+		collision_shape_2d.disabled = false
 		velocity.x = 0 
 		animation_player.play("attack2")
 		await animation_player.animation_finished
+		collision_shape_2d.disabled = true
 		is_attacking = false
