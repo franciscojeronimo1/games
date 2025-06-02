@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://qbcp4l2wgf4h"]
+
+[ext_resource type="Script" uid="uid://brc1ad81m2vfa" path="res://Player/player.gd" id="1_gwnis"]
+[ext_resource type="PackedScene" uid="uid://dlmo0c4n8lq07" path="res://prefabs/bullet.tscn" id="2_k53q1"]
+[ext_resource type="Texture2D" uid="uid://b48hxo78ay1hf" path="res://Player/idle/sprite1.png" id="3_k53q1"]
+[ext_resource type="Texture2D" uid="uid://3kympbjev37s" path="res://Player/idle/sprite2.png" id="4_fhl08"]
+[ext_resource type="Texture2D" uid="uid://dsejsfvosvfl4" path="res://Player/idle/sprite3.png" id="5_vtle1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhl08"]
+size = Vector2(14.6, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_od3ui"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_k53q1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_fhl08")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_vtle1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k53q1"]
+size = Vector2(15.4, 16.4)
+
+[node name="player" type="CharacterBody2D" groups=["player"]]
+scale = Vector2(5, 5)
+script = ExtResource("1_gwnis")
+bullet_sceme = ExtResource("2_k53q1")
+shoot_coldown = 0.1
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.500001, -1.5)
+shape = SubResource("RectangleShape2D_fhl08")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_od3ui")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.30234
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.3, -1.8)
+shape = SubResource("RectangleShape2D_k53q1")
+debug_color = Color(0.958981, 0.136436, 0.385684, 0.42)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -4.2
+offset_top = -18.4
+offset_right = 23.8
+offset_bottom = 4.6
+scale = Vector2(0.3, 0.3)
+text = "LVL:1"
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

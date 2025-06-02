@@ -10,6 +10,7 @@ extends CharacterBody2D
 var is_attacking = false
 
 func _physics_process(delta):
+
 	attacar()
 	anim()
 	quitar()
@@ -58,3 +59,4 @@ func attacar():
 		await animation_player.animation_finished
 		collision_shape_2d.disabled = true
 		is_attacking = false
+		

@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://105ae6x1beyh"]
+
+[ext_resource type="Script" uid="uid://baktncca64wmw" path="res://enemys/itemdropavel.gd" id="1_cs7ou"]
+[ext_resource type="Texture2D" uid="uid://cbtnt4s37rqrj" path="res://assets/Items/Power_item (16 x 16).png" id="1_gse07"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gse07"]
+size = Vector2(13, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cs7ou"]
+atlas = ExtResource("1_gse07")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8x152"]
+atlas = ExtResource("1_gse07")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dybum"]
+atlas = ExtResource("1_gse07")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_76vlp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cs7ou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8x152")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dybum")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[node name="itemdropavel" type="Area2D" groups=["xpdropInicial"]]
+script = ExtResource("1_cs7ou")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_gse07")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_76vlp")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.768893
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
