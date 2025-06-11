@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://y6ts835jpv3r"]
+[gd_scene load_steps=6 format=3 uid="uid://y6ts835jpv3r"]
 
 [ext_resource type="Script" uid="uid://54b35fhdbc6h" path="res://scenes/arena.gd" id="1_olpmc"]
 [ext_resource type="PackedScene" uid="uid://qbcp4l2wgf4h" path="res://Player/player.tscn" id="1_wl4x5"]
 [ext_resource type="PackedScene" uid="uid://c2vt4ewrecmdv" path="res://enemys/enemy.tscn" id="2_wl4x5"]
 [ext_resource type="PackedScene" uid="uid://cs2wfer3e156m" path="res://enemys/enemy-bat.tscn" id="3_xdvfk"]
-[ext_resource type="PackedScene" uid="uid://2lr4x4jg7xoq" path="res://prefabs/buffs.tscn" id="5_7ft05"]
 
 [sub_resource type="Environment" id="Environment_wl4x5"]
 background_mode = 3
@@ -22,21 +21,11 @@ enemy_scene2 = ExtResource("3_xdvfk")
 [node name="player" parent="." instance=ExtResource("1_wl4x5")]
 position = Vector2(868, 538)
 
-[node name="buffs" parent="player" instance=ExtResource("5_7ft05")]
-offset_left = 45.4
-offset_top = 13.0
-offset_right = 45.4
-offset_bottom = 13.0
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_wl4x5")
 
 [node name="spawn_timer" type="Timer" parent="."]
+wait_time = 5.0
 autostart = true
 
-[connection signal="pressed" from="player/buffs/HBoxContainer/Button" to="player" method="_on_button_pressed"]
-[connection signal="pressed" from="player/buffs/HBoxContainer/Button2" to="player" method="_on_button_2_pressed"]
-[connection signal="pressed" from="player/buffs/HBoxContainer/Button3" to="player" method="_on_button_3_pressed"]
 [connection signal="timeout" from="spawn_timer" to="." method="_on_spawn_timer_timeout"]
-
-[editable path="player/buffs"]

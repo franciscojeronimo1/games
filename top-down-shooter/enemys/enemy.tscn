@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://c2vt4ewrecmdv"]
+[gd_scene load_steps=13 format=3 uid="uid://c2vt4ewrecmdv"]
 
 [ext_resource type="Script" uid="uid://bhbtqcv6k5yec" path="res://enemys/enemy.gd" id="1_n08dr"]
 [ext_resource type="Texture2D" uid="uid://bwwsnwfcy2ybu" path="res://assets/Enemies/Alan (16 x 16).png" id="2_ksayr"]
 [ext_resource type="PackedScene" uid="uid://105ae6x1beyh" path="res://enemys/itemdropavel.tscn" id="2_xsoh1"]
+[ext_resource type="PackedScene" uid="uid://b4v4vhyn0qa80" path="res://enemys/gpu_particles_2d.tscn" id="4_xsoh1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xsoh1"]
 size = Vector2(11, 12)
@@ -62,6 +63,7 @@ scale = Vector2(4, 4)
 script = ExtResource("1_n08dr")
 health = 3
 drop = ExtResource("2_xsoh1")
+deathParticle = ExtResource("4_xsoh1")
 
 [node name="collision" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 0)
@@ -72,3 +74,5 @@ sprite_frames = SubResource("SpriteFrames_nfjn1")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.845725
+
+[node name="GPUParticles2D" parent="." instance=ExtResource("4_xsoh1")]

@@ -5,10 +5,16 @@ class_name Player
 var can_shoot: bool = true
 @export var shoot_coldown : float = 2.0
 @onready var label: Label = $Label
-@onready var buffs: Control = $buffs
+var upgrades = {
+	1: {"shoot_coldown": 0.8},
+	10: {"shoot_coldown": 0.5, "move_speed": 500.0},
+	15: {"shoot_coldown": 0.3},
+	20: {"shoot_coldown": 0.1, "move_speed": 700.0},
+	30: {"move_speed": 900.0}
+}
 
 @export var hp : int = 10
-var lvl: int = 1
+@export var lvl: int = 1
 
 
 
@@ -25,9 +31,12 @@ func _physics_process(delta: float) -> void:
 	
 	
 	var mouse_dir = get_global_mouse_position() - global_position
+	var mouse_dir_contrario = get_global_mouse_position() + global_position
 	
 	if Input.is_action_just_pressed('shoot') and can_shoot:
 		_shoot(mouse_dir)
+		if lvl >= 15:
+			_shoot(mouse_dir_contrario)
 	
 	move_and_slide()
 func _shoot(direction):
@@ -41,6 +50,10 @@ func _shoot(direction):
 	await get_tree().create_timer(shoot_coldown).timeout
 	can_shoot = true
 
+func bonusUP():
+	if upgrades.has(lvl):  # Verifica se o nível atual tem upgrades
+		for key in upgrades[lvl]:  # Para cada atributo no upgrade
+			self.set(key, upgrades[lvl][key])  # Atualiza o atributo dinamicamente
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group('enemies'):
@@ -60,29 +73,3 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		
 		label.text = 'LVL: '+ str(lvl)
 		print(lvl)
-
-func bonusUP():
-	if lvl == 2:
-		get_tree().paused = true
-		buffs.visible = true
-
-		
-
-
-func _on_button_pressed() -> void:
-	lvl +=1
-	buffs.visible = false
-	get_tree().paused = false
-	
-
-
-func _on_button_2_pressed() -> void:
-	lvl +=1
-	buffs.visible = false
-	get_tree().paused = false
-
-
-func _on_button_3_pressed() -> void:
-	lvl +=1
-	buffs.visible = false
-	get_tree().paused = false

@@ -4,12 +4,14 @@ extends CharacterBody2D
 @export var health : int = 5
 @onready var anim: AnimatedSprite2D = $anim
 @export var drop : PackedScene
+@onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
 
 var direction : Vector2 = Vector2.ZERO
 var player = null
 var original_color := Color.WHITE
 var knockback_velocity : Vector2 = Vector2.ZERO
 var knockback_decay : float = 1000.0
+@export var deathParticle : PackedScene
 
 
 
@@ -55,9 +57,18 @@ func take_damage(amount: int, source_position: Vector2):
 
 	if health <= 0:
 		call_deferred("drop_and_die") # adia a morte e o drop para o próximo frame
-
+		killParticle()
 	print("Enemy health is: " + str(health))
 
 func drop_and_die():
 	spawn_enemy_item()
+	queue_free()
+
+func killParticle():
+	var _particle = deathParticle.instantiate()
+	_particle.position = global_position
+	_particle.rotation = global_rotation
+	_particle.emitting = true
+	get_tree().current_scene.add_child(_particle)
+	
 	queue_free()

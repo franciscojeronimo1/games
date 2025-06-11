@@ -33,7 +33,7 @@ size = Vector2(15.4, 16.4)
 scale = Vector2(5, 5)
 script = ExtResource("1_gwnis")
 bullet_sceme = ExtResource("2_k53q1")
-shoot_coldown = 0.1
+shoot_coldown = 1.0
 
 [node name="collision" type="CollisionShape2D" parent="."]
 position = Vector2(-0.500001, -1.5)

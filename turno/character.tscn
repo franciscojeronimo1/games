@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://ckonh6urk1lyr"]
+
+[ext_resource type="Texture2D" uid="uid://dm11x15a57054" path="res://Battlers/World01_007_Pirate.png" id="1_glpr6"]
+[ext_resource type="Texture2D" uid="uid://bel6n3km0u8iw" path="res://Battlers/hand_cursor0000.png" id="2_pjt0s"]
+
+[sub_resource type="Animation" id="Animation_wa5vi"]
+resource_name = "hurt"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.201723, 0.335057),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(30, 30, 30, 1), Color(30, 30, 30, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wfnr8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_px5sl"]
+_data = {
+&"RESET": SubResource("Animation_wfnr8"),
+&"hurt": SubResource("Animation_wa5vi")
+}
+
+[node name="Character" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_glpr6")
+
+[node name="focus" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-57, -3)
+texture = ExtResource("2_pjt0s")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -51.0
+offset_top = -84.0
+offset_right = 49.0
+offset_bottom = -57.0
+value = 100.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_px5sl")
+}
