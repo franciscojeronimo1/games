@@ -1,6 +1,9 @@
 extends CharacterBody2D
 class_name Player
 
+@onready var player: Player = $"."
+
+var bonus_effect_scene = preload("res://Player/lvl_up.tscn")
 @export var bullet_sceme : PackedScene
 var can_shoot: bool = true
 @export var shoot_coldown : float = 2.0
@@ -54,6 +57,7 @@ func bonusUP():
 	if upgrades.has(lvl):  # Verifica se o nível atual tem upgrades
 		for key in upgrades[lvl]:  # Para cada atributo no upgrade
 			self.set(key, upgrades[lvl][key])  # Atualiza o atributo dinamicamente
+
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group('enemies'):
