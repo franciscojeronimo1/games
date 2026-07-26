@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://prefabs/chest.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chest"]
+size = Vector2(28, 24)
+
+[node name="Chest" type="Area2D" groups=["chest"]]
+collision_layer = 1
+collision_mask = 1
+monitoring = true
+monitorable = true
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_chest")
+
+[node name="Visual" type="Polygon2D" parent="."]
+color = Color(0.92, 0.72, 0.18, 1)
+polygon = PackedVector2Array(-14, 8, 14, 8, 14, -4, 8, -4, 8, -10, -8, -10, -8, -4, -14, -4)
+
+[node name="Lid" type="Polygon2D" parent="."]
+position = Vector2(0, -8)
+color = Color(0.75, 0.45, 0.1, 1)
+polygon = PackedVector2Array(-10, 0, 10, 0, 8, -8, -8, -8)

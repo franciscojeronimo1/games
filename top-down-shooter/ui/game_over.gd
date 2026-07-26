@@ -14,12 +14,17 @@ func _ready() -> void:
 
 func setup(result: Dictionary) -> void:
 	var record_text := "NOVO RECORDE!" if result.get("is_record", false) else "Recorde: %d" % result.get("high_score", 0)
-	stats.text = "Score: %d\n%s\nTempo: %s\nKills: %d  |  Wave: %d" % [
+	var relic := str(result.get("relic", ""))
+	var relic_line := ""
+	if not relic.is_empty():
+		relic_line = "\nRelíquia: %s" % Global.relic_title()
+	stats.text = "Score: %d\n%s\nTempo: %s\nKills: %d  |  Wave: %d%s" % [
 		result.get("score", 0),
 		record_text,
 		Global.format_time(result.get("time", 0.0)),
 		result.get("kills", 0),
 		result.get("wave", 0),
+		relic_line,
 	]
 
 

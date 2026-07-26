@@ -8,6 +8,12 @@ var survival_time: float = 0.0
 var high_score: int = 0
 var wave: int = 0
 
+var active_relic: String = ""
+var enemy_speed_mult: float = 1.0
+var enemy_hp_mult: float = 1.0
+var kill_score_mult: float = 1.0
+var xp_double_chance: float = 0.0
+
 const SAVE_PATH := "user://save.cfg"
 
 
@@ -20,20 +26,27 @@ func reset_run() -> void:
 	kills = 0
 	survival_time = 0.0
 	wave = 0
+	active_relic = ""
+	enemy_speed_mult = 1.0
+	enemy_hp_mult = 1.0
+	kill_score_mult = 1.0
+	xp_double_chance = 0.0
 
 
 func add_score(amount: int) -> void:
 	score += amount
 
 
-func register_kill() -> void:
+func register_kill(is_elite: bool = false) -> void:
 	kills += 1
-	add_score(50)
+	var points := int(50.0 * kill_score_mult)
+	if is_elite:
+		points *= 3
+	add_score(points)
 
 
 func tick_survival(delta: float) -> void:
 	survival_time += delta
-	# 1 ponto por segundo sobrevivido
 	if int(survival_time) > int(survival_time - delta):
 		add_score(1)
 
@@ -50,6 +63,7 @@ func finalize_run() -> Dictionary:
 		"time": survival_time,
 		"kills": kills,
 		"wave": wave,
+		"relic": active_relic,
 	}
 
 
@@ -58,6 +72,15 @@ func format_time(seconds: float) -> String:
 	var m := total / 60
 	var s := total % 60
 	return "%02d:%02d" % [m, s]
+
+
+func relic_title() -> String:
+	if active_relic.is_empty():
+		return "-"
+	for relic in RelicDB.POOL:
+		if relic["id"] == active_relic:
+			return relic["title"]
+	return active_relic
 
 
 func _load_high_score() -> void:

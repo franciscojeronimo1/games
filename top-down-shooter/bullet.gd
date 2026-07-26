@@ -4,6 +4,7 @@ extends Area2D
 @export var dmg: int = 1
 @export var pierce: bool = false
 @export var explosive: bool = false
+@export var chain_explode: bool = false
 @export var explosion_radius: float = 90.0
 
 var direction: Vector2 = Vector2.ZERO
@@ -23,7 +24,11 @@ func configure(damage: int, can_pierce: bool, can_explode: bool) -> void:
 	dmg = damage
 	pierce = can_pierce
 	explosive = can_explode
-	if explosive:
+	chain_explode = can_pierce and can_explode
+	if chain_explode:
+		modulate = Color(1.0, 0.25, 1.0)
+		explosion_radius = 110.0
+	elif explosive:
 		modulate = Color(1.0, 0.55, 0.2)
 
 
@@ -42,7 +47,10 @@ func _on_body_entered(body: Node2D) -> void:
 		body.take_damage(dmg, global_position)
 
 	if explosive:
-		_explode()
+		_explode_at(global_position)
+		# Sinergia penetração + explosiva: continua voando e explode de novo
+		if chain_explode and pierce:
+			return
 		queue_free()
 		return
 
@@ -52,12 +60,13 @@ func _on_body_entered(body: Node2D) -> void:
 	queue_free()
 
 
-func _explode() -> void:
+func _explode_at(origin: Vector2) -> void:
 	for node in get_tree().get_nodes_in_group("enemies"):
 		if not is_instance_valid(node):
 			continue
 		if node in _hit_enemies:
 			continue
-		if global_position.distance_to(node.global_position) <= explosion_radius:
+		if origin.distance_to(node.global_position) <= explosion_radius:
+			_hit_enemies.append(node)
 			if node.has_method("take_damage"):
-				node.take_damage(dmg, global_position)
+				node.take_damage(dmg, origin)

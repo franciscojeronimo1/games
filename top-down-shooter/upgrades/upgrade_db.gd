@@ -28,25 +28,43 @@ const POOL := [
 	{
 		"id": "double_shot",
 		"title": "Tiro Duplo",
-		"desc": "Dispara duas flechas em leque",
+		"desc": "Dispara duas flechas em leque\nSinergia: + Traseiro = CRUZ",
 		"unique": true,
 	},
 	{
 		"id": "reverse_shot",
 		"title": "Tiro Traseiro",
-		"desc": "Também dispara para trás",
+		"desc": "Também dispara para trás\nSinergia: + Duplo = CRUZ",
 		"unique": true,
 	},
 	{
 		"id": "pierce",
 		"title": "Penetração",
-		"desc": "Flechas atravessam inimigos",
+		"desc": "Flechas atravessam inimigos\nSinergia: + Explosiva = cadeia",
 		"unique": true,
 	},
 	{
 		"id": "explosive",
 		"title": "Flecha Explosiva",
-		"desc": "Flechas explodem em área",
+		"desc": "Flechas explodem em área\nSinergia: + Penetração = cadeia",
+		"unique": true,
+	},
+	{
+		"id": "magnet",
+		"title": "Ímã Arcano",
+		"desc": "Puxa XP de longe automaticamente",
+		"unique": true,
+	},
+	{
+		"id": "arrow_rain",
+		"title": "Chuva de Flechas",
+		"desc": "Habilidade [Q]: chuva em área (CD)",
+		"unique": true,
+	},
+	{
+		"id": "bomb",
+		"title": "Bomba de Choque",
+		"desc": "Habilidade [E]: explosão perto de você (CD)",
 		"unique": true,
 	},
 ]
@@ -85,3 +103,10 @@ static func apply(player: Player, upgrade_id: String) -> void:
 			player.has_pierce = true
 		"explosive":
 			player.has_explosive = true
+		"magnet":
+			player.has_magnet = true
+			player.magnet_radius = 320.0
+		"arrow_rain":
+			player.has_arrow_rain = true
+		"bomb":
+			player.has_bomb = true

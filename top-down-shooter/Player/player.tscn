@@ -238,7 +238,7 @@ size = Vector2(11.4, 12.799999)
 scale = Vector2(5, 5)
 script = ExtResource("1_gwnis")
 bullet_sceme = ExtResource("2_k53q1")
-shoot_coldown = 0.8
+shoot_coldown = 0.55
 hp = 6
 max_hp = 6
 

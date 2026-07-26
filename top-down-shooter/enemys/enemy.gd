@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Enemy
 
 @export var move_speed: float = 100.0
-@export var health: int = 5
+@export var health: int = 1
 @onready var anim: AnimatedSprite2D = $anim
 @export var drop: PackedScene
 @onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
@@ -14,26 +14,48 @@ var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_decay: float = 1000.0
 @export var deathParticle: PackedScene
 
+var is_elite: bool = false
+var _elite_pulse := 0.0
+
+
+func make_elite() -> void:
+	is_elite = true
+	health = int(health * 3.0)
+	move_speed *= 1.15
+	scale *= 1.25
+	original_color = Color(1.25, 1.05, 0.35)
+	anim.modulate = original_color
+	add_to_group("elites")
+
 
 func spawn_enemy_item():
-	var drop_instance = drop.instantiate()
-	call_deferred("_add_drop", drop_instance)
+	var drop_count := 3 if is_elite else 1
+	for i in drop_count:
+		var drop_instance = drop.instantiate()
+		call_deferred("_add_drop", drop_instance, Vector2(randf_range(-20, 20), randf_range(-20, 20)))
 
 
-func _add_drop(drop_instance):
+func _add_drop(drop_instance, offset: Vector2 = Vector2.ZERO):
 	get_tree().current_scene.add_child(drop_instance)
-	drop_instance.global_position = global_position
+	drop_instance.global_position = global_position + offset
 
 
 func _ready() -> void:
 	player = Global.player
-	original_color = anim.modulate
+	if not is_elite:
+		original_color = anim.modulate
+		health = int(health * Global.enemy_hp_mult)
+		move_speed *= Global.enemy_speed_mult
 	_play_move_anim()
 
 
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(player):
 		player = Global.player
+
+	if is_elite:
+		_elite_pulse += delta * 6.0
+		anim.modulate = original_color * (1.0 + 0.15 * sin(_elite_pulse))
 
 	if knockback_velocity.length() > 1.0:
 		velocity = knockback_velocity
@@ -86,7 +108,7 @@ func take_damage(amount: int, source_position: Vector2):
 	hit_flash()
 
 	if health <= 0:
-		Global.register_kill()
+		Global.register_kill(is_elite)
 		call_deferred("_die")
 
 
@@ -104,6 +126,9 @@ func _die():
 		_particle.rotation = global_rotation
 		_particle.emitting = true
 		get_tree().current_scene.add_child(_particle)
+	# Elite já dropa 3 XP — sem tela de upgrade extra
+	if is_elite:
+		Global.add_score(120)
 	queue_free()
 
 

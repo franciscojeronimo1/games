@@ -33,6 +33,14 @@ func pick_upgrade(options: Array) -> String:
 	return chosen
 
 
+func set_title(text: String) -> void:
+	if title:
+		title.text = text
+	else:
+		await ready
+		title.text = text
+
+
 func _on_option_pressed(index: int) -> void:
 	var button := buttons[index]
 	if button.has_meta("upgrade_id"):

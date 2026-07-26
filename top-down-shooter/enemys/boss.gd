@@ -5,6 +5,7 @@ class_name Boss
 @export var attack_cooldown: float = 1.2
 @export var attack_hit_frame_start: int = 4
 @export var attack_hit_frame_end: int = 5
+@export var triumph_xp_drops: int = 6
 
 var is_attacking := false
 var can_attack := true
@@ -13,6 +14,7 @@ var damage_dealt_this_attack := false
 
 func _ready() -> void:
 	super._ready()
+	add_to_group("boss")
 	anim.animation_finished.connect(_on_animation_finished)
 	anim.frame_changed.connect(_on_frame_changed)
 
@@ -87,3 +89,28 @@ func _play_move_anim() -> void:
 	if is_attacking:
 		return
 	super._play_move_anim()
+
+
+func spawn_enemy_item():
+	for i in triumph_xp_drops:
+		var drop_instance = drop.instantiate()
+		call_deferred("_add_drop", drop_instance, Vector2(randf_range(-40, 40), randf_range(-40, 40)))
+
+
+func _die():
+	if not is_inside_tree():
+		return
+
+	if is_instance_valid(Global.player) and Global.player.has_method("apply_boss_triumph_buff"):
+		Global.player.apply_boss_triumph_buff()
+
+	spawn_enemy_item()
+	if deathParticle:
+		var _particle = deathParticle.instantiate()
+		_particle.position = global_position
+		_particle.rotation = global_rotation
+		_particle.emitting = true
+		get_tree().current_scene.add_child(_particle)
+
+	Global.add_score(500)
+	queue_free()

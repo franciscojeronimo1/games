@@ -61,7 +61,7 @@ animations = [{
 [node name="enemy" type="CharacterBody2D" groups=["enemies"]]
 scale = Vector2(4, 4)
 script = ExtResource("1_n08dr")
-health = 3
+health = 1
 drop = ExtResource("2_xsoh1")
 deathParticle = ExtResource("4_xsoh1")
 

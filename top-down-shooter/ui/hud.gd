@@ -5,15 +5,43 @@ extends CanvasLayer
 @onready var lvl_label: Label = $Margin/VBox/LVL
 @onready var score_label: Label = $Margin/VBox/Score
 @onready var wave_label: Label = $Margin/VBox/Wave
+@onready var abilities_label: Label = $Margin/VBox/Abilities
+@onready var relic_label: Label = $Margin/VBox/Relic
+@onready var buff_label: Label = $Margin/VBox/Buff
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 
-func update_hud(hp: int, max_hp: int, lvl: int) -> void:
+func update_hud(hp: int, max_hp: int, lvl: int, abilities: Dictionary = {}, xp: Dictionary = {}) -> void:
 	hp_label.text = "HP  %d/%d" % [hp, max_hp]
 	time_label.text = "TEMPO  %s" % Global.format_time(Global.survival_time)
-	lvl_label.text = "LVL  %d" % lvl
+	var xp_cur: int = int(xp.get("current", 0))
+	var xp_next: int = int(xp.get("next", 1))
+	lvl_label.text = "LVL  %d   XP  %d/%d" % [lvl, xp_cur, xp_next]
 	score_label.text = "SCORE  %d" % Global.score
-	wave_label.text = "WAVE  %d" % Global.wave
+	wave_label.text = "DIFICULDADE  %d" % Global.wave
+	relic_label.text = "RELÍQUIA  %s" % Global.relic_title()
+
+	var dash_txt := _cd_text(abilities.get("dash", 0.0), abilities.get("dash_max", 1.0))
+	var rain_cd: float = abilities.get("rain", -1.0)
+	var bomb_cd: float = abilities.get("bomb", -1.0)
+	var rain_txt := "Q bloqueado" if rain_cd < 0.0 else "Q %s" % _cd_text(rain_cd, abilities.get("rain_max", 1.0))
+	var bomb_txt := "E bloqueado" if bomb_cd < 0.0 else "E %s" % _cd_text(bomb_cd, abilities.get("bomb_max", 1.0))
+	var synergy: String = str(abilities.get("synergy", ""))
+	var syn_txt := ("  |  " + synergy) if not synergy.is_empty() else ""
+	abilities_label.text = "DASH %s  |  %s  |  %s%s" % [dash_txt, rain_txt, bomb_txt, syn_txt]
+
+	var buff_t: float = float(abilities.get("boss_buff", 0.0))
+	if buff_t > 0.0:
+		buff_label.visible = true
+		buff_label.text = "FÚRIA DO BOSS  %.1fs  (+dano +spd +tiro +ima)" % buff_t
+	else:
+		buff_label.visible = false
+
+
+func _cd_text(left: float, max_cd: float) -> String:
+	if left <= 0.0:
+		return "PRONTO"
+	return "%.1fs" % left
