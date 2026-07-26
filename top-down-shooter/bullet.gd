@@ -6,10 +6,13 @@ var direction: Vector2 = Vector2.ZERO
 @export var dmg: int = 1
 
 func _process(delta: float) -> void:
-	position += direction.rotated(rotation) * speed * delta
-	
-func set_direction(new_direction):
+	position += direction * speed * delta
+
+func set_direction(new_direction: Vector2) -> void:
 	direction = new_direction.normalized()
+	# A flecha aponta pra direita na sprite, então o ângulo do vetor gira ela certo
+	rotation = direction.angle()
+
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
 

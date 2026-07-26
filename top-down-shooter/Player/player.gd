@@ -4,6 +4,7 @@ class_name Player
 @onready var player: Player = $"."
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var label: Label = $Label
+@onready var hurt_area: Area2D = $Area2D
 
 var bonus_effect_scene = preload("res://Player/lvl_up.tscn")
 var game_over_scene = preload("res://ui/game_over.tscn")
@@ -11,6 +12,11 @@ var game_over_scene = preload("res://ui/game_over.tscn")
 var can_shoot: bool = true
 @export var shoot_coldown : float = 2.0
 @export var game_over_hold_time: float = 1.8
+@export var knockback_force: float = 480.0
+@export var enemy_knockback_force: float = 380.0
+@export var knockback_decay: float = 1400.0
+@export var hurt_invuln_time: float = 0.35
+@export var attack_release_frame: int = 5
 var upgrades = {
 	1: {"shoot_coldown": 0.8},
 	10: {"shoot_coldown": 0.5, "move_speed": 500.0},
@@ -24,9 +30,11 @@ var upgrades = {
 
 var move_speed := 300.0
 var move_direction := Vector2.ZERO
+var knockback_velocity := Vector2.ZERO
 var is_attacking := false
 var is_hurt := false
 var is_dead := false
+var is_invulnerable := false
 
 
 func _ready() -> void:
@@ -35,23 +43,25 @@ func _ready() -> void:
 	anim.play("idle")
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
 
 	bonusUP()
 	move_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = move_direction * move_speed
+
+	if knockback_velocity.length() > 1.0:
+		velocity = knockback_velocity
+		knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, knockback_decay * delta)
+	else:
+		velocity = move_direction * move_speed
 
 	var mouse_dir = get_global_mouse_position() - global_position
-	var mouse_dir_contrario = -mouse_dir
 
 	_update_facing(mouse_dir)
 
 	if Input.is_action_just_pressed("shoot") and can_shoot:
 		_shoot(mouse_dir)
-		if lvl >= 15:
-			_spawn_bullet(mouse_dir_contrario)
 
 	_update_animation()
 	move_and_slide()
@@ -78,16 +88,29 @@ func _shoot(direction: Vector2) -> void:
 	is_attacking = true
 	anim.play("attack")
 
+	await _wait_for_attack_frame(attack_release_frame)
+
+	if is_dead or not is_attacking or anim.animation != "attack":
+		can_shoot = true
+		return
+
 	_spawn_bullet(direction)
+	if lvl >= 15:
+		_spawn_bullet(-direction)
 
 	await get_tree().create_timer(shoot_coldown).timeout
 	can_shoot = true
 
 
+func _wait_for_attack_frame(target_frame: int) -> void:
+	while is_attacking and anim.animation == "attack" and anim.frame < target_frame:
+		await anim.frame_changed
+
+
 func _spawn_bullet(direction: Vector2) -> void:
 	var bullet_instance = bullet_sceme.instantiate()
 	get_tree().current_scene.add_child(bullet_instance)
-	bullet_instance.global_position = global_position
+	bullet_instance.global_position = global_position + direction.normalized() * 24.0
 	bullet_instance.set_direction(direction)
 
 
@@ -106,16 +129,48 @@ func bonusUP():
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if is_dead:
+	if body.is_in_group("enemies"):
+		_take_damage_from(body)
+
+
+func _take_damage_from(enemy: Node2D) -> void:
+	if is_dead or is_invulnerable:
 		return
 
-	if body.is_in_group("enemies"):
-		hp -= 1
-		print("perdeu " + str(hp))
-		if hp <= 0:
-			game_over()
-		else:
-			_play_hit()
+	hp -= 1
+	print("perdeu " + str(hp))
+
+	var knock_dir := (global_position - enemy.global_position).normalized()
+	if knock_dir == Vector2.ZERO:
+		knock_dir = Vector2.RIGHT.rotated(randf() * TAU)
+
+	knockback_velocity = knock_dir * knockback_force
+
+	if enemy.has_method("apply_knockback"):
+		enemy.apply_knockback(-knock_dir * enemy_knockback_force)
+
+	if hp <= 0:
+		game_over()
+		return
+
+	_play_hit()
+	_start_invulnerability()
+
+
+func _start_invulnerability() -> void:
+	is_invulnerable = true
+	await get_tree().create_timer(hurt_invuln_time).timeout
+	if is_dead:
+		return
+	is_invulnerable = false
+	_check_ongoing_damage()
+
+
+func _check_ongoing_damage() -> void:
+	for body in hurt_area.get_overlapping_bodies():
+		if body.is_in_group("enemies"):
+			_take_damage_from(body)
+			return
 
 
 func _play_hit() -> void:
@@ -130,6 +185,7 @@ func game_over():
 	is_dead = true
 	can_shoot = false
 	velocity = Vector2.ZERO
+	knockback_velocity = Vector2.ZERO
 	is_attacking = false
 	is_hurt = false
 
