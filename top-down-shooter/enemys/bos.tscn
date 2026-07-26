@@ -1,7 +1,7 @@
-[gd_scene load_steps=32 format=3 uid="uid://cyi5jy2x28mec"]
+[gd_scene format=3 uid="uid://cyi5jy2x28mec"]
 
 [ext_resource type="PackedScene" uid="uid://c2vt4ewrecmdv" path="res://enemys/enemy.tscn" id="1_0qnip"]
-[ext_resource type="Script" path="res://enemys/boss.gd" id="1_boss"]
+[ext_resource type="Script" uid="uid://bbyo3gsjf6lka" path="res://enemys/boss.gd" id="1_boss"]
 [ext_resource type="Texture2D" uid="uid://c1bmfm30pfbf3" path="res://assets/Enemies/animations/atk_1/atk_1_1.png" id="2_5iktv"]
 [ext_resource type="Texture2D" uid="uid://yi6j6djkh0iv" path="res://assets/Enemies/animations/atk_1/atk_1_2.png" id="3_20v02"]
 [ext_resource type="Texture2D" uid="uid://difq4ea7aos8q" path="res://assets/Enemies/animations/atk_1/atk_1_3.png" id="4_lf3af"]
@@ -82,7 +82,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("17_06gss")
 }],
-"loop": false,
+"loop": 0,
 "name": &"attack1",
 "speed": 10.0
 }, {
@@ -123,22 +123,27 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("29_e1dlh")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 10.0
 }]
 
-[node name="bos" instance=ExtResource("1_0qnip")]
+[node name="bos" unique_id=1055833142 instance=ExtResource("1_0qnip")]
 scale = Vector2(2, 2)
 script = ExtResource("1_boss")
-move_speed = 75.0
-health = 45
 attack_range = 110.0
 attack_cooldown = 1.2
 attack_hit_frame_start = 4
 attack_hit_frame_end = 5
+move_speed = 75.0
+health = 45
+
+[node name="collision" parent="." index="0"]
+position = Vector2(0, -0.5)
+scale = Vector2(4, 4)
 
 [node name="anim" parent="." index="1"]
+position = Vector2(-0.5, -24)
 sprite_frames = SubResource("SpriteFrames_h28ec")
 animation = &"walk"
 autoplay = "walk"

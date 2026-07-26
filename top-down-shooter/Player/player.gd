@@ -1,32 +1,27 @@
 extends CharacterBody2D
 class_name Player
 
-@onready var player: Player = $"."
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var label: Label = $Label
 @onready var hurt_area: Area2D = $Area2D
 
-var bonus_effect_scene = preload("res://Player/lvl_up.tscn")
 var game_over_scene = preload("res://ui/game_over.tscn")
-@export var bullet_sceme : PackedScene
+var upgrade_pick_scene = preload("res://ui/upgrade_pick.tscn")
+@export var bullet_sceme: PackedScene
 var can_shoot: bool = true
-@export var shoot_coldown : float = 2.0
-@export var game_over_hold_time: float = 1.8
+@export var shoot_coldown: float = 0.8
+@export var game_over_hold_time: float = 2.2
 @export var knockback_force: float = 480.0
 @export var enemy_knockback_force: float = 380.0
 @export var knockback_decay: float = 1400.0
 @export var hurt_invuln_time: float = 0.35
 @export var attack_release_frame: int = 5
-var upgrades = {
-	1: {"shoot_coldown": 0.8},
-	10: {"shoot_coldown": 0.5, "move_speed": 500.0},
-	15: {"shoot_coldown": 0.3},
-	20: {"shoot_coldown": 0.1, "move_speed": 700.0},
-	30: {"move_speed": 900.0}
-}
+@export var upgrade_every_n_levels: int = 5
 
-@export var hp : int = 10
+@export var hp: int = 6
+@export var max_hp: int = 6
 @export var lvl: int = 1
+@export var bullet_damage: int = 1
 
 var move_speed := 300.0
 var move_direction := Vector2.ZERO
@@ -35,19 +30,25 @@ var is_attacking := false
 var is_hurt := false
 var is_dead := false
 var is_invulnerable := false
+var is_choosing_upgrade := false
+
+var has_double_shot := false
+var has_reverse_shot := false
+var has_pierce := false
+var has_explosive := false
 
 
 func _ready() -> void:
 	Global.player = self
 	anim.animation_finished.connect(_on_animation_finished)
 	anim.play("idle")
+	_refresh_lvl_label()
 
 
 func _physics_process(delta: float) -> void:
-	if is_dead:
+	if is_dead or is_choosing_upgrade:
 		return
 
-	bonusUP()
 	move_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
 	if knockback_velocity.length() > 1.0:
@@ -57,7 +58,6 @@ func _physics_process(delta: float) -> void:
 		velocity = move_direction * move_speed
 
 	var mouse_dir = get_global_mouse_position() - global_position
-
 	_update_facing(mouse_dir)
 
 	if Input.is_action_just_pressed("shoot") and can_shoot:
@@ -94,12 +94,22 @@ func _shoot(direction: Vector2) -> void:
 		can_shoot = true
 		return
 
-	_spawn_bullet(direction)
-	if lvl >= 15:
-		_spawn_bullet(-direction)
+	_fire_projectiles(direction)
 
 	await get_tree().create_timer(shoot_coldown).timeout
 	can_shoot = true
+
+
+func _fire_projectiles(direction: Vector2) -> void:
+	var dir := direction.normalized()
+	if has_double_shot:
+		_spawn_bullet(dir.rotated(deg_to_rad(-10.0)))
+		_spawn_bullet(dir.rotated(deg_to_rad(10.0)))
+	else:
+		_spawn_bullet(dir)
+
+	if has_reverse_shot:
+		_spawn_bullet(-dir)
 
 
 func _wait_for_attack_frame(target_frame: int) -> void:
@@ -112,6 +122,8 @@ func _spawn_bullet(direction: Vector2) -> void:
 	get_tree().current_scene.add_child(bullet_instance)
 	bullet_instance.global_position = global_position + direction.normalized() * 24.0
 	bullet_instance.set_direction(direction)
+	if bullet_instance.has_method("configure"):
+		bullet_instance.configure(bullet_damage, has_pierce, has_explosive)
 
 
 func _on_animation_finished() -> void:
@@ -122,10 +134,18 @@ func _on_animation_finished() -> void:
 			is_hurt = false
 
 
-func bonusUP():
-	if upgrades.has(lvl):
-		for key in upgrades[lvl]:
-			self.set(key, upgrades[lvl][key])
+func has_upgrade(upgrade_id: String) -> bool:
+	match upgrade_id:
+		"double_shot":
+			return has_double_shot
+		"reverse_shot":
+			return has_reverse_shot
+		"pierce":
+			return has_pierce
+		"explosive":
+			return has_explosive
+		_:
+			return false
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -134,11 +154,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 
 func _take_damage_from(enemy: Node2D) -> void:
-	if is_dead or is_invulnerable:
+	if is_dead or is_invulnerable or is_choosing_upgrade:
 		return
 
 	hp -= 1
-	print("perdeu " + str(hp))
 
 	var knock_dir := (global_position - enemy.global_position).normalized()
 	if knock_dir == Vector2.ZERO:
@@ -189,6 +208,8 @@ func game_over():
 	is_attacking = false
 	is_hurt = false
 
+	var result := Global.finalize_run()
+
 	get_tree().paused = true
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
@@ -200,6 +221,7 @@ func game_over():
 
 	var overlay = game_over_scene.instantiate()
 	get_tree().current_scene.add_child(overlay)
+	overlay.setup(result)
 	await overlay.play_fade(1.4)
 
 	await get_tree().create_timer(game_over_hold_time, true).timeout
@@ -209,7 +231,41 @@ func game_over():
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
+	if is_dead or is_choosing_upgrade:
+		return
 	if area.is_in_group("xpdropInicial"):
-		lvl += 1
-		label.text = "LVL: " + str(lvl)
-		print(lvl)
+		await _level_up()
+
+
+func _level_up() -> void:
+	lvl += 1
+	Global.add_score(25)
+	_refresh_lvl_label()
+
+	if upgrade_every_n_levels <= 0 or lvl % upgrade_every_n_levels != 0:
+		return
+
+	is_choosing_upgrade = true
+	get_tree().paused = true
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
+	var options := UpgradeDB.roll_three(self)
+	if options.is_empty():
+		is_choosing_upgrade = false
+		get_tree().paused = false
+		process_mode = Node.PROCESS_MODE_INHERIT
+		return
+
+	var pick = upgrade_pick_scene.instantiate()
+	get_tree().current_scene.add_child(pick)
+	var chosen_id: String = await pick.pick_upgrade(options)
+	UpgradeDB.apply(self, chosen_id)
+	pick.queue_free()
+
+	is_choosing_upgrade = false
+	get_tree().paused = false
+	process_mode = Node.PROCESS_MODE_INHERIT
+
+
+func _refresh_lvl_label() -> void:
+	label.text = "LVL: " + str(lvl)

@@ -51,6 +51,22 @@ region = Rect2(288, 96, 32, 32)
 atlas = ExtResource("3_btcbx")
 region = Rect2(320, 96, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_death0"]
+atlas = ExtResource("3_btcbx")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death1"]
+atlas = ExtResource("3_btcbx")
+region = Rect2(32, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death2"]
+atlas = ExtResource("3_btcbx")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death3"]
+atlas = ExtResource("3_btcbx")
+region = Rect2(96, 192, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_8mwp6"]
 atlas = ExtResource("3_btcbx")
 region = Rect2(0, 160, 32, 32)
@@ -103,22 +119,6 @@ region = Rect2(128, 32, 32, 32)
 atlas = ExtResource("3_btcbx")
 region = Rect2(160, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_death0"]
-atlas = ExtResource("3_btcbx")
-region = Rect2(0, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_death1"]
-atlas = ExtResource("3_btcbx")
-region = Rect2(32, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_death2"]
-atlas = ExtResource("3_btcbx")
-region = Rect2(64, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_death3"]
-atlas = ExtResource("3_btcbx")
-region = Rect2(96, 192, 32, 32)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_od3ui"]
 animations = [{
 "frames": [{
@@ -155,7 +155,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gpjlu")
 }],
-"loop": false,
+"loop": 0,
 "name": &"attack",
 "speed": 12.0
 }, {
@@ -172,7 +172,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_death3")
 }],
-"loop": false,
+"loop": 0,
 "name": &"death",
 "speed": 8.0
 }, {
@@ -186,7 +186,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8viyr")
 }],
-"loop": false,
+"loop": 0,
 "name": &"hit",
 "speed": 10.0
 }, {
@@ -203,7 +203,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vtle1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 10.0
 }, {
@@ -226,7 +226,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_p5o4e")
 }],
-"loop": true,
+"loop": 1,
 "name": &"run",
 "speed": 10.0
 }]
@@ -238,7 +238,9 @@ size = Vector2(11.4, 12.799999)
 scale = Vector2(5, 5)
 script = ExtResource("1_gwnis")
 bullet_sceme = ExtResource("2_k53q1")
-shoot_coldown = 1.0
+shoot_coldown = 0.8
+hp = 6
+max_hp = 6
 
 [node name="collision" type="CollisionShape2D" parent="." unique_id=235752739]
 position = Vector2(-0.20000018, -1.3000002)
@@ -248,7 +250,7 @@ shape = SubResource("RectangleShape2D_fhl08")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=412603428]
 position = Vector2(-0.39999998, -9.799999)
 sprite_frames = SubResource("SpriteFrames_od3ui")
-animation = &"hit"
+animation = &"attack"
 autoplay = "idle"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1924118371]

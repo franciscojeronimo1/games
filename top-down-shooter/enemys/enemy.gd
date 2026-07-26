@@ -77,27 +77,35 @@ func apply_knockback(force: Vector2):
 
 
 func take_damage(amount: int, source_position: Vector2):
+	if health <= 0:
+		return
+
 	health -= amount
 	var knockback_dir = (global_position - source_position).normalized()
 	apply_knockback(knockback_dir * 300)
 	hit_flash()
 
 	if health <= 0:
-		call_deferred("drop_and_die")
-		killParticle()
-	print("Enemy health is: " + str(health))
+		Global.register_kill()
+		call_deferred("_die")
 
 
 func drop_and_die():
+	_die()
+
+
+func _die():
+	if not is_inside_tree():
+		return
 	spawn_enemy_item()
+	if deathParticle:
+		var _particle = deathParticle.instantiate()
+		_particle.position = global_position
+		_particle.rotation = global_rotation
+		_particle.emitting = true
+		get_tree().current_scene.add_child(_particle)
 	queue_free()
 
 
 func killParticle():
-	var _particle = deathParticle.instantiate()
-	_particle.position = global_position
-	_particle.rotation = global_rotation
-	_particle.emitting = true
-	get_tree().current_scene.add_child(_particle)
-
-	queue_free()
+	pass

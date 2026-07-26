@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://y6ts835jpv3r"]
+[gd_scene format=3 uid="uid://y6ts835jpv3r"]
 
 [ext_resource type="Script" uid="uid://54b35fhdbc6h" path="res://scenes/arena.gd" id="1_olpmc"]
 [ext_resource type="PackedScene" uid="uid://qbcp4l2wgf4h" path="res://Player/player.tscn" id="1_wl4x5"]
@@ -14,21 +14,21 @@ glow_bloom = 0.5
 glow_hdr_threshold = 2.0
 glow_hdr_scale = 1.98
 
-[node name="arena" type="Node2D"]
+[node name="arena" type="Node2D" unique_id=373401869]
 script = ExtResource("1_olpmc")
 enemy_scene = ExtResource("2_wl4x5")
 enemy_scene2 = ExtResource("3_xdvfk")
 boss_scene = ExtResource("4_boss")
-boss_spawn_lvl = 10
-boss_spawn_time = 45.0
+boss_spawn_lvl = 12
+boss_spawn_time = 90.0
 
-[node name="player" parent="." instance=ExtResource("1_wl4x5")]
+[node name="player" parent="." unique_id=856374309 instance=ExtResource("1_wl4x5")]
 position = Vector2(868, 538)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=874402732]
 environment = SubResource("Environment_wl4x5")
 
-[node name="spawn_timer" type="Timer" parent="."]
+[node name="spawn_timer" type="Timer" parent="." unique_id=448805765]
 wait_time = 5.0
 autostart = true
 
