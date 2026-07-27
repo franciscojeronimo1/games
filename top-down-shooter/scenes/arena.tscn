@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c2vt4ewrecmdv" path="res://enemys/enemy.tscn" id="2_wl4x5"]
 [ext_resource type="PackedScene" uid="uid://cs2wfer3e156m" path="res://enemys/enemy-bat.tscn" id="3_xdvfk"]
 [ext_resource type="PackedScene" uid="uid://cyi5jy2x28mec" path="res://enemys/bos.tscn" id="4_boss"]
+[ext_resource type="PackedScene" uid="uid://b0oqfhrjtgbdv" path="res://enemys/enemy-gordao.tscn" id="5_gordao"]
 [ext_resource type="PackedScene" uid="uid://bird4lvxmwd6j" path="res://tile_map_layer.tscn" id="6_4ag8t"]
 
 [sub_resource type="Environment" id="Environment_wl4x5"]
@@ -19,7 +20,9 @@ glow_hdr_scale = 1.98
 script = ExtResource("1_olpmc")
 enemy_scene = ExtResource("2_wl4x5")
 enemy_scene2 = ExtResource("3_xdvfk")
+enemy_scene3 = ExtResource("5_gordao")
 boss_scene = ExtResource("4_boss")
+max_enemies_on_screen = 20
 
 [node name="TileMapLayer" parent="." unique_id=1117508501 instance=ExtResource("6_4ag8t")]
 visible = false

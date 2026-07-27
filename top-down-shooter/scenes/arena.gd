@@ -5,6 +5,7 @@ extends Node2D
 @export var enemy_scene: PackedScene
 @export var spawn_margin := 200
 @export var enemy_scene2: PackedScene
+@export var enemy_scene3: PackedScene
 @export var boss_scene: PackedScene
 @export var boss_every_n_levels: int = 10
 @export var first_boss_lvl: int = 10
@@ -108,15 +109,28 @@ func spawn_enemy():
 	var speed_mult := 1.0 + (lvl - 1) * 0.02
 
 	for i in pack_size:
-		var scene: PackedScene = enemy_scene if (i % 2 == 0) else enemy_scene2
+		var scene := _pick_enemy_scene(i)
 		_spawn_scaled_enemy(scene, hp_bonus, speed_mult, false)
 
 	# Elite ocasional a partir do lvl 4, se ainda couber
 	if lvl >= 4 and lvl % 2 == 0 and _alive_enemies() < max_enemies_on_screen:
-		var elite_scene: PackedScene = enemy_scene2 if lvl % 4 == 0 else enemy_scene
+		var elite_scene := _pick_enemy_scene(lvl)
 		_spawn_scaled_enemy(elite_scene, hp_bonus, speed_mult, true)
 
 	_sync_spawn_rate()
+
+
+func _pick_enemy_scene(seed_i: int = 0) -> PackedScene:
+	var pool: Array[PackedScene] = []
+	if enemy_scene:
+		pool.append(enemy_scene)
+	if enemy_scene2:
+		pool.append(enemy_scene2)
+	if enemy_scene3:
+		pool.append(enemy_scene3)
+	if pool.is_empty():
+		return null
+	return pool[seed_i % pool.size()]
 
 
 func _spawn_scaled_enemy(scene: PackedScene, hp_bonus: int, speed_mult: float, elite: bool) -> void:
