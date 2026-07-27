@@ -6,13 +6,14 @@ class_name Enemy
 @onready var anim: AnimatedSprite2D = $anim
 @export var drop: PackedScene
 @onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
+@export var xp_drop_count: int = 1
+@export var deathParticle: PackedScene
 
 var direction: Vector2 = Vector2.ZERO
 var player = null
 var original_color := Color.WHITE
 var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_decay: float = 1000.0
-@export var deathParticle: PackedScene
 
 var is_elite: bool = false
 var _elite_pulse := 0.0
@@ -29,7 +30,9 @@ func make_elite() -> void:
 
 
 func spawn_enemy_item():
-	var drop_count := 3 if is_elite else 1
+	var drop_count := xp_drop_count
+	if is_elite:
+		drop_count = maxi(drop_count, 3)
 	for i in drop_count:
 		var drop_instance = drop.instantiate()
 		call_deferred("_add_drop", drop_instance, Vector2(randf_range(-20, 20), randf_range(-20, 20)))
@@ -86,6 +89,9 @@ func _play_move_anim() -> void:
 	elif anim.sprite_frames.has_animation("idle"):
 		if anim.animation != "idle":
 			anim.play("idle")
+	elif anim.sprite_frames.has_animation("default_1"):
+		if anim.animation != "default_1":
+			anim.play("default_1")
 
 
 func hit_flash():

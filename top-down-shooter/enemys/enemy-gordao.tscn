@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://b0oqfhrjtgbdv"]
+
+[ext_resource type="PackedScene" uid="uid://cs2wfer3e156m" path="res://enemys/enemy-bat.tscn" id="1_hf02v"]
+[ext_resource type="Texture2D" uid="uid://bmv0dgcqmkaph" path="res://assets/mobs/Fatso.png" id="2_gfhjv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lx67i"]
+atlas = ExtResource("2_gfhjv")
+region = Rect2(0, 0, 84, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3umh"]
+atlas = ExtResource("2_gfhjv")
+region = Rect2(0, 92, 84, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gy5ri"]
+atlas = ExtResource("2_gfhjv")
+region = Rect2(0, 184, 84, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bjkg"]
+atlas = ExtResource("2_gfhjv")
+region = Rect2(0, 276, 84, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2b8u"]
+atlas = ExtResource("2_gfhjv")
+region = Rect2(0, 368, 84, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7um26"]
+atlas = ExtResource("2_gfhjv")
+region = Rect2(0, 460, 84, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8sltc"]
+atlas = ExtResource("2_gfhjv")
+region = Rect2(0, 552, 84, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3y7im"]
+atlas = ExtResource("2_gfhjv")
+region = Rect2(0, 644, 84, 92)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hf02v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lx67i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3umh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gy5ri")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bjkg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2b8u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7um26")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8sltc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3y7im")
+}],
+"loop": 1,
+"name": &"default_1",
+"speed": 10.0
+}]
+
+[node name="enemy" unique_id=1423335314 instance=ExtResource("1_hf02v")]
+move_speed = 55.0
+health = 5
+xp_drop_count = 3
+
+[node name="anim" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_hf02v")
+animation = &"default_1"
+autoplay = "default_1"
+frame_progress = 0.64537287
