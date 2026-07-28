@@ -67,6 +67,10 @@ var _boss_damage_bonus: int = 0
 var _boss_magnet_bonus: float = 0.0
 var _boss_dash_mult: float = 1.0
 
+## true = IA joga; false = você controla (WASD + mouse)
+@export var auto_mode: bool = true
+var _aim_dir: Vector2 = Vector2.RIGHT
+
 
 func _ready() -> void:
 	Global.player = self
@@ -74,6 +78,14 @@ func _ready() -> void:
 	anim.play("idle")
 	xp_to_next = base_xp_to_level
 	_refresh_lvl_label()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if is_dead or is_choosing_upgrade:
+		return
+	if event.is_action_pressed("toggle_auto"):
+		auto_mode = not auto_mode
+		get_viewport().set_input_as_handled()
 
 
 func _physics_process(delta: float) -> void:
@@ -85,16 +97,10 @@ func _physics_process(delta: float) -> void:
 	_bomb_cd_left = maxf(0.0, _bomb_cd_left - delta)
 	_tick_boss_buff(delta)
 
-	move_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-
-	if Input.is_action_just_pressed("dash") and _dash_cd_left <= 0.0 and not _is_dashing:
-		_start_dash()
-
-	if Input.is_action_just_pressed("ability_q") and has_arrow_rain and _arrow_rain_cd_left <= 0.0:
-		_cast_arrow_rain()
-
-	if Input.is_action_just_pressed("ability_e") and has_bomb and _bomb_cd_left <= 0.0:
-		_cast_bomb()
+	if auto_mode:
+		_run_auto_pilot()
+	else:
+		_run_manual_control()
 
 	if _is_dashing:
 		move_and_slide()
@@ -106,19 +112,51 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity = move_direction * _get_move_speed()
 
-	var mouse_dir = get_global_mouse_position() - global_position
-	_update_facing(mouse_dir)
+	_update_facing(_aim_dir)
 
-	# Tiro automático sempre na direção do mouse
-	if can_shoot and not _is_dashing and not is_hurt:
-		_shoot(mouse_dir)
+	if can_shoot and not _is_dashing and not is_hurt and _aim_dir != Vector2.ZERO:
+		_shoot(_aim_dir)
 
 	_update_animation()
 	move_and_slide()
 
 
-func _start_dash() -> void:
-	var dash_dir := move_direction
+func _run_manual_control() -> void:
+	move_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	_aim_dir = get_global_mouse_position() - global_position
+
+	if Input.is_action_just_pressed("dash") and _dash_cd_left <= 0.0 and not _is_dashing:
+		_start_dash()
+
+	if Input.is_action_just_pressed("ability_q") and has_arrow_rain and _arrow_rain_cd_left <= 0.0:
+		_cast_arrow_rain()
+
+	if Input.is_action_just_pressed("ability_e") and has_bomb and _bomb_cd_left <= 0.0:
+		_cast_bomb()
+
+
+func _run_auto_pilot() -> void:
+	var decision: Dictionary = AutoPilot.think(self)
+	move_direction = decision.get("move", Vector2.ZERO)
+	var aim: Vector2 = decision.get("aim", Vector2.RIGHT)
+	if aim != Vector2.ZERO:
+		_aim_dir = aim
+
+	if decision.get("dash", false) and _dash_cd_left <= 0.0 and not _is_dashing:
+		var dash_dir: Vector2 = decision.get("dash_dir", move_direction)
+		_start_dash(dash_dir)
+
+	if decision.get("use_e", false) and has_bomb and _bomb_cd_left <= 0.0:
+		_cast_bomb()
+
+	if decision.get("use_q", false) and has_arrow_rain and _arrow_rain_cd_left <= 0.0:
+		_cast_arrow_rain(decision.get("q_center", global_position))
+
+
+func _start_dash(forced_dir: Vector2 = Vector2.ZERO) -> void:
+	var dash_dir := forced_dir
+	if dash_dir == Vector2.ZERO:
+		dash_dir = move_direction
 	if dash_dir == Vector2.ZERO:
 		dash_dir = Vector2.RIGHT if not anim.flip_h else Vector2.LEFT
 	_is_dashing = true
@@ -132,9 +170,10 @@ func _start_dash() -> void:
 		_check_ongoing_damage()
 
 
-func _cast_arrow_rain() -> void:
+func _cast_arrow_rain(center: Vector2 = Vector2.INF) -> void:
 	_arrow_rain_cd_left = arrow_rain_cooldown
-	var center := get_global_mouse_position()
+	if center == Vector2.INF:
+		center = get_global_mouse_position()
 	for i in 10:
 		var offset := Vector2(randf_range(-90, 90), randf_range(-90, 90))
 		var bullet = bullet_sceme.instantiate()
@@ -162,9 +201,9 @@ func _cast_bomb() -> void:
 		modulate = Color.WHITE
 
 
-func _update_facing(mouse_dir: Vector2) -> void:
-	if mouse_dir.x != 0.0:
-		anim.flip_h = mouse_dir.x < 0.0
+func _update_facing(aim_dir: Vector2) -> void:
+	if aim_dir.x != 0.0:
+		anim.flip_h = aim_dir.x < 0.0
 
 
 func _update_animation() -> void:
@@ -513,6 +552,7 @@ func get_ability_hud() -> Dictionary:
 		"bomb_max": bomb_cooldown,
 		"synergy": _synergy_text(),
 		"boss_buff": _boss_buff_time if _boss_buff_active else 0.0,
+		"auto_mode": auto_mode,
 	}
 
 

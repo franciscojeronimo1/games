@@ -8,6 +8,7 @@ extends CanvasLayer
 @onready var abilities_label: Label = $Margin/VBox/Abilities
 @onready var relic_label: Label = $Margin/VBox/Relic
 @onready var buff_label: Label = $Margin/VBox/Buff
+@onready var mode_label: Label = $Margin/VBox/Mode
 
 
 func _ready() -> void:
@@ -23,6 +24,14 @@ func update_hud(hp: int, max_hp: int, lvl: int, abilities: Dictionary = {}, xp: 
 	score_label.text = "SCORE  %d" % Global.score
 	wave_label.text = "DIFICULDADE  %d" % Global.wave
 	relic_label.text = "RELÍQUIA  %s" % Global.relic_title()
+
+	var mode_auto: bool = bool(abilities.get("auto_mode", true))
+	if mode_auto:
+		mode_label.text = "MODO AUTO  (TAB = manual)"
+		mode_label.modulate = Color(0.55, 1.0, 0.7)
+	else:
+		mode_label.text = "MODO MANUAL  (TAB = auto)"
+		mode_label.modulate = Color(1.0, 0.85, 0.5)
 
 	var dash_txt := _cd_text(abilities.get("dash", 0.0), abilities.get("dash_max", 1.0))
 	var rain_cd: float = abilities.get("rain", -1.0)
