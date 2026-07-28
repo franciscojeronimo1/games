@@ -11,8 +11,21 @@ const ARENA_SCENE := "res://scenes/arena.tscn"
 @onready var auto_check: CheckButton = $OptionsPanel/Margin/VBox/AutoMode
 @onready var high_score_label: Label = $HighScore
 
+@export var show_hitbox_debug: bool = true
+
+var _debug_style: StyleBoxFlat
+var _empty_style: StyleBoxEmpty
+var _buttons: Array[Button] = []
+
 
 func _ready() -> void:
+	_buttons = [play_btn, options_btn, credits_btn, exit_btn]
+	_empty_style = StyleBoxEmpty.new()
+	_debug_style = StyleBoxFlat.new()
+	_debug_style.bg_color = Color(0.2, 1.0, 0.35, 0.25)
+	_debug_style.set_border_width_all(2)
+	_debug_style.border_color = Color(0.4, 1.0, 0.5, 0.9)
+
 	play_btn.pressed.connect(_on_play)
 	options_btn.pressed.connect(_on_options)
 	credits_btn.pressed.connect(_on_credits)
@@ -27,9 +40,20 @@ func _ready() -> void:
 	credits_panel.visible = false
 	high_score_label.text = "RECORDE  %d" % Global.high_score
 
-	for btn in [play_btn, options_btn, credits_btn, exit_btn]:
+	for btn in _buttons:
 		btn.mouse_entered.connect(_on_btn_hover.bind(btn, true))
 		btn.mouse_exited.connect(_on_btn_hover.bind(btn, false))
+
+	_apply_debug_visuals()
+
+
+func _apply_debug_visuals() -> void:
+	for btn in _buttons:
+		var style: StyleBox = _debug_style if show_hitbox_debug else _empty_style
+		btn.add_theme_stylebox_override("normal", style)
+		btn.add_theme_stylebox_override("hover", style)
+		btn.add_theme_stylebox_override("pressed", style)
+		btn.add_theme_stylebox_override("focus", style)
 
 
 func _on_btn_hover(btn: Button, entered: bool) -> void:
@@ -64,6 +88,12 @@ func _on_auto_toggled(pressed: bool) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_F8:
+			show_hitbox_debug = not show_hitbox_debug
+			_apply_debug_visuals()
+			get_viewport().set_input_as_handled()
+			return
 	if event.is_action_pressed("ui_cancel"):
 		if options_panel.visible or credits_panel.visible:
 			_close_panels()

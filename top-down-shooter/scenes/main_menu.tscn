@@ -1,11 +1,11 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://daibhp5tugrhy"]
 
-[ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://6saftiwjw4de" path="res://scenes/main_menu.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://dxh1r6wfmec05" path="res://assets/imagem-inicial.png" id="2_bg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_flat"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=2128957550]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,86 +14,116 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=597513285]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("2_bg")
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 5
 
-[node name="MenuHitboxes" type="VBoxContainer" parent="."]
+[node name="MenuHitboxes" type="Control" parent="." unique_id=1843735818]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -170.0
-offset_top = -40.0
-offset_right = 170.0
-offset_bottom = 220.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 10
-alignment = 1
+mouse_filter = 2
 
-[node name="Play" type="Button" parent="MenuHitboxes"]
-custom_minimum_size = Vector2(340, 72)
-layout_mode = 2
-focus_mode = 2
+[node name="Play" type="Button" parent="MenuHitboxes" unique_id=32009354]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.42
+anchor_right = 0.5
+anchor_bottom = 0.42
+offset_left = -190.0
+offset_top = -36.0
+offset_right = 187.0
+offset_bottom = 124.400024
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 0)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 0)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 0)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_flat")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_flat")
 flat = true
 
-[node name="Options" type="Button" parent="MenuHitboxes"]
-custom_minimum_size = Vector2(300, 48)
-layout_mode = 2
-size_flags_horizontal = 4
+[node name="Options" type="Button" parent="MenuHitboxes" unique_id=1005653021]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.545
+anchor_right = 0.5
+anchor_bottom = 0.69100004
+offset_left = -160.0
+offset_top = 85.39996
+offset_right = 140.0
+offset_bottom = -11.280029
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 0)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 0)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 0)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_flat")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_flat")
 flat = true
 
-[node name="Credits" type="Button" parent="MenuHitboxes"]
-custom_minimum_size = Vector2(300, 48)
-layout_mode = 2
-size_flags_horizontal = 4
+[node name="Credits" type="Button" parent="MenuHitboxes" unique_id=1663108653]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.63
+anchor_right = 0.5
+anchor_bottom = 0.74
+offset_left = -148.0
+offset_top = 100.599976
+offset_right = 147.0
+offset_bottom = 78.79999
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 0)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 0)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 0)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_flat")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_flat")
 flat = true
 
-[node name="Exit" type="Button" parent="MenuHitboxes"]
-custom_minimum_size = Vector2(300, 48)
-layout_mode = 2
-size_flags_horizontal = 4
+[node name="Exit" type="Button" parent="MenuHitboxes" unique_id=252980720]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.86700004
+anchor_right = 0.5
+anchor_bottom = 0.86700004
+offset_left = -158.0
+offset_top = -40.360046
+offset_right = 147.0
+offset_bottom = 49.639954
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 0)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 0)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 0)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_flat")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_flat")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_flat")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_flat")
 flat = true
 
-[node name="HighScore" type="Label" parent="."]
+[node name="HighScore" type="Label" parent="." unique_id=2006638009]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -114,8 +144,23 @@ theme_override_font_sizes/font_size = 22
 text = "RECORDE  0"
 horizontal_alignment = 1
 
-[node name="OptionsPanel" type="PanelContainer" parent="."]
+[node name="Hint" type="Label" parent="." unique_id=1396687163]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -40.0
+offset_right = 420.0
+offset_bottom = -12.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.85, 0.8, 1, 0.75)
+theme_override_font_sizes/font_size = 16
+text = "F8 = mostrar/esconder áreas dos botões"
+
+[node name="OptionsPanel" type="PanelContainer" parent="." unique_id=419632343]
 visible = false
+z_index = 10
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -129,41 +174,42 @@ offset_bottom = 140.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Margin" type="MarginContainer" parent="OptionsPanel"]
+[node name="Margin" type="MarginContainer" parent="OptionsPanel" unique_id=2111879589]
 layout_mode = 2
 theme_override_constants/margin_left = 24
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 20
 
-[node name="VBox" type="VBoxContainer" parent="OptionsPanel/Margin"]
+[node name="VBox" type="VBoxContainer" parent="OptionsPanel/Margin" unique_id=100219199]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Title" type="Label" parent="OptionsPanel/Margin/VBox"]
+[node name="Title" type="Label" parent="OptionsPanel/Margin/VBox" unique_id=2092477344]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "OPÇÕES"
 horizontal_alignment = 1
 
-[node name="AutoMode" type="CheckButton" parent="OptionsPanel/Margin/VBox"]
+[node name="AutoMode" type="CheckButton" parent="OptionsPanel/Margin/VBox" unique_id=355967858]
 layout_mode = 2
 button_pressed = true
 text = "Começar em modo AUTO"
 
-[node name="Hint" type="Label" parent="OptionsPanel/Margin/VBox"]
+[node name="Hint" type="Label" parent="OptionsPanel/Margin/VBox" unique_id=1725002900]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.85, 1)
 theme_override_font_sizes/font_size = 16
 text = "No jogo, TAB troca Auto ↔ Manual."
 autowrap_mode = 3
 
-[node name="CloseOptions" type="Button" parent="OptionsPanel/Margin/VBox"]
+[node name="CloseOptions" type="Button" parent="OptionsPanel/Margin/VBox" unique_id=582312181]
 layout_mode = 2
 text = "Fechar"
 
-[node name="CreditsPanel" type="PanelContainer" parent="."]
+[node name="CreditsPanel" type="PanelContainer" parent="." unique_id=367269460]
 visible = false
+z_index = 10
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -177,24 +223,24 @@ offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Margin" type="MarginContainer" parent="CreditsPanel"]
+[node name="Margin" type="MarginContainer" parent="CreditsPanel" unique_id=1564606431]
 layout_mode = 2
 theme_override_constants/margin_left = 24
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 20
 
-[node name="VBox" type="VBoxContainer" parent="CreditsPanel/Margin"]
+[node name="VBox" type="VBoxContainer" parent="CreditsPanel/Margin" unique_id=1146993951]
 layout_mode = 2
 theme_override_constants/separation = 14
 
-[node name="Title" type="Label" parent="CreditsPanel/Margin/VBox"]
+[node name="Title" type="Label" parent="CreditsPanel/Margin/VBox" unique_id=671311901]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "CRÉDITOS"
 horizontal_alignment = 1
 
-[node name="Body" type="Label" parent="CreditsPanel/Margin/VBox"]
+[node name="Body" type="Label" parent="CreditsPanel/Margin/VBox" unique_id=1647531191]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "CLÃ DO ARQUEIRO
@@ -205,6 +251,6 @@ Godot Engine
 Sobreviva. Evolua. Domine a arena."
 horizontal_alignment = 1
 
-[node name="CloseCredits" type="Button" parent="CreditsPanel/Margin/VBox"]
+[node name="CloseCredits" type="Button" parent="CreditsPanel/Margin/VBox" unique_id=1687712041]
 layout_mode = 2
 text = "Fechar"
