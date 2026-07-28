@@ -13,6 +13,7 @@ var enemy_speed_mult: float = 1.0
 var enemy_hp_mult: float = 1.0
 var kill_score_mult: float = 1.0
 var xp_double_chance: float = 0.0
+var prefer_auto_mode: bool = true
 
 const SAVE_PATH := "user://save.cfg"
 
@@ -87,9 +88,17 @@ func _load_high_score() -> void:
 	var cfg := ConfigFile.new()
 	if cfg.load(SAVE_PATH) == OK:
 		high_score = int(cfg.get_value("score", "high", 0))
+		prefer_auto_mode = bool(cfg.get_value("settings", "auto_mode", true))
 
 
 func _save_high_score() -> void:
 	var cfg := ConfigFile.new()
+	cfg.load(SAVE_PATH)
 	cfg.set_value("score", "high", high_score)
+	cfg.set_value("settings", "auto_mode", prefer_auto_mode)
 	cfg.save(SAVE_PATH)
+
+
+func set_prefer_auto_mode(enabled: bool) -> void:
+	prefer_auto_mode = enabled
+	_save_high_score()

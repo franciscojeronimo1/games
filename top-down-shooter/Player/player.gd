@@ -74,6 +74,7 @@ var _aim_dir: Vector2 = Vector2.RIGHT
 
 func _ready() -> void:
 	Global.player = self
+	auto_mode = Global.prefer_auto_mode
 	anim.animation_finished.connect(_on_animation_finished)
 	anim.play("idle")
 	xp_to_next = base_xp_to_level
