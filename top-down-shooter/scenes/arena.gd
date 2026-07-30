@@ -14,16 +14,31 @@ extends Node2D
 @export var max_enemies_on_screen: int = 16
 @export var max_pack_size: int = 4
 @export var chest_interval: float = 28.0
+## 0 = mapa infinito (recomendado pra survivor). >0 = raio máx. a partir do spawn.
+@export var arena_radius: float = 0.0
+## Primeira aparição do Duke (segundos após começar a run)
+@export var duke_first_delay: float = 50.0
+## Intervalo entre chances do Duke
+@export var duke_interval: float = 90.0
+## Chance de ele realmente aparecer quando o timer dispara
+@export var duke_chance: float = 0.55
 
 var hud_scene = preload("res://ui/hud.tscn")
 var chest_scene = preload("res://prefabs/chest.tscn")
+var duke_scene = preload("res://npc/duke.tscn")
 var hud
 var _chest_timer: float = 10.0
+var _duke_timer: float = 50.0
+var _duke_active: bool = false
 var _last_boss_lvl: int = 0
+var _arena_origin: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
 	Global.reset_run()
+	_duke_timer = duke_first_delay
+	if is_instance_valid(player):
+		_arena_origin = player.global_position
 	hud = hud_scene.instantiate()
 	add_child(hud)
 	_update_hud()
@@ -37,6 +52,7 @@ func _process(delta: float) -> void:
 	if not is_instance_valid(player) or player.is_dead or player.is_choosing_upgrade:
 		return
 
+	_clamp_player_to_arena()
 	Global.tick_survival(delta)
 	Global.wave = player.lvl
 	_update_hud()
@@ -47,6 +63,21 @@ func _process(delta: float) -> void:
 	if _chest_timer <= 0.0:
 		_chest_timer = chest_interval
 		spawn_chest()
+
+	_duke_timer -= delta
+	if _duke_timer <= 0.0:
+		_duke_timer = duke_interval
+		if not _duke_active and randf() <= duke_chance:
+			spawn_duke()
+
+
+func _clamp_player_to_arena() -> void:
+	if arena_radius <= 0.0 or not is_instance_valid(player):
+		return
+	var offset := player.global_position - _arena_origin
+	if offset.length() > arena_radius:
+		player.global_position = _arena_origin + offset.limit_length(arena_radius)
+
 
 
 func _update_hud() -> void:
@@ -156,6 +187,21 @@ func spawn_chest() -> void:
 	var angle := randf_range(0.0, TAU)
 	var dist := randf_range(220.0, 380.0)
 	chest.global_position = player.global_position + Vector2.RIGHT.rotated(angle) * dist
+
+
+func spawn_duke() -> void:
+	if duke_scene == null or not is_instance_valid(player) or player.is_dead:
+		return
+	if _duke_active or player.is_choosing_upgrade:
+		return
+	_duke_active = true
+	var duke = duke_scene.instantiate()
+	add_child(duke)
+	var angle := randf_range(0.0, TAU)
+	duke.global_position = player.global_position + Vector2.RIGHT.rotated(angle) * 200.0
+	duke.tree_exited.connect(func() -> void:
+		_duke_active = false
+	)
 
 
 func spawn_boss(at_lvl: int = -1) -> void:

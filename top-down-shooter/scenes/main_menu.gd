@@ -38,7 +38,7 @@ func _ready() -> void:
 
 	options_panel.visible = false
 	credits_panel.visible = false
-	high_score_label.text = "RECORDE  %d" % Global.high_score
+	high_score_label.text = "RECORDE  %d    |    MOEDAS  %d" % [Global.high_score, Global.coins]
 
 	for btn in _buttons:
 		btn.mouse_entered.connect(_on_btn_hover.bind(btn, true))

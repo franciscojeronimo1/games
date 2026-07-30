@@ -31,6 +31,9 @@
 [ext_resource type="Texture2D" uid="uid://chj7vmfbqkffp" path="res://assets/Enemies/animations/walk/walk_11.png" id="28_rht6x"]
 [ext_resource type="Texture2D" uid="uid://dlpvewmuto6rj" path="res://assets/Enemies/animations/walk/walk_12.png" id="29_e1dlh"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5iktv"]
+size = Vector2(17.375, 17.25)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_h28ec"]
 animations = [{
 "frames": [{
@@ -132,19 +135,26 @@ animations = [{
 scale = Vector2(2, 2)
 script = ExtResource("1_boss")
 attack_range = 110.0
-attack_cooldown = 1.2
+attack_cooldown = 1.0
 attack_hit_frame_start = 4
 attack_hit_frame_end = 5
-move_speed = 75.0
+triumph_xp = 8
+triumph_coins = 15
+move_speed = 170.0
 health = 45
+dash_cooldown = 2.2
+dash_force = 900.0
 
-[node name="collision" parent="." index="0"]
-position = Vector2(0, -0.5)
+[node name="collision" parent="." index="0" unique_id=1549880387]
+position = Vector2(-2.75, 4.5)
 scale = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_5iktv")
 
-[node name="anim" parent="." index="1"]
-position = Vector2(-0.5, -24)
+[node name="anim" parent="." index="1" unique_id=2097418701]
+position = Vector2(-0.7500076, -14.5)
+scale = Vector2(1, 0.861)
 sprite_frames = SubResource("SpriteFrames_h28ec")
 animation = &"walk"
 autoplay = "walk"
+frame = 0
 frame_progress = 0.0

@@ -8,6 +8,11 @@ var survival_time: float = 0.0
 var high_score: int = 0
 var wave: int = 0
 
+## Moedas permanentes (não zera entre runs) — shop futuro
+var coins: int = 0
+## Moedas ganhas nesta run (só pra mostrar no game over)
+var run_coins: int = 0
+
 var active_relic: String = ""
 var enemy_speed_mult: float = 1.0
 var enemy_hp_mult: float = 1.0
@@ -19,7 +24,7 @@ const SAVE_PATH := "user://save.cfg"
 
 
 func _ready() -> void:
-	_load_high_score()
+	_load_save()
 
 
 func reset_run() -> void:
@@ -27,6 +32,7 @@ func reset_run() -> void:
 	kills = 0
 	survival_time = 0.0
 	wave = 0
+	run_coins = 0
 	active_relic = ""
 	enemy_speed_mult = 1.0
 	enemy_hp_mult = 1.0
@@ -36,6 +42,24 @@ func reset_run() -> void:
 
 func add_score(amount: int) -> void:
 	score += amount
+
+
+func add_coins(amount: int) -> void:
+	if amount <= 0:
+		return
+	coins += amount
+	run_coins += amount
+	_save_data()
+
+
+func spend_coins(amount: int) -> bool:
+	if amount <= 0:
+		return true
+	if coins < amount:
+		return false
+	coins -= amount
+	_save_data()
+	return true
 
 
 func register_kill(is_elite: bool = false) -> void:
@@ -56,7 +80,7 @@ func finalize_run() -> Dictionary:
 	var is_record := score > high_score
 	if is_record:
 		high_score = score
-		_save_high_score()
+	_save_data()
 	return {
 		"score": score,
 		"high_score": high_score,
@@ -65,6 +89,8 @@ func finalize_run() -> Dictionary:
 		"kills": kills,
 		"wave": wave,
 		"relic": active_relic,
+		"coins": coins,
+		"run_coins": run_coins,
 	}
 
 
@@ -84,21 +110,23 @@ func relic_title() -> String:
 	return active_relic
 
 
-func _load_high_score() -> void:
+func _load_save() -> void:
 	var cfg := ConfigFile.new()
 	if cfg.load(SAVE_PATH) == OK:
 		high_score = int(cfg.get_value("score", "high", 0))
 		prefer_auto_mode = bool(cfg.get_value("settings", "auto_mode", true))
+		coins = int(cfg.get_value("economy", "coins", 0))
 
 
-func _save_high_score() -> void:
+func _save_data() -> void:
 	var cfg := ConfigFile.new()
 	cfg.load(SAVE_PATH)
 	cfg.set_value("score", "high", high_score)
 	cfg.set_value("settings", "auto_mode", prefer_auto_mode)
+	cfg.set_value("economy", "coins", coins)
 	cfg.save(SAVE_PATH)
 
 
 func set_prefer_auto_mode(enabled: bool) -> void:
 	prefer_auto_mode = enabled
-	_save_high_score()
+	_save_data()

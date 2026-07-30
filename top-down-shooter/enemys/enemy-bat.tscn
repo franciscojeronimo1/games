@@ -3,6 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://c2vt4ewrecmdv" path="res://enemys/enemy.tscn" id="1_jqqvx"]
 [ext_resource type="Texture2D" uid="uid://bd2arfrqkdqm2" path="res://assets/mobs/Gromila.png" id="2_jqqvx"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jqqvx"]
+size = Vector2(17.375, 23)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_01lgq"]
 atlas = ExtResource("2_jqqvx")
 region = Rect2(0, 0, 88, 98)
@@ -62,14 +65,16 @@ animations = [{
 
 [node name="enemy" unique_id=1423335314 instance=ExtResource("1_jqqvx")]
 
-[node name="collision" parent="." index="0"]
-position = Vector2(-0.5, -0.25)
+[node name="collision" parent="." index="0" unique_id=1549880387]
+position = Vector2(-1.53125, 3.0000005)
 scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_jqqvx")
 
-[node name="anim" parent="." index="1"]
-position = Vector2(2.5, -1.5)
-scale = Vector2(0.31818184, 0.31377548)
+[node name="anim" parent="." index="1" unique_id=2097418701]
+position = Vector2(0.5000003, -2.8750026)
+scale = Vector2(0.36931822, 0.5229592)
 sprite_frames = SubResource("SpriteFrames_tx42f")
 animation = &"default_1"
 autoplay = "default_1"
+frame = 0
 frame_progress = 0.34437728

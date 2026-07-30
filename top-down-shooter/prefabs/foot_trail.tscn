@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bfoottrail01"]
+
+[ext_resource type="Script" path="res://prefabs/foot_trail.gd" id="1_script"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_trail"]
+radius = 22.0
+
+[node name="FootTrail" type="Area2D"]
+collision_layer = 0
+collision_mask = 1
+monitoring = true
+monitorable = false
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_trail")
+
+[node name="Blob" type="Polygon2D" parent="."]
+color = Color(0.25, 0.85, 0.4, 0.75)
+polygon = PackedVector2Array(-18, -8, -8, -16, 8, -16, 18, -8, 16, 8, 6, 16, -6, 16, -16, 8)
+
+[node name="Core" type="Polygon2D" parent="."]
+color = Color(0.55, 1.0, 0.35, 0.55)
+polygon = PackedVector2Array(-8, -4, 0, -9, 8, -4, 6, 5, 0, 9, -6, 5)

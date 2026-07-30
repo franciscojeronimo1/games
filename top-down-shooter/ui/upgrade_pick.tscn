@@ -1,9 +1,82 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://ui/upgrade_pick.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://c4nj8w42r1hg8" path="res://assets/Duke/sheei-idle.png" id="2_duke"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0"]
+atlas = ExtResource("2_duke")
+region = Rect2(0, 0, 330, 233)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1"]
+atlas = ExtResource("2_duke")
+region = Rect2(0, 233, 330, 233)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2"]
+atlas = ExtResource("2_duke")
+region = Rect2(0, 466, 330, 233)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3"]
+atlas = ExtResource("2_duke")
+region = Rect2(0, 699, 330, 233)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4"]
+atlas = ExtResource("2_duke")
+region = Rect2(0, 932, 330, 233)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5"]
+atlas = ExtResource("2_duke")
+region = Rect2(0, 1165, 330, 233)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6"]
+atlas = ExtResource("2_duke")
+region = Rect2(0, 1398, 330, 233)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7"]
+atlas = ExtResource("2_duke")
+region = Rect2(0, 1631, 330, 233)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8"]
+atlas = ExtResource("2_duke")
+region = Rect2(0, 1864, 330, 233)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_duke"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
 
 [node name="UpgradePick" type="CanvasLayer"]
-layer = 50
+layer = 80
+process_mode = 3
 script = ExtResource("1_script")
 
 [node name="Dim" type="ColorRect" parent="."]
@@ -12,7 +85,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.55)
+mouse_filter = 0
+color = Color(0, 0, 0, 0.62)
 
 [node name="Panel" type="PanelContainer" parent="."]
 anchors_preset = 8
@@ -20,20 +94,31 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -160.0
-offset_right = 320.0
-offset_bottom = 160.0
+offset_left = -360.0
+offset_top = -290.0
+offset_right = 360.0
+offset_bottom = 210.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBox" type="VBoxContainer" parent="Panel"]
 layout_mode = 2
-theme_override_constants/separation = 18
+theme_override_constants/separation = 12
+
+[node name="PortraitSlot" type="Control" parent="Panel/VBox"]
+visible = false
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+
+[node name="Portrait" type="AnimatedSprite2D" parent="Panel/VBox/PortraitSlot"]
+position = Vector2(360, 95)
+scale = Vector2(0.72, 0.72)
+sprite_frames = SubResource("SpriteFrames_duke")
+animation = &"idle"
 
 [node name="Title" type="Label" parent="Panel/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 34
 text = "LEVEL UP — escolha 1"
 horizontal_alignment = 1
 

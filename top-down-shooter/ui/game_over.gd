@@ -18,12 +18,14 @@ func setup(result: Dictionary) -> void:
 	var relic_line := ""
 	if not relic.is_empty():
 		relic_line = "\nRelíquia: %s" % Global.relic_title()
-	stats.text = "Score: %d\n%s\nTempo: %s\nKills: %d  |  Wave: %d%s" % [
+	stats.text = "Score: %d\n%s\nTempo: %s\nKills: %d  |  Wave: %d\nMoedas nesta run: +%d  |  Total: %d%s" % [
 		result.get("score", 0),
 		record_text,
 		Global.format_time(result.get("time", 0.0)),
 		result.get("kills", 0),
 		result.get("wave", 0),
+		result.get("run_coins", 0),
+		result.get("coins", 0),
 		relic_line,
 	]
 

@@ -1,28 +1,68 @@
-[gd_scene load_steps=4 format=3 uid="uid://dlmo0c4n8lq07"]
+[gd_scene format=3 uid="uid://dlmo0c4n8lq07"]
 
 [ext_resource type="Script" uid="uid://8vlpd1nvk7ef" path="res://bullet.gd" id="1_lv25w"]
-[ext_resource type="Texture2D" uid="uid://6yq1gr6fbqjt" path="res://assets/archer/flesha.png" id="2_lv25w"]
+[ext_resource type="Texture2D" uid="uid://bbq811c5lcqv3" path="res://assets/Arows1.png" id="2_lv25w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_44iiu"]
 size = Vector2(7.0000005, 1.6666667)
 
-[node name="bullet" type="Area2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rc6x"]
+atlas = ExtResource("2_lv25w")
+region = Rect2(0, 22, 32, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lv25w"]
+atlas = ExtResource("2_lv25w")
+region = Rect2(0, 12, 32, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44iiu"]
+atlas = ExtResource("2_lv25w")
+region = Rect2(0, 2, 32, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7rc6x")
+}],
+"loop": 1,
+"name": &"attack-fogo",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lv25w")
+}],
+"loop": 1,
+"name": &"attack-gelo",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44iiu")
+}],
+"loop": 2,
+"name": &"attack-normal",
+"speed": 10.0
+}]
+
+[node name="bullet" type="Area2D" unique_id=1403876125]
 scale = Vector2(3, 3)
 script = ExtResource("1_lv25w")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1206128061]
 position = Vector2(0.8333335, 0.5)
 shape = SubResource("RectangleShape2D_44iiu")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=967274022]
 position = Vector2(-0.166667, 0)
 scale = Vector2(0.216667, 0.233333)
 rect = Rect2(-10, -1.4285734, 29.230742, 7.142867)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0.8333334, 0.12500031)
-scale = Vector2(0.5625, 0.6822916)
-texture = ExtResource("2_lv25w")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1207766496]
+position = Vector2(0.6666666, -2.9802322e-08)
+scale = Vector2(0.47916666, 0.48333335)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+animation = &"attack-gelo"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

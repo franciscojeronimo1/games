@@ -7,6 +7,7 @@ class_name Player
 
 var game_over_scene = preload("res://ui/game_over.tscn")
 var upgrade_pick_scene = preload("res://ui/upgrade_pick.tscn")
+var foot_trail_scene = preload("res://prefabs/foot_trail.tscn")
 @export var bullet_sceme: PackedScene
 var can_shoot: bool = true
 @export var shoot_coldown: float = 0.55
@@ -45,8 +46,13 @@ var has_explosive := false
 var has_magnet := false
 var has_arrow_rain := false
 var has_bomb := false
+var has_foot_trail := false
 
 var magnet_radius: float = 48.0
+@export var trail_spacing: float = 42.0
+@export var trail_lifetime: float = 3.0
+var _last_trail_pos: Vector2 = Vector2.INF
+var bonus_coins_per_kill: int = 0
 var dash_cooldown: float = 1.1
 var dash_force: float = 780.0
 var dash_duration: float = 0.14
@@ -105,6 +111,7 @@ func _physics_process(delta: float) -> void:
 
 	if _is_dashing:
 		move_and_slide()
+		_try_drop_trail()
 		return
 
 	if knockback_velocity.length() > 1.0:
@@ -114,17 +121,40 @@ func _physics_process(delta: float) -> void:
 		velocity = move_direction * _get_move_speed()
 
 	_update_facing(_aim_dir)
-
-	if can_shoot and not _is_dashing and not is_hurt and _aim_dir != Vector2.ZERO:
-		_shoot(_aim_dir)
-
 	_update_animation()
 	move_and_slide()
+	_try_drop_trail()
+
+
+func _try_drop_trail() -> void:
+	if not has_foot_trail or is_dead:
+		return
+	if velocity.length() < 35.0:
+		return
+	if _last_trail_pos != Vector2.INF and global_position.distance_to(_last_trail_pos) < trail_spacing:
+		return
+	_last_trail_pos = global_position
+	var trail = foot_trail_scene.instantiate()
+	get_tree().current_scene.add_child(trail)
+	# Um pouco abaixo do centro = “pés”
+	trail.global_position = global_position + Vector2(0, 18)
+	var dmg := maxi(1, int(ceili(float(_get_damage()) * 0.5)))
+	if trail.has_method("setup"):
+		trail.setup(dmg, trail_lifetime)
+
+
+func _try_shoot() -> void:
+	if can_shoot and not _is_dashing and not is_hurt and _aim_dir != Vector2.ZERO:
+		_shoot(_aim_dir)
 
 
 func _run_manual_control() -> void:
 	move_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	_aim_dir = get_global_mouse_position() - global_position
+
+	# Manual: atira no clique / segurando o mouse
+	if Input.is_action_pressed("shoot"):
+		_try_shoot()
 
 	if Input.is_action_just_pressed("dash") and _dash_cd_left <= 0.0 and not _is_dashing:
 		_start_dash()
@@ -142,6 +172,10 @@ func _run_auto_pilot() -> void:
 	var aim: Vector2 = decision.get("aim", Vector2.RIGHT)
 	if aim != Vector2.ZERO:
 		_aim_dir = aim
+
+	# Auto: IA decide quando atirar
+	if decision.get("shoot", false):
+		_try_shoot()
 
 	if decision.get("dash", false) and _dash_cd_left <= 0.0 and not _is_dashing:
 		var dash_dir: Vector2 = decision.get("dash_dir", move_direction)
@@ -291,6 +325,8 @@ func has_upgrade(upgrade_id: String) -> bool:
 			return has_arrow_rain
 		"bomb":
 			return has_bomb
+		"foot_trail":
+			return has_foot_trail
 		_:
 			return false
 
@@ -378,11 +414,11 @@ func game_over():
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
+	# Orbs de XP antigos não são mais usados; mantém só pra itens especiais futuros
 	if is_dead:
 		return
 	if area.is_in_group("xpdropInicial"):
-		# Orbs dão pontos de XP, não 1 nível cada
-		await add_xp(1)
+		area.queue_free()
 
 
 func add_xp(amount: int = 1) -> void:
@@ -564,5 +600,7 @@ func _synergy_text() -> String:
 	if has_pierce and has_explosive:
 		parts.append("CADEIA")
 	if has_magnet:
-		parts.append("IMA")
+		parts.append("MOEDAS+")
+	if has_foot_trail:
+		parts.append("TRILHA")
 	return " + ".join(parts)

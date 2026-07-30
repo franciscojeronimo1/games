@@ -2,6 +2,7 @@ extends Area2D
 
 @export var heal_amount: int = 2
 @export var bonus_xp: int = 3
+@export var bonus_coins: int = 5
 
 var _opened := false
 
@@ -21,10 +22,12 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func _open_chest(player: Player) -> void:
-	# Baú NÃO abre tela de upgrade — só cura ou XP bônus
+	# Baú: cura OU XP+moedas
 	if randf() < 0.55:
 		player.hp = mini(player.hp + heal_amount, player.max_hp)
 		Global.add_score(40)
+		Global.add_coins(2)
 	else:
 		Global.add_score(60)
+		Global.add_coins(bonus_coins)
 		await player.add_xp(bonus_xp)

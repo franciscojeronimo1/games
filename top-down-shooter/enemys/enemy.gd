@@ -6,7 +6,8 @@ class_name Enemy
 @onready var anim: AnimatedSprite2D = $anim
 @export var drop: PackedScene
 @onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
-@export var xp_drop_count: int = 1
+@export var xp_reward: int = 1
+@export var coin_reward: int = 1
 @export var deathParticle: PackedScene
 
 var direction: Vector2 = Vector2.ZERO
@@ -24,23 +25,25 @@ func make_elite() -> void:
 	health = int(health * 3.0)
 	move_speed *= 1.15
 	scale *= 1.25
+	xp_reward = maxi(xp_reward * 3, 3)
+	coin_reward = maxi(coin_reward * 3, 3)
 	original_color = Color(1.25, 1.05, 0.35)
 	anim.modulate = original_color
 	add_to_group("elites")
 
 
-func spawn_enemy_item():
-	var drop_count := xp_drop_count
+func _grant_rewards() -> void:
+	var xp_amount := xp_reward
+	var coin_amount := coin_reward
 	if is_elite:
-		drop_count = maxi(drop_count, 3)
-	for i in drop_count:
-		var drop_instance = drop.instantiate()
-		call_deferred("_add_drop", drop_instance, Vector2(randf_range(-20, 20), randf_range(-20, 20)))
+		Global.add_score(120)
 
-
-func _add_drop(drop_instance, offset: Vector2 = Vector2.ZERO):
-	get_tree().current_scene.add_child(drop_instance)
-	drop_instance.global_position = global_position + offset
+	if is_instance_valid(Global.player):
+		if Global.player.has_method("add_xp"):
+			Global.player.add_xp(xp_amount)
+		if "bonus_coins_per_kill" in Global.player:
+			coin_amount += int(Global.player.bonus_coins_per_kill)
+	Global.add_coins(coin_amount)
 
 
 func _ready() -> void:
@@ -125,16 +128,13 @@ func drop_and_die():
 func _die():
 	if not is_inside_tree():
 		return
-	spawn_enemy_item()
+	_grant_rewards()
 	if deathParticle:
 		var _particle = deathParticle.instantiate()
 		_particle.position = global_position
 		_particle.rotation = global_rotation
 		_particle.emitting = true
 		get_tree().current_scene.add_child(_particle)
-	# Elite já dropa 3 XP — sem tela de upgrade extra
-	if is_elite:
-		Global.add_score(120)
 	queue_free()
 
 

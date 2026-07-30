@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://mst8tdrjls3w"]
+
+[ext_resource type="Texture2D" uid="uid://c4nj8w42r1hg8" path="res://assets/Duke/sheei-idle.png" id="1_gfnxm"]
+[ext_resource type="Script" path="res://npc/duke.gd" id="2_duke"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 152.74161
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxpiw"]
+atlas = ExtResource("1_gfnxm")
+region = Rect2(0, 0, 330, 233)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6k1xp"]
+atlas = ExtResource("1_gfnxm")
+region = Rect2(0, 233, 330, 233)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pga4"]
+atlas = ExtResource("1_gfnxm")
+region = Rect2(0, 466, 330, 233)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56wuc"]
+atlas = ExtResource("1_gfnxm")
+region = Rect2(0, 699, 330, 233)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7fb1k"]
+atlas = ExtResource("1_gfnxm")
+region = Rect2(0, 932, 330, 233)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p51f4"]
+atlas = ExtResource("1_gfnxm")
+region = Rect2(0, 1165, 330, 233)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0582"]
+atlas = ExtResource("1_gfnxm")
+region = Rect2(0, 1398, 330, 233)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yocr1"]
+atlas = ExtResource("1_gfnxm")
+region = Rect2(0, 1631, 330, 233)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgcc3"]
+atlas = ExtResource("1_gfnxm")
+region = Rect2(0, 1864, 330, 233)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxpiw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6k1xp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2pga4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56wuc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7fb1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p51f4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0582")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yocr1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qgcc3")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[node name="Duke" type="CharacterBody2D" unique_id=911300348]
+collision_layer = 0
+collision_mask = 0
+scale = Vector2(0.55, 0.55)
+script = ExtResource("2_duke")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1984555798]
+position = Vector2(-4, 21)
+shape = SubResource("CircleShape2D_g4v7s")
+disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1031730330]
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.42955002

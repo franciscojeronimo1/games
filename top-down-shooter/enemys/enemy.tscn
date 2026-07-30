@@ -1,43 +1,48 @@
-[gd_scene load_steps=13 format=3 uid="uid://c2vt4ewrecmdv"]
+[gd_scene format=3 uid="uid://c2vt4ewrecmdv"]
 
 [ext_resource type="Script" uid="uid://bhbtqcv6k5yec" path="res://enemys/enemy.gd" id="1_n08dr"]
-[ext_resource type="Texture2D" uid="uid://bwwsnwfcy2ybu" path="res://assets/Enemies/Alan (16 x 16).png" id="2_ksayr"]
 [ext_resource type="PackedScene" uid="uid://105ae6x1beyh" path="res://enemys/itemdropavel.tscn" id="2_xsoh1"]
+[ext_resource type="Texture2D" uid="uid://mysq08ujj4ys" path="res://assets/mobs/MutatedPsycho.png" id="4_ucxw4"]
 [ext_resource type="PackedScene" uid="uid://b4v4vhyn0qa80" path="res://enemys/gpu_particles_2d.tscn" id="4_xsoh1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xsoh1"]
-size = Vector2(11, 12)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ucxw4"]
-atlas = ExtResource("2_ksayr")
-region = Rect2(0, 0, 16, 16)
+size = Vector2(18.75, 31)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ul0tb"]
-atlas = ExtResource("2_ksayr")
-region = Rect2(16, 0, 16, 16)
+atlas = ExtResource("4_ucxw4")
+region = Rect2(0, 0, 58, 76)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_77hp3"]
-atlas = ExtResource("2_ksayr")
-region = Rect2(32, 0, 16, 16)
+atlas = ExtResource("4_ucxw4")
+region = Rect2(0, 76, 58, 76)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f6iwv"]
-atlas = ExtResource("2_ksayr")
-region = Rect2(48, 0, 16, 16)
+atlas = ExtResource("4_ucxw4")
+region = Rect2(0, 152, 58, 76)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_stfk2"]
-atlas = ExtResource("2_ksayr")
-region = Rect2(64, 0, 16, 16)
+atlas = ExtResource("4_ucxw4")
+region = Rect2(0, 228, 58, 76)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7ha5u"]
-atlas = ExtResource("2_ksayr")
-region = Rect2(80, 0, 16, 16)
+atlas = ExtResource("4_ucxw4")
+region = Rect2(0, 304, 58, 76)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfjn1"]
+atlas = ExtResource("4_ucxw4")
+region = Rect2(0, 380, 58, 76)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_533rh"]
+atlas = ExtResource("4_ucxw4")
+region = Rect2(0, 456, 58, 76)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sjvps"]
+atlas = ExtResource("4_ucxw4")
+region = Rect2(0, 532, 58, 76)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nfjn1"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ucxw4")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ul0tb")
 }, {
@@ -52,27 +57,38 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7ha5u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfjn1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_533rh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sjvps")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 10.0
 }]
 
-[node name="enemy" type="CharacterBody2D" groups=["enemies"]]
+[node name="enemy" type="CharacterBody2D" unique_id=1584936508 groups=["enemies"]]
 scale = Vector2(4, 4)
 script = ExtResource("1_n08dr")
-health = 1
 drop = ExtResource("2_xsoh1")
 deathParticle = ExtResource("4_xsoh1")
 
-[node name="collision" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0)
+[node name="collision" type="CollisionShape2D" parent="." unique_id=1549880387]
+position = Vector2(1.125, -5.5)
 shape = SubResource("RectangleShape2D_xsoh1")
 
-[node name="anim" type="AnimatedSprite2D" parent="."]
+[node name="anim" type="AnimatedSprite2D" parent="." unique_id=2097418701]
+position = Vector2(-1.3749982, -5.75)
+scale = Vector2(0.49568966, 0.4210526)
 sprite_frames = SubResource("SpriteFrames_nfjn1")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.845725
+frame = 1
+frame_progress = 0.57838935
 
-[node name="GPUParticles2D" parent="." instance=ExtResource("4_xsoh1")]
+[node name="GPUParticles2D" parent="." unique_id=1268584546 instance=ExtResource("4_xsoh1")]

@@ -9,6 +9,7 @@ extends CanvasLayer
 @onready var relic_label: Label = $Margin/VBox/Relic
 @onready var buff_label: Label = $Margin/VBox/Buff
 @onready var mode_label: Label = $Margin/VBox/Mode
+@onready var coins_label: Label = $Margin/VBox/Coins
 
 
 func _ready() -> void:
@@ -22,6 +23,7 @@ func update_hud(hp: int, max_hp: int, lvl: int, abilities: Dictionary = {}, xp: 
 	var xp_next: int = int(xp.get("next", 1))
 	lvl_label.text = "LVL  %d   XP  %d/%d" % [lvl, xp_cur, xp_next]
 	score_label.text = "SCORE  %d" % Global.score
+	coins_label.text = "MOEDAS  %d" % Global.coins
 	wave_label.text = "DIFICULDADE  %d" % Global.wave
 	relic_label.text = "RELÍQUIA  %s" % Global.relic_title()
 
