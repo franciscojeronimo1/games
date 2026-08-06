@@ -19,6 +19,15 @@ var knockback_decay: float = 1000.0
 var is_elite: bool = false
 var _elite_pulse := 0.0
 
+# Status: queimadura / gelo
+var _burn_time: float = 0.0
+var _burn_tick_left: float = 0.0
+var _burn_damage: int = 0
+var _burn_tick_interval: float = 0.5
+var _slow_time: float = 0.0
+var _slow_mult: float = 1.0
+var _status_fx: GPUParticles2D
+
 
 func make_elite() -> void:
 	is_elite = true
@@ -59,9 +68,12 @@ func _physics_process(delta: float) -> void:
 	if not is_instance_valid(player):
 		player = Global.player
 
+	_tick_status(delta)
+
 	if is_elite:
 		_elite_pulse += delta * 6.0
-		anim.modulate = original_color * (1.0 + 0.15 * sin(_elite_pulse))
+		if _burn_time <= 0.0 and _slow_time <= 0.0:
+			anim.modulate = original_color * (1.0 + 0.15 * sin(_elite_pulse))
 
 	if knockback_velocity.length() > 1.0:
 		velocity = knockback_velocity
@@ -73,10 +85,106 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
+func _tick_status(delta: float) -> void:
+	if _burn_time > 0.0:
+		_burn_time -= delta
+		_burn_tick_left -= delta
+		if _burn_tick_left <= 0.0:
+			_burn_tick_left = _burn_tick_interval
+			if health > 0:
+				health -= _burn_damage
+				_pulse_burn_flash()
+				if health <= 0:
+					Global.register_kill(is_elite)
+					call_deferred("_die")
+					return
+		if _burn_time <= 0.0 and _slow_time <= 0.0:
+			_clear_status_fx()
+			anim.modulate = original_color
+
+	if _slow_time > 0.0:
+		_slow_time -= delta
+		if _slow_time <= 0.0:
+			_slow_mult = 1.0
+			if _burn_time <= 0.0:
+				_clear_status_fx()
+				anim.modulate = original_color
+
+
+func _status_speed_mult() -> float:
+	if _slow_time > 0.0:
+		return clampf(_slow_mult, 0.15, 1.0)
+	return 1.0
+
+
+func apply_burn(damage: int, duration: float, tick_interval: float = 0.5) -> void:
+	if health <= 0:
+		return
+	_burn_damage = maxi(1, damage)
+	_burn_tick_interval = maxf(0.2, tick_interval)
+	_burn_time = maxf(_burn_time, duration)
+	_burn_tick_left = minf(_burn_tick_left if _burn_tick_left > 0.0 else _burn_tick_interval, _burn_tick_interval)
+	_ensure_status_fx(true)
+	anim.modulate = Color(1.35, 0.55, 0.2)
+
+
+func apply_slow(speed_mult: float, duration: float) -> void:
+	if health <= 0:
+		return
+	_slow_mult = minf(_slow_mult if _slow_time > 0.0 else 1.0, clampf(speed_mult, 0.15, 1.0))
+	_slow_time = maxf(_slow_time, duration)
+	_ensure_status_fx(false)
+	if _burn_time <= 0.0:
+		anim.modulate = Color(0.55, 0.85, 1.35)
+
+
+func _ensure_status_fx(is_fire: bool) -> void:
+	if _status_fx == null or not is_instance_valid(_status_fx):
+		_status_fx = GPUParticles2D.new()
+		_status_fx.z_index = 5
+		_status_fx.amount = 14
+		_status_fx.lifetime = 0.45
+		_status_fx.preprocess = 0.1
+		_status_fx.explosiveness = 0.05
+		_status_fx.local_coords = false
+		add_child(_status_fx)
+	_status_fx.emitting = true
+	var mat := ParticleProcessMaterial.new()
+	mat.particle_flag_disable_z = true
+	mat.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
+	mat.emission_sphere_radius = 10.0
+	mat.direction = Vector3(0, -1, 0)
+	mat.spread = 40.0
+	mat.initial_velocity_min = 12.0
+	mat.initial_velocity_max = 36.0
+	mat.gravity = Vector3(0, -20.0 if is_fire else 30.0, 0)
+	mat.scale_min = 1.5
+	mat.scale_max = 3.0
+	if is_fire:
+		mat.color = Color(1.0, 0.45, 0.1, 0.9)
+	else:
+		mat.color = Color(0.55, 0.9, 1.0, 0.85)
+	_status_fx.process_material = mat
+
+
+func _clear_status_fx() -> void:
+	if _status_fx and is_instance_valid(_status_fx):
+		_status_fx.emitting = false
+		_status_fx.queue_free()
+	_status_fx = null
+
+
+func _pulse_burn_flash() -> void:
+	anim.modulate = Color(1.6, 0.35, 0.1)
+	await get_tree().create_timer(0.08).timeout
+	if is_instance_valid(self) and _burn_time > 0.0:
+		anim.modulate = Color(1.35, 0.55, 0.2)
+
+
 func _chase_player(_delta: float) -> void:
 	if player:
 		direction = global_position.direction_to(player.global_position)
-		velocity = direction * move_speed
+		velocity = direction * move_speed * _status_speed_mult()
 		_play_move_anim()
 
 
@@ -100,7 +208,14 @@ func _play_move_anim() -> void:
 func hit_flash():
 	anim.modulate = Color.RED
 	await get_tree().create_timer(0.1).timeout
-	anim.modulate = original_color
+	if not is_instance_valid(self):
+		return
+	if _burn_time > 0.0:
+		anim.modulate = Color(1.35, 0.55, 0.2)
+	elif _slow_time > 0.0:
+		anim.modulate = Color(0.55, 0.85, 1.35)
+	else:
+		anim.modulate = original_color
 
 
 func apply_knockback(force: Vector2):
@@ -128,6 +243,7 @@ func drop_and_die():
 func _die():
 	if not is_inside_tree():
 		return
+	_clear_status_fx()
 	_grant_rewards()
 	if deathParticle:
 		var _particle = deathParticle.instantiate()

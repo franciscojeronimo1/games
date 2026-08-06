@@ -19,8 +19,40 @@ var enemy_hp_mult: float = 1.0
 var kill_score_mult: float = 1.0
 var xp_double_chance: float = 0.0
 var prefer_auto_mode: bool = true
+## "archer" | "wizard"
+var selected_character: String = "archer"
 
 const SAVE_PATH := "user://save.cfg"
+
+const CHARACTERS := {
+	"archer": {
+		"id": "archer",
+		"title": "Arqueiro",
+		"desc": "Ágil com flechas.\nSkills de combate e kite.",
+		"scene": "res://Player/player.tscn",
+	},
+	"wizard": {
+		"id": "wizard",
+		"title": "Mago",
+		"desc": "Bolas mágicas.\nPode evoluir pra fogo (e gelo depois).",
+		"scene": "res://assets/mago/mago.tscn",
+	},
+}
+
+
+func get_player_scene_path() -> String:
+	var data: Dictionary = CHARACTERS.get(selected_character, CHARACTERS["archer"])
+	return str(data.get("scene", "res://Player/player.tscn"))
+
+
+func get_player_scene() -> PackedScene:
+	return load(get_player_scene_path()) as PackedScene
+
+
+func set_selected_character(character_id: String) -> void:
+	if CHARACTERS.has(character_id):
+		selected_character = character_id
+		_save_data()
 
 
 func _ready() -> void:
@@ -116,6 +148,9 @@ func _load_save() -> void:
 		high_score = int(cfg.get_value("score", "high", 0))
 		prefer_auto_mode = bool(cfg.get_value("settings", "auto_mode", true))
 		coins = int(cfg.get_value("economy", "coins", 0))
+		var saved_char := str(cfg.get_value("settings", "character", "archer"))
+		if CHARACTERS.has(saved_char):
+			selected_character = saved_char
 
 
 func _save_data() -> void:
@@ -123,6 +158,7 @@ func _save_data() -> void:
 	cfg.load(SAVE_PATH)
 	cfg.set_value("score", "high", high_score)
 	cfg.set_value("settings", "auto_mode", prefer_auto_mode)
+	cfg.set_value("settings", "character", selected_character)
 	cfg.set_value("economy", "coins", coins)
 	cfg.save(SAVE_PATH)
 

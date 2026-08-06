@@ -235,12 +235,9 @@ animations = [{
 size = Vector2(11.4, 12.799999)
 
 [node name="player" type="CharacterBody2D" unique_id=68717716 groups=["player"]]
-scale = Vector2(5, 5)
+scale = Vector2(8, 8)
 script = ExtResource("1_gwnis")
 bullet_sceme = ExtResource("2_k53q1")
-shoot_coldown = 0.55
-hp = 6
-max_hp = 6
 
 [node name="collision" type="CollisionShape2D" parent="." unique_id=235752739]
 position = Vector2(-0.20000018, -1.3000002)
@@ -250,7 +247,7 @@ shape = SubResource("RectangleShape2D_fhl08")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=412603428]
 position = Vector2(-0.39999998, -9.799999)
 sprite_frames = SubResource("SpriteFrames_od3ui")
-animation = &"attack"
+animation = &"run"
 autoplay = "idle"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1924118371]

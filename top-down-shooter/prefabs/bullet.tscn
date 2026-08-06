@@ -62,7 +62,7 @@ rect = Rect2(-10, -1.4285734, 29.230742, 7.142867)
 position = Vector2(0.6666666, -2.9802322e-08)
 scale = Vector2(0.47916666, 0.48333335)
 sprite_frames = SubResource("SpriteFrames_g4v7s")
-animation = &"attack-gelo"
+animation = &"attack-normal"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

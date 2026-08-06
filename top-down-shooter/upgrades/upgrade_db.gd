@@ -85,17 +85,79 @@ const POOL := [
 		"unique": true,
 		"weight": 2,
 	},
+	{
+		"id": "fire_arrow",
+		"title": "Ataque de Fogo",
+		"desc": "Projéteis inflamam inimigos\n(dano contínuo / queimadura)",
+		"unique": true,
+		"weight": 3,
+	},
+	{
+		"id": "fire_burn_time",
+		"title": "Chama Persistente",
+		"desc": "Queimadura dura +1.2s",
+		"unique": false,
+		"weight": 4,
+		"requires_element": "fire",
+	},
+	{
+		"id": "fire_burn_dmg",
+		"title": "Brasa Afiada",
+		"desc": "+1 de dano por tick da queimadura",
+		"unique": false,
+		"weight": 4,
+		"requires_element": "fire",
+	},
+	{
+		"id": "ice_arrow",
+		"title": "Ataque de Gelo",
+		"desc": "Congela o alvo e deixa\ninimigos próximos mais lentos",
+		"unique": true,
+		"weight": 3,
+	},
+	{
+		"id": "ice_slow_power",
+		"title": "Geada Profunda",
+		"desc": "Slow mais forte e +0.8s de duração",
+		"unique": false,
+		"weight": 4,
+		"requires_element": "ice",
+	},
+	{
+		"id": "ice_aura",
+		"title": "Nevasca",
+		"desc": "+40 de raio do frio em área",
+		"unique": false,
+		"weight": 3,
+		"requires_element": "ice",
+	},
 ]
 
 
 static func roll_three(player: Player) -> Array:
 	var available: Array = []
+	var cid := SkillNames.char_id(player)
 	for upgrade in POOL:
 		if upgrade["unique"] and player.has_upgrade(upgrade["id"]):
 			continue
 		if upgrade["id"] == "firerate" and player.shoot_coldown <= 0.12:
 			continue
-		available.append(upgrade)
+		var req: String = str(upgrade.get("requires_element", ""))
+		if req != "" and player.arrow_element != req:
+			continue
+		if upgrade["id"] == "fire_arrow" and player.arrow_element != "normal":
+			continue
+		if upgrade["id"] == "ice_arrow" and player.arrow_element != "normal":
+			continue
+		if upgrade["id"] == "fire_burn_time" and player.burn_duration >= 6.0:
+			continue
+		if upgrade["id"] == "fire_burn_dmg" and player.burn_damage >= 5:
+			continue
+		if upgrade["id"] == "ice_slow_power" and player.ice_slow_mult <= 0.25:
+			continue
+		if upgrade["id"] == "ice_aura" and player.ice_aura_radius >= 180.0:
+			continue
+		available.append(SkillNames.localize_upgrade(upgrade, cid))
 
 	var picks: Array = []
 	for _i in 3:
@@ -148,3 +210,16 @@ static func apply(player: Player, upgrade_id: String) -> void:
 			player.has_bomb = true
 		"foot_trail":
 			player.has_foot_trail = true
+		"fire_arrow":
+			player.arrow_element = "fire"
+		"fire_burn_time":
+			player.burn_duration += 1.2
+		"fire_burn_dmg":
+			player.burn_damage += 1
+		"ice_arrow":
+			player.arrow_element = "ice"
+		"ice_slow_power":
+			player.ice_slow_mult = maxf(0.22, player.ice_slow_mult - 0.1)
+			player.ice_slow_duration += 0.8
+		"ice_aura":
+			player.ice_aura_radius += 40.0

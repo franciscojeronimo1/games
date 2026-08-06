@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b48hxo78ay1hf"
-path="res://.godot/imported/sprite1.png-5f3b135a6d83dfaccf44bc17c3c5397e.ctex"
+uid="uid://cf7o34urms6uk"
+path="res://.godot/imported/Sprite-hit-Sheet.png-736f157fc550c48092d0ae454576bb7d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/idle/sprite1.png"
-dest_files=["res://.godot/imported/sprite1.png-5f3b135a6d83dfaccf44bc17c3c5397e.ctex"]
+source_file="res://assets/Sprites/Sprite-hit-Sheet.png"
+dest_files=["res://.godot/imported/Sprite-hit-Sheet.png-736f157fc550c48092d0ae454576bb7d.ctex"]
 
 [params]
 

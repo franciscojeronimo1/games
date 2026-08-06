@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbwq4rs1dn8kq"
-path="res://.godot/imported/Anim_1.png-72eef892df27a956875e11fe9b24361f.ctex"
+uid="uid://ckdln6nf2ol3x"
+path="res://.godot/imported/bola-de-fogo.png-7dfd4742b633b90ac4446f3b1abdc7f7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Anim_1.png"
-dest_files=["res://.godot/imported/Anim_1.png-72eef892df27a956875e11fe9b24361f.ctex"]
+source_file="res://assets/Sprites/bola-de-fogo.png"
+dest_files=["res://.godot/imported/bola-de-fogo.png-7dfd4742b633b90ac4446f3b1abdc7f7.ctex"]
 
 [params]
 

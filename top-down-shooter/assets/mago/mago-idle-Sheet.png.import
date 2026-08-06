@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3kympbjev37s"
-path="res://.godot/imported/sprite2.png-a393d2fe3cb08fe60b84bc3331767b45.ctex"
+uid="uid://w66g00c43vii"
+path="res://.godot/imported/mago-idle-Sheet.png-ca2260e14c889552cd121dddad985ff1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/idle/sprite2.png"
-dest_files=["res://.godot/imported/sprite2.png-a393d2fe3cb08fe60b84bc3331767b45.ctex"]
+source_file="res://assets/mago/mago-idle-Sheet.png"
+dest_files=["res://.godot/imported/mago-idle-Sheet.png-ca2260e14c889552cd121dddad985ff1.ctex"]
 
 [params]
 

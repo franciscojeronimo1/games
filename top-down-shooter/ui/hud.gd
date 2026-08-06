@@ -38,8 +38,18 @@ func update_hud(hp: int, max_hp: int, lvl: int, abilities: Dictionary = {}, xp: 
 	var dash_txt := _cd_text(abilities.get("dash", 0.0), abilities.get("dash_max", 1.0))
 	var rain_cd: float = abilities.get("rain", -1.0)
 	var bomb_cd: float = abilities.get("bomb", -1.0)
-	var rain_txt := "Q bloqueado" if rain_cd < 0.0 else "Q %s" % _cd_text(rain_cd, abilities.get("rain_max", 1.0))
-	var bomb_txt := "E bloqueado" if bomb_cd < 0.0 else "E %s" % _cd_text(bomb_cd, abilities.get("bomb_max", 1.0))
+	var q_name: String = str(abilities.get("q_name", "Q"))
+	var e_name: String = str(abilities.get("e_name", "E"))
+	var rain_txt: String
+	if rain_cd < 0.0:
+		rain_txt = "%s bloqueado" % q_name
+	else:
+		rain_txt = "%s %s" % [q_name, _cd_text(rain_cd, abilities.get("rain_max", 1.0))]
+	var bomb_txt: String
+	if bomb_cd < 0.0:
+		bomb_txt = "%s bloqueado" % e_name
+	else:
+		bomb_txt = "%s %s" % [e_name, _cd_text(bomb_cd, abilities.get("bomb_max", 1.0))]
 	var synergy: String = str(abilities.get("synergy", ""))
 	var syn_txt := ("  |  " + synergy) if not synergy.is_empty() else ""
 	abilities_label.text = "DASH %s  |  %s  |  %s%s" % [dash_txt, rain_txt, bomb_txt, syn_txt]

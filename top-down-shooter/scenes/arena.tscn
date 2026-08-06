@@ -23,6 +23,9 @@ enemy_scene = ExtResource("2_wl4x5")
 enemy_scene2 = ExtResource("3_xdvfk")
 enemy_scene3 = ExtResource("5_gordao")
 boss_scene = ExtResource("4_boss")
+boss_every_n_levels = 7
+late_boss_interval = 30.0
+max_bosses_late = 8
 max_enemies_on_screen = 20
 
 [node name="Floor" type="Sprite2D" parent="." unique_id=916462025]

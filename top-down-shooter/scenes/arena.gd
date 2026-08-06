@@ -1,5 +1,5 @@
 extends Node2D
-@onready var player: Player = $player
+var player: Player
 @onready var spawn_timer: Timer = $spawn_timer
 
 @export var enemy_scene: PackedScene
@@ -9,6 +9,12 @@ extends Node2D
 @export var boss_scene: PackedScene
 @export var boss_every_n_levels: int = 10
 @export var first_boss_lvl: int = 10
+## A partir deste nível: bosses mais rápidos e vários na arena
+@export var late_game_boss_lvl: int = 20
+@export var late_boss_every_n_levels: int = 5
+@export var late_boss_interval: float = 42.0
+@export var max_bosses_early: int = 1
+@export var max_bosses_late: int = 3
 @export var base_spawn_interval: float = 4.5
 @export var min_spawn_interval: float = 2.2
 @export var max_enemies_on_screen: int = 16
@@ -26,26 +32,49 @@ extends Node2D
 var hud_scene = preload("res://ui/hud.tscn")
 var chest_scene = preload("res://prefabs/chest.tscn")
 var duke_scene = preload("res://npc/duke.tscn")
+var pause_menu_scene = preload("res://ui/pause_menu.tscn")
 var hud
 var _chest_timer: float = 10.0
 var _duke_timer: float = 50.0
 var _duke_active: bool = false
 var _last_boss_lvl: int = 0
+var _extra_boss_timer: float = 0.0
 var _arena_origin: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
 	Global.reset_run()
+	_spawn_selected_player()
 	_duke_timer = duke_first_delay
 	if is_instance_valid(player):
 		_arena_origin = player.global_position
 	hud = hud_scene.instantiate()
 	add_child(hud)
+	add_child(pause_menu_scene.instantiate())
 	_update_hud()
 	_sync_spawn_rate()
 	await get_tree().process_frame
 	if is_instance_valid(player):
 		await player.offer_relic_choice()
+
+
+func _spawn_selected_player() -> void:
+	var spawn_pos := Vector2(868, 538)
+	var old := get_node_or_null("player")
+	if old:
+		spawn_pos = old.position
+		remove_child(old)
+		old.free()
+
+	var scene := Global.get_player_scene()
+	if scene == null:
+		scene = load("res://Player/player.tscn") as PackedScene
+	player = scene.instantiate() as Player
+	player.name = "player"
+	player.position = spawn_pos
+	add_child(player)
+	# Mantém o player perto do início da árvore (atrás de HUD etc. ainda não adicionados)
+	move_child(player, 0)
 
 
 func _process(delta: float) -> void:
@@ -58,6 +87,7 @@ func _process(delta: float) -> void:
 	_update_hud()
 	_sync_spawn_rate()
 	_try_spawn_boss_for_level()
+	_try_extra_boss_spawn(delta)
 
 	_chest_timer -= delta
 	if _chest_timer <= 0.0:
@@ -101,22 +131,69 @@ func _sync_spawn_rate() -> void:
 	spawn_timer.wait_time = maxf(min_spawn_interval, base_spawn_interval - (lvl - 1) * 0.12)
 
 
+func _alive_bosses() -> int:
+	var n := 0
+	for node in get_tree().get_nodes_in_group("enemies"):
+		if is_instance_valid(node) and (node is Boss or node.is_in_group("boss")):
+			n += 1
+	return n
+
+
+func _max_bosses_allowed() -> int:
+	if _player_lvl() >= late_game_boss_lvl:
+		# A cada 10 lvls depois do 20, sobe o teto (max 4)
+		var bonus := int((_player_lvl() - late_game_boss_lvl) / 10)
+		return mini(4, max_bosses_late + bonus)
+	return max_bosses_early
+
+
+func _boss_milestone_step() -> int:
+	if _player_lvl() >= late_game_boss_lvl:
+		return maxi(1, late_boss_every_n_levels)
+	return maxi(1, boss_every_n_levels)
+
+
 func _try_spawn_boss_for_level() -> void:
 	if boss_scene == null:
 		return
 	var lvl := _player_lvl()
 	if lvl < first_boss_lvl:
 		return
-	# Boss no lvl 10, 20, 30...
-	if lvl % boss_every_n_levels != 0:
+
+	var step := _boss_milestone_step()
+	if lvl % step != 0:
 		return
 	if lvl == _last_boss_lvl:
 		return
-	# Só spawna se ainda não tem boss vivo
-	for node in get_tree().get_nodes_in_group("enemies"):
-		if node is Boss:
-			_last_boss_lvl = lvl
-			return
+
+	if _alive_bosses() >= _max_bosses_allowed():
+		# Marca o marco pra não spammar; o timer de late game ainda pode completar o teto
+		_last_boss_lvl = lvl
+		return
+
+	spawn_boss(lvl)
+
+
+## Depois do lvl 20: bosses extras por tempo, além dos marcos de nível.
+func _try_extra_boss_spawn(delta: float) -> void:
+	if boss_scene == null:
+		return
+	var lvl := _player_lvl()
+	if lvl < late_game_boss_lvl:
+		_extra_boss_timer = late_boss_interval
+		return
+
+	_extra_boss_timer -= delta
+	if _extra_boss_timer > 0.0:
+		return
+
+	# Intervalo encolhe conforme o nível sobe
+	var next_cd := maxf(18.0, late_boss_interval - float(lvl - late_game_boss_lvl) * 1.2)
+	_extra_boss_timer = next_cd
+
+	if _alive_bosses() >= _max_bosses_allowed():
+		return
+
 	spawn_boss(lvl)
 
 
@@ -137,6 +214,8 @@ func spawn_enemy():
 	pack_size = clampi(pack_size, 1, max_pack_size)
 
 	var hp_bonus := maxi(0, int((lvl - 1) * 0.35))
+	# A cada 20 níveis: +1 vida nos bichos (lvl 20, 40, 60...)
+	hp_bonus += _milestone_enemy_hp(lvl)
 	var speed_mult := 1.0 + (lvl - 1) * 0.02
 
 	for i in pack_size:
@@ -215,8 +294,19 @@ func spawn_boss(at_lvl: int = -1) -> void:
 	boss.player = player
 	# Boss também escala um pouco com o nível
 	boss.health = int(boss.health + (lvl - first_boss_lvl) * 4)
+	# A cada 20 níveis: +10 vida no boss
+	boss.health += _milestone_boss_hp(lvl)
 	boss.move_speed *= 1.0 + (lvl - first_boss_lvl) * 0.02
 	Global.add_score(200 + lvl * 10)
+
+
+## Marcos de dificuldade: a cada 20 lvls.
+func _milestone_enemy_hp(lvl: int) -> int:
+	return maxi(0, int(lvl / 20)) * 1
+
+
+func _milestone_boss_hp(lvl: int) -> int:
+	return maxi(0, int(lvl / 20)) * 10
 
 
 func calculate_spawn_position() -> Vector2:

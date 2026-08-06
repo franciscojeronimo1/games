@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcv6ru5ng28t0"
-path="res://.godot/imported/Anim_4.png-c21c26939d0faa96e495df09e177c619.ctex"
+uid="uid://c7sknvfanqw71"
+path="res://.godot/imported/mini-meteoro.png-b32434e0f39713635b0f5e40ef10d150.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Anim_4.png"
-dest_files=["res://.godot/imported/Anim_4.png-c21c26939d0faa96e495df09e177c619.ctex"]
+source_file="res://assets/Sprites/mini-meteoro.png"
+dest_files=["res://.godot/imported/mini-meteoro.png-b32434e0f39713635b0f5e40ef10d150.ctex"]
 
 [params]
 

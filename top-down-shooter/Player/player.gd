@@ -8,7 +8,10 @@ class_name Player
 var game_over_scene = preload("res://ui/game_over.tscn")
 var upgrade_pick_scene = preload("res://ui/upgrade_pick.tscn")
 var foot_trail_scene = preload("res://prefabs/foot_trail.tscn")
+var meteor_scene = preload("res://prefabs/meteoro.tscn")
 @export var bullet_sceme: PackedScene
+## "archer" | "wizard" — usado pra textos/ataques por personagem
+@export var character_id: String = "archer"
 var can_shoot: bool = true
 @export var shoot_coldown: float = 0.55
 @export var game_over_hold_time: float = 2.2
@@ -47,6 +50,14 @@ var has_magnet := false
 var has_arrow_rain := false
 var has_bomb := false
 var has_foot_trail := false
+## "normal" | "fire" | "ice"
+var arrow_element: String = "normal"
+var burn_damage: int = 1
+var burn_duration: float = 2.5
+var burn_tick: float = 0.5
+var ice_slow_mult: float = 0.45
+var ice_slow_duration: float = 2.0
+var ice_aura_radius: float = 95.0
 
 var magnet_radius: float = 48.0
 @export var trail_spacing: float = 42.0
@@ -93,6 +104,18 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_auto"):
 		auto_mode = not auto_mode
 		get_viewport().set_input_as_handled()
+		return
+	# Skills manuais funcionam também no modo automático
+	if event.is_action_pressed("ability_q"):
+		if has_arrow_rain and _arrow_rain_cd_left <= 0.0:
+			_cast_arrow_rain()
+			get_viewport().set_input_as_handled()
+		return
+	if event.is_action_pressed("ability_e"):
+		if has_bomb and _bomb_cd_left <= 0.0:
+			_cast_bomb()
+			get_viewport().set_input_as_handled()
+		return
 
 
 func _physics_process(delta: float) -> void:
@@ -159,11 +182,7 @@ func _run_manual_control() -> void:
 	if Input.is_action_just_pressed("dash") and _dash_cd_left <= 0.0 and not _is_dashing:
 		_start_dash()
 
-	if Input.is_action_just_pressed("ability_q") and has_arrow_rain and _arrow_rain_cd_left <= 0.0:
-		_cast_arrow_rain()
-
-	if Input.is_action_just_pressed("ability_e") and has_bomb and _bomb_cd_left <= 0.0:
-		_cast_bomb()
+	# Q/E tratados em _unhandled_input (também no auto)
 
 
 func _run_auto_pilot() -> void:
@@ -207,6 +226,10 @@ func _start_dash(forced_dir: Vector2 = Vector2.ZERO) -> void:
 
 func _cast_arrow_rain(center: Vector2 = Vector2.INF) -> void:
 	_arrow_rain_cd_left = arrow_rain_cooldown
+	if character_id == "wizard":
+		_cast_meteor_strike(center)
+		return
+
 	if center == Vector2.INF:
 		center = get_global_mouse_position()
 	for i in 10:
@@ -216,21 +239,129 @@ func _cast_arrow_rain(center: Vector2 = Vector2.INF) -> void:
 		bullet.global_position = center + offset + Vector2(0, -180)
 		bullet.set_direction(Vector2.DOWN.rotated(randf_range(-0.2, 0.2)))
 		if bullet.has_method("configure"):
-			bullet.configure(_get_damage(), has_pierce, has_explosive)
+			bullet.configure(_get_damage(), has_pierce, has_explosive, _arrow_extras())
 		bullet.speed = 700.0
+
+
+## Mago [Q]: meteoros caem de cima nos inimigos e explodem em área.
+func _cast_meteor_strike(center: Vector2 = Vector2.INF) -> void:
+	if center == Vector2.INF:
+		center = _pick_meteor_focus()
+
+	var impact_damage := maxi(18, _get_damage() * 10)
+	var radius := 250.0
+	# 3 meteoros no cluster — um no centro e dois perto
+	var offsets: Array[Vector2] = [
+		Vector2.ZERO,
+		Vector2(randf_range(-70, -30), randf_range(-40, 40)),
+		Vector2(randf_range(30, 70), randf_range(-40, 40)),
+	]
+	for i in offsets.size():
+		var meteor = meteor_scene.instantiate()
+		get_tree().current_scene.add_child(meteor)
+		var impact: Vector2 = center + offsets[i]
+		if meteor.has_method("setup"):
+			meteor.setup(impact, impact_damage, radius, 480.0 + i * 40.0)
+			meteor.burn_damage = maxi(1, burn_damage)
+			meteor.burn_duration = maxf(1.5, burn_duration * 0.7)
+
+
+func _pick_meteor_focus() -> Vector2:
+	# Mira no pack mais denso; senão no aim / mouse
+	var enemies := get_tree().get_nodes_in_group("enemies")
+	var best_pos := global_position + _aim_dir.normalized() * 220.0
+	var best_score := -1
+	for e in enemies:
+		if not is_instance_valid(e) or not (e is Node2D):
+			continue
+		var pos: Vector2 = e.global_position
+		var score := 0
+		for other in enemies:
+			if not is_instance_valid(other) or not (other is Node2D):
+				continue
+			if pos.distance_to(other.global_position) <= 160.0:
+				score += 1
+		if score > best_score:
+			best_score = score
+			best_pos = pos
+	if best_score <= 0 and not auto_mode:
+		return get_global_mouse_position()
+	return best_pos
 
 
 func _cast_bomb() -> void:
 	_bomb_cd_left = bomb_cooldown
-	var radius := 140.0
+	var radius := 160.0
+	var damage := maxi(3, _get_damage() * 3)
+
 	for node in get_tree().get_nodes_in_group("enemies"):
 		if not is_instance_valid(node):
 			continue
 		if global_position.distance_to(node.global_position) <= radius:
 			if node.has_method("take_damage"):
-				node.take_damage(_get_damage() * 3, global_position)
-	# feedback visual simples
-	modulate = Color(1.0, 0.7, 0.3)
+				node.take_damage(damage, global_position)
+			if node.has_method("apply_knockback"):
+				var push: Vector2 = (node.global_position - global_position).normalized()
+				if push == Vector2.ZERO:
+					push = Vector2.RIGHT
+				node.apply_knockback(push * 520.0)
+
+	_spawn_bomb_vfx(radius)
+
+
+func _spawn_bomb_vfx(radius: float) -> void:
+	var scene := get_tree().current_scene
+	if scene == null:
+		return
+
+	# Anel de choque expansivo
+	var ring := Polygon2D.new()
+	ring.z_index = 20
+	ring.color = Color(1.0, 0.85, 0.25, 0.75)
+	var pts := PackedVector2Array()
+	for i in 24:
+		var a := float(i) * TAU / 24.0
+		pts.append(Vector2(cos(a), sin(a)) * 18.0)
+	ring.polygon = pts
+	ring.global_position = global_position
+	scene.add_child(ring)
+
+	var tween := scene.create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(ring, "scale", Vector2.ONE * (radius / 18.0), 0.28).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(ring, "modulate:a", 0.0, 0.28)
+	tween.chain().tween_callback(ring.queue_free)
+
+	# Partículas da explosão
+	var burst := GPUParticles2D.new()
+	burst.z_index = 21
+	burst.global_position = global_position
+	burst.amount = 36
+	burst.lifetime = 0.4
+	burst.one_shot = true
+	burst.explosiveness = 1.0
+	burst.emitting = true
+	var mat := ParticleProcessMaterial.new()
+	mat.particle_flag_disable_z = true
+	mat.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
+	mat.emission_sphere_radius = 8.0
+	mat.direction = Vector3(0, -1, 0)
+	mat.spread = 180.0
+	mat.initial_velocity_min = 90.0
+	mat.initial_velocity_max = 260.0
+	mat.gravity = Vector3(0, 180, 0)
+	mat.scale_min = 2.0
+	mat.scale_max = 4.5
+	mat.color = Color(1.0, 0.7, 0.2, 1.0)
+	burst.process_material = mat
+	scene.add_child(burst)
+	burst.get_tree().create_timer(0.7, true).timeout.connect(func() -> void:
+		if is_instance_valid(burst):
+			burst.queue_free()
+	)
+
+	# Flash no player
+	modulate = Color(1.4, 1.1, 0.5)
 	await get_tree().create_timer(0.12).timeout
 	if not is_dead:
 		modulate = Color.WHITE
@@ -288,17 +419,36 @@ func _fire_projectiles(direction: Vector2) -> void:
 
 
 func _wait_for_attack_frame(target_frame: int) -> void:
-	while is_attacking and anim.animation == "attack" and anim.frame < target_frame:
+	var goal := target_frame
+	if anim.sprite_frames and anim.sprite_frames.has_animation("attack"):
+		var last := anim.sprite_frames.get_frame_count("attack") - 1
+		goal = clampi(target_frame, 0, maxi(0, last))
+	while is_attacking and anim.animation == "attack" and anim.frame < goal:
 		await anim.frame_changed
 
 
 func _spawn_bullet(direction: Vector2) -> void:
+	if bullet_sceme == null:
+		return
 	var bullet_instance = bullet_sceme.instantiate()
 	get_tree().current_scene.add_child(bullet_instance)
-	bullet_instance.global_position = global_position + direction.normalized() * 24.0
+	var muzzle := 28.0 if character_id == "wizard" else 24.0
+	bullet_instance.global_position = global_position + direction.normalized() * muzzle
 	bullet_instance.set_direction(direction)
 	if bullet_instance.has_method("configure"):
-		bullet_instance.configure(_get_damage(), has_pierce, has_explosive)
+		bullet_instance.configure(_get_damage(), has_pierce, has_explosive, _arrow_extras())
+
+
+func _arrow_extras() -> Dictionary:
+	return {
+		"element": arrow_element,
+		"burn_damage": burn_damage,
+		"burn_duration": burn_duration,
+		"burn_tick": burn_tick,
+		"ice_slow_mult": ice_slow_mult,
+		"ice_slow_duration": ice_slow_duration,
+		"ice_aura_radius": ice_aura_radius,
+	}
 
 
 func _on_animation_finished() -> void:
@@ -327,6 +477,10 @@ func has_upgrade(upgrade_id: String) -> bool:
 			return has_bomb
 		"foot_trail":
 			return has_foot_trail
+		"fire_arrow":
+			return arrow_element == "fire"
+		"ice_arrow":
+			return arrow_element == "ice"
 		_:
 			return false
 
@@ -407,10 +561,12 @@ func game_over():
 	overlay.setup(result)
 	await overlay.play_fade(1.4)
 
+	# Espera um pouco e volta sozinho pro menu (botões também funcionam)
 	await get_tree().create_timer(game_over_hold_time, true).timeout
-
+	if not is_inside_tree():
+		return
 	get_tree().paused = false
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
@@ -587,6 +743,8 @@ func get_ability_hud() -> Dictionary:
 		"rain_max": arrow_rain_cooldown,
 		"bomb": _bomb_cd_left if has_bomb else -1.0,
 		"bomb_max": bomb_cooldown,
+		"q_name": SkillNames.ability_q_name(character_id),
+		"e_name": SkillNames.ability_e_name(character_id),
 		"synergy": _synergy_text(),
 		"boss_buff": _boss_buff_time if _boss_buff_active else 0.0,
 		"auto_mode": auto_mode,
@@ -596,11 +754,15 @@ func get_ability_hud() -> Dictionary:
 func _synergy_text() -> String:
 	var parts: PackedStringArray = []
 	if has_double_shot and has_reverse_shot:
-		parts.append("CRUZ")
+		parts.append(SkillNames.synergy_label("cross", character_id))
 	if has_pierce and has_explosive:
-		parts.append("CADEIA")
+		parts.append(SkillNames.synergy_label("chain", character_id))
 	if has_magnet:
-		parts.append("MOEDAS+")
+		parts.append(SkillNames.synergy_label("coins", character_id))
 	if has_foot_trail:
-		parts.append("TRILHA")
+		parts.append(SkillNames.synergy_label("trail", character_id))
+	if arrow_element == "fire":
+		parts.append(SkillNames.synergy_label("fire", character_id))
+	elif arrow_element == "ice":
+		parts.append(SkillNames.synergy_label("ice", character_id))
 	return " + ".join(parts)
